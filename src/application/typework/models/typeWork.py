@@ -3,4 +3,7 @@ from pydantic import BaseModel
 
 class TypeWork(BaseModel):
     name: str
-    flag: int
+    flag: int = None
+
+    class Config:
+        orm_mode = True
