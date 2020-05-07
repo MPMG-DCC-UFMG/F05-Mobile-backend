@@ -1,14 +1,12 @@
 from fastapi import FastAPI
-from . import config
+from .core import config
+from .typework.routes import typeWorkRouter
 
 mpApi = FastAPI()
 
-
-@mpApi.get("/")
-def read_root():
-    return {"Hello": "World"}
-
-
-@mpApi.get("/items/{item_id}")
-def read_item(item_id: int, q: str = None):
-    return {"item_id": item_id, "q": q}
+mpApi.include_router(
+    typeWorkRouter,
+    prefix="/typeworks",
+    tags=["typeworks"],
+    responses={404: {"description": "Not found"}}
+)
