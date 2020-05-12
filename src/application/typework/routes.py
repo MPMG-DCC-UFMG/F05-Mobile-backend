@@ -1,4 +1,5 @@
-from fastapi import APIRouter, Depends
+from typing import Dict
+from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from src.application.typework.models.typeWork import TypeWork
 from src.application.core.database import get_db
@@ -10,16 +11,29 @@ listTypeWorks = [TypeWork(name="Escola", flag=1), TypeWork(name="Creche", flag=2
 
 
 @type_work_router.get("/")
-def get_all_type_work(db: Session = Depends(get_db)) -> list:
+async def get_all_type_work(db: Session = Depends(get_db)) -> list:
     return repository.get_type_work(db)
 
 
 @type_work_router.post("/add", )
-def add_type_work(type_work: TypeWork, db: Session = Depends(get_db)) -> TypeWork:
+async def add_type_work(type_work: TypeWork, db: Session = Depends(get_db)) -> TypeWork:
     return repository.add_type_work(db, type_work)
 
 
-@type_work_router.post("/version")
-def get_table_version(db: Session = Depends(get_db)) -> int:
-    repository.get_table_version(db)
-    return 1
+@type_work_router.put("/update", responses={403: {"description": "Operation forbidden"}})
+async def update_type_work(type_work: TypeWork, db: Session = Depends(get_db)) -> TypeWork:
+    type_work_db = repository.update_type_work(db, type_work)
+    if type_work_db:
+        return type_work_db
+    else:
+        raise HTTPException(status_code=403, detail="Not able to find quote to be updated")
+
+
+@type_work_router.post("/delete")
+async def delete_type_work(type_work_id: int, db: Session = Depends(get_db)) -> TypeWork:
+    return repository.delete_type_work(db, type_work_id)
+
+
+@type_work_router.get("/version")
+async def get_table_version(db: Session = Depends(get_db)) -> Dict[str, int]:
+    return {"version": repository.get_table_version(db)}
