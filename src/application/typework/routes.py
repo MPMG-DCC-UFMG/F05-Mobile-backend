@@ -7,8 +7,6 @@ from src.application.typework.database import repository
 
 type_work_router = APIRouter()
 
-listTypeWorks = [TypeWork(name="Escola", flag=1), TypeWork(name="Creche", flag=2)]
-
 
 @type_work_router.get("/")
 async def get_all_type_work(db: Session = Depends(get_db)) -> list:
@@ -26,12 +24,16 @@ async def update_type_work(type_work: TypeWork, db: Session = Depends(get_db)) -
     if type_work_db:
         return type_work_db
     else:
-        raise HTTPException(status_code=403, detail="Not able to find quote to be updated")
+        raise HTTPException(status_code=403, detail="Not able to find type of work to update")
 
 
-@type_work_router.post("/delete")
+@type_work_router.post("/delete", responses={403: {"description": "Operation forbidden"}})
 async def delete_type_work(type_work_id: int, db: Session = Depends(get_db)) -> TypeWork:
-    return repository.delete_type_work(db, type_work_id)
+    type_work_db = repository.delete_type_work(db, type_work_id)
+    if type_work_db:
+        return type_work_db
+    else:
+        raise HTTPException(status_code=403, detail="Not able to find type of work to delete")
 
 
 @type_work_router.get("/version")
