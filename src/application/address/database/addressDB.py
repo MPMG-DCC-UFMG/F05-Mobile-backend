@@ -1,5 +1,7 @@
 from sqlalchemy import Column, Float, String, ForeignKey
 
+from sqlalchemy.orm import relationship
+
 from src.application.core.database import Base
 from src.application.core.helpers import generate_uuid
 
@@ -16,4 +18,5 @@ class AddressDB(Base):
     city = Column(String)
     state = Column(String, default="MG")
     cep = Column(String)
-    public_work_id = Column(String, ForeignKey("publicwork.id"))
+
+

@@ -2,12 +2,14 @@ from pydantic import BaseModel
 from src.application.publicwork.database.publicWorkDB import PublicWorkDB
 from src.application.core.helpers import is_valid_uuid
 
+from src.application.address.models.address import Address
+
 
 class PublicWork(BaseModel):
     id: str = None
     name: str
     type_work_flag: int
-
+    address: Address
 
     class Config:
         orm_mode = True
@@ -15,7 +17,8 @@ class PublicWork(BaseModel):
     def to_db(self) -> PublicWorkDB:
         public_work_db = PublicWorkDB(
             name=self.name,
-            type_work_flag=self.type_work_flag
+            type_work_flag=self.type_work_flag,
+            address_id=self.address.id
         )
 
         if id and is_valid_uuid(id):

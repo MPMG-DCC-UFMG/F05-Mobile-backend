@@ -33,7 +33,7 @@ def delete_public_work(db: Session, public_work_id: str) -> PublicWork:
 def update_public_work(db: Session, public_work: PublicWork) -> PublicWork:
     db_public_work = db.query(PublicWorkDB).filter(PublicWorkDB.id == public_work.id).first()
     if db_public_work:
-        db_public_work.update(public_work)
+        db_public_work = public_work.to_db()
         db.commit()
         db.refresh(db_public_work)
         return db_public_work
