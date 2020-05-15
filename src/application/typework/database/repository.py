@@ -31,7 +31,9 @@ def update_type_work(db: Session, type_work: TypeWork) -> TypeWork:
         db_type_work.update(type_work)
         db.commit()
         db.refresh(db_type_work)
-    return db_type_work
+        return db_type_work
+    else:
+        return add_type_work(db, type_work)
 
 
 def get_table_version(db: Session) -> int:
