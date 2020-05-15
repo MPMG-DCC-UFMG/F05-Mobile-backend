@@ -13,6 +13,7 @@ class Address(BaseModel):
     city: str
     state: str = "MG"
     cep: str
+    public_work_id: str = None
 
     class Config:
         orm_mode = True
@@ -26,7 +27,8 @@ class Address(BaseModel):
             longitude=self.longitude,
             city=self.city,
             state=self.state,
-            cep=self.cep
+            cep=self.cep,
+            public_work_id=self.public_work_id
         )
 
         if id and is_valid_uuid(id):

@@ -6,7 +6,8 @@ from src.application.publicwork.database.publicWorkDB import PublicWorkDB
 
 
 def get_public_work(db: Session) -> list:
-    return db.query(PublicWorkDB).all()
+    public_work_list = db.query(PublicWorkDB).all()
+    return public_work_list
 
 
 def get_table_version(db: Session) -> int:

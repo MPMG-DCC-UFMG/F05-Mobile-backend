@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Dict
 
 from fastapi import APIRouter, Depends, HTTPException
 from src.application.core.database import get_db
@@ -46,3 +46,8 @@ async def delete_public_work(public_work_id: str, db: Session = Depends(get_db))
         return pubic_work_db
     else:
         raise HTTPException(status_code=403, detail="Not able to find public work to delete")
+
+
+@public_work_router.get("/version")
+async def get_table_version(db: Session = Depends(get_db)) -> Dict[str, int]:
+    return {"version": public_work_repository.get_table_version(db)}

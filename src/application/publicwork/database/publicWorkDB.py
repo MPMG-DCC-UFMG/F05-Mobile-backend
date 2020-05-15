@@ -15,4 +15,4 @@ class PublicWorkDB(Base):
     type_work_flag = Column(Integer, ForeignKey("typework.flag"))
     address_id = Column(String, ForeignKey("address.id"))
 
-    address = relationship("AddressDB", backref=backref("publicwork", uselist=False))
+    address = relationship("AddressDB", backref=backref("publicwork", uselist=False), lazy=False)
