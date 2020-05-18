@@ -23,5 +23,11 @@ def update_address(db: Session, address: Address) -> Address:
         db.commit()
         db.refresh(db_address)
         return db_address
-    else:
-        return add_address(db, address)
+
+
+def delete_address(db: Session, address_id: str) -> Address:
+    db_address = db.query(AddressDB).filter(AddressDB.id == address_id).first()
+    if db_address:
+        db.delete(db_address)
+        db.commit()
+    return db_address

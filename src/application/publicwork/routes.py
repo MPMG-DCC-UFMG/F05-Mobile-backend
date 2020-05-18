@@ -33,7 +33,7 @@ async def update_public_work(public_work: PublicWork, db: Session = Depends(get_
     public_work.address.id = address_db.id
     public_work_db = public_work_repository.update_public_work(db, public_work)
     public_work_db.address = address_db
-    if public_work_db:
+    if public_work_db and address_db:
         return public_work_db
     else:
         raise HTTPException(status_code=403, detail="Not able to find public work to update")

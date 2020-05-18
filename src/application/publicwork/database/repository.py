@@ -38,5 +38,3 @@ def update_public_work(db: Session, public_work: PublicWork) -> PublicWork:
         db.commit()
         db.refresh(db_public_work)
         return db_public_work
-    else:
-        return add_public_work(db, public_work)

@@ -1,5 +1,6 @@
 from sqlalchemy import Column, Integer, String, ForeignKey
 from src.application.address.database.addressDB import AddressDB
+from src.application.collect.database.collectDB import CollectDB
 
 from sqlalchemy.orm import relationship, backref
 from src.application.core.database import Base
@@ -16,3 +17,4 @@ class PublicWorkDB(Base):
     address_id = Column(String, ForeignKey("address.id"))
 
     address = relationship("AddressDB", backref=backref("publicwork", uselist=False), lazy=False)
+    collect = relationship("CollectDB")
