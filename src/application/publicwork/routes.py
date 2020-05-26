@@ -39,6 +39,18 @@ async def update_public_work(public_work: PublicWork, db: Session = Depends(get_
         raise HTTPException(status_code=403, detail="Not able to find public work to update")
 
 
+@public_work_router.post("/upsert", responses={403: {"description": "Operation forbidden"}})
+async def upsert_public_work(public_work: PublicWork, db: Session = Depends(get_db)) -> PublicWork:
+    address_db = address_repository.upsert_address(db, public_work.address)
+    public_work.address.id = address_db.id
+    public_work_db = public_work_repository.upsert_public_work(db, public_work)
+    public_work_db.address = address_db
+    if public_work_db and address_db:
+        return public_work_db
+    else:
+        raise HTTPException(status_code=403, detail="Not able to find public work to update")
+
+
 @public_work_router.post("/delete", responses={403: {"description": "Operation forbidden"}})
 async def delete_public_work(public_work_id: str, db: Session = Depends(get_db)) -> PublicWork:
     pubic_work_db = public_work_repository.delete_public_work(db, public_work_id)

@@ -14,3 +14,5 @@ class CollectDB(Base):
     comments = Column(String)
 
     public_work_id = Column(String, ForeignKey("publicwork.id"))
+
+    photos = relationship("PhotoDB", backref="photo")

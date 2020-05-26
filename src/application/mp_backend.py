@@ -7,6 +7,7 @@ from src.application.core.database import Base, engine
 from src.application.typework.routes import type_work_router
 from src.application.publicwork.routes import public_work_router
 from src.application.collect.routes import collect_router
+from src.application.photo.routes import photo_router
 
 sa.orm.configure_mappers()
 Base.metadata.create_all(bind=engine)
@@ -32,4 +33,11 @@ mpApi.include_router(
     prefix="/collects",
     tags=["collects"],
     responses={404: {"description": "Collect not found"}}
+)
+
+mpApi.include_router(
+    photo_router,
+    prefix="/photos",
+    tags=["photos"],
+    responses={404: {"description": "Photo not found"}}
 )
