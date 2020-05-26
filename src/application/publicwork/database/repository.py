@@ -16,7 +16,7 @@ def get_table_version(db: Session) -> int:
 
 
 def add_public_work(db: Session, public_work: PublicWork) -> PublicWork:
-    db_public_work = public_work.to_db()
+    db_public_work = PublicWorkDB.from_model(public_work)
     db.add(db_public_work)
     db.commit()
     db.refresh(db_public_work)
@@ -34,7 +34,15 @@ def delete_public_work(db: Session, public_work_id: str) -> PublicWork:
 def update_public_work(db: Session, public_work: PublicWork) -> PublicWork:
     db_public_work = db.query(PublicWorkDB).filter(PublicWorkDB.id == public_work.id).first()
     if db_public_work:
-        db_public_work = public_work.to_db()
+        db_public_work.update(public_work)
         db.commit()
         db.refresh(db_public_work)
         return db_public_work
+
+
+def upsert_public_work(db: Session, public_work: PublicWork) -> PublicWork:
+    db_public_work = update_public_work(db, public_work)
+    if db_public_work:
+        return db_public_work
+    else:
+        return add_public_work(db, public_work)

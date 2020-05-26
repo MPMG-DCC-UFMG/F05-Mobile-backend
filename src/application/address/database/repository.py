@@ -9,7 +9,7 @@ def get_address_by_id(db: Session, address_id) -> Address:
 
 
 def add_address(db: Session, address: Address) -> Address:
-    db_address = address.to_db()
+    db_address = AddressDB.from_model(address)
     db.add(db_address)
     db.commit()
     db.refresh(db_address)
@@ -19,10 +19,18 @@ def add_address(db: Session, address: Address) -> Address:
 def update_address(db: Session, address: Address) -> Address:
     db_address = db.query(AddressDB).filter(AddressDB.id == address.id).first()
     if db_address:
-        db_address = address.to_db()
+        db_address.update(address)
         db.commit()
         db.refresh(db_address)
         return db_address
+
+
+def upsert_address(db: Session, address: Address) -> Address:
+    db_address = update_address(db, address)
+    if db_address:
+        return db_address
+    else:
+        return add_address(db, address)
 
 
 def delete_address(db: Session, address_id: str) -> Address:
