@@ -29,6 +29,7 @@ async def add_public_work(public_work: PublicWork, db: Session = Depends(get_db)
 
 @public_work_router.put("/update", responses={403: {"description": "Operation forbidden"}})
 async def update_public_work(public_work: PublicWork, db: Session = Depends(get_db)) -> PublicWork:
+    public_work.address.public_work_id = public_work.id
     address_db = address_repository.update_address(db, public_work.address)
     public_work.address.id = address_db.id
     public_work_db = public_work_repository.update_public_work(db, public_work)
@@ -41,6 +42,7 @@ async def update_public_work(public_work: PublicWork, db: Session = Depends(get_
 
 @public_work_router.post("/upsert", responses={403: {"description": "Operation forbidden"}})
 async def upsert_public_work(public_work: PublicWork, db: Session = Depends(get_db)) -> PublicWork:
+    public_work.address.public_work_id = public_work.id
     address_db = address_repository.upsert_address(db, public_work.address)
     public_work.address.id = address_db.id
     public_work_db = public_work_repository.upsert_public_work(db, public_work)

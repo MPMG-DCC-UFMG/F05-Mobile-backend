@@ -1,5 +1,6 @@
 from pydantic import BaseModel
 
+
 class Address(BaseModel):
     id: str = None
     street: str
@@ -14,4 +15,3 @@ class Address(BaseModel):
 
     class Config:
         orm_mode = True
-

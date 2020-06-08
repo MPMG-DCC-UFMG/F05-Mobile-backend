@@ -12,6 +12,7 @@ class CollectDB(Base):
     id = Column(String, primary_key=True, index=True, default=generate_uuid)
     date = Column(BigInteger)
     comments = Column(String)
+    user_email = Column(String)
 
     public_work_id = Column(String, ForeignKey("publicwork.id"))
 
