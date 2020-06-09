@@ -1,6 +1,3 @@
-import shutil
-import urllib.parse
-
 from pathlib import Path
 
 from fastapi import APIRouter, UploadFile, File, HTTPException
@@ -13,7 +10,7 @@ from src.application.core import config
 images_router = APIRouter()
 
 
-@images_router.post("/upload/", responses={403: {"description": "Operation forbidden"}})
+@images_router.post("/upload", responses={403: {"description": "Operation forbidden"}})
 def upload_image(request: Request, file: UploadFile = File(...)):
     image_folder = config.settings.image_folder
     saved = repository.save_upload_file(file, Path(image_folder))
