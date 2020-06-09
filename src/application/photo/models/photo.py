@@ -6,6 +6,7 @@ from src.application.core.helpers import is_valid_uuid
 
 class Photo(BaseModel):
     id: str
+    id_collect: str
     type: str
     filepath: str
     latitude: float
@@ -19,6 +20,7 @@ class Photo(BaseModel):
     def to_db(self) -> PhotoDB:
         photo_db = PhotoDB(
             type=self.type,
+            collect_id=self.id_collect,
             comment=self.comment,
             filepath=self.filepath,
             longitude=self.longitude,

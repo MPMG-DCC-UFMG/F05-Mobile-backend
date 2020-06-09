@@ -10,6 +10,10 @@ def get_all_photos(db: Session) -> List[Photo]:
     return db.query(PhotoDB).all()
 
 
+def get_photos_by_collect_id(db: Session, collect_id: str) -> List[Photo]:
+    return db.query(PhotoDB).filter(PhotoDB.collect_id == collect_id).all()
+
+
 def add_photo(db: Session, photo: Photo) -> Photo:
     db_photo = photo.to_db()
     db.add(db_photo)
