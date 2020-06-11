@@ -132,5 +132,6 @@ dmypy.json
 /F05-Mobile-backend.iml
 
 /images/*
-/app/f05_backend_dev.env
 /app/sql_app.db
+/f05_backend.env
+/database.env
