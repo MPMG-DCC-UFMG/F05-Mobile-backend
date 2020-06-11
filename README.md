@@ -16,13 +16,34 @@ pip install -r requirements.txt
 ### 1.1. Environment Variables
 
 This project it's configured to use .env files to set main environment variables. For this project to 
-fully work it's necessary to create a **f05_backend_dev.env** file inside the folder
+fully work it's necessary to create a **f05_backend.env** file inside the folder
 ***src***. This file should contain:
 
 ```bash
 ENVIRONMENT="development"
 SENTRY_KEY=<SENTRY_DNS_ADDRESS>
+IMAGE_FOLDER="../images/"
 ```
+
+### 1.2. Docker
+
+It's possible to run the project using docker. 
+
+First it's necessary to build the image. Go to the folder where the **Dockerfile** is and
+execute:
+
+```bash
+docker build -t f05_back .  
+```
+
+After the image it's built the container can be deployed with the command:
+
+```bash
+docker run -d --name f05_container -p 8000:8000 f05_back
+```
+
+To check if the container was successfully deployed open the browser in the 
+address ***http://localhost:8000/docs/***
 
 ## 2. Documentation
 

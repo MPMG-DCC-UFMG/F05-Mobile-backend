@@ -1,0 +1,10 @@
+version: "3"
+
+services:
+
+  f05_backend:
+    build: ./
+    volumes:
+      - ./images/:/f05_backend/images
+    ports:
+      - 8000:8000
