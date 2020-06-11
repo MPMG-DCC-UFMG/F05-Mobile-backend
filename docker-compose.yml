@@ -6,5 +6,6 @@ services:
     build: ./
     volumes:
       - ./images/:/f05_backend/images
+      - ./f05_backend.env:/f05_backend/f05_backend.env
     ports:
       - 8000:8000

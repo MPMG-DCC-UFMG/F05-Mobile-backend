@@ -7,7 +7,7 @@ class Settings(BaseSettings):
     image_folder: str
 
     class Config:
-        env_file = "f05_backend.env"
+        env_file = "../f05_backend.env"
 
 
 settings = Settings()
