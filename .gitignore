@@ -134,3 +134,4 @@ dmypy.json
 /images/*
 /app/sql_app.db
 /f05_backend.env
+/database.env
