@@ -14,7 +14,11 @@ from src.application.typephoto.routes import type_photo_router
 sa.orm.configure_mappers()
 Base.metadata.create_all(bind=engine)
 
-mpApi = FastAPI()
+mpApi = FastAPI(
+    title='F05 Backend API',
+    description='API backend for the project F05',
+    version = "1.0.0"
+)
 
 mpApi.include_router(
     type_work_router,
