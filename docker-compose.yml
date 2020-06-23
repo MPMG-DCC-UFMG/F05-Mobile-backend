@@ -1,25 +1,40 @@
-version: "3"
+version: '3.7'
 
 services:
 
+  traefik:
+    image: "traefik:v2.2"
+    command:
+      - --entrypoints.web.address=:80
+      - --providers.docker
+      - --api.insecure
+    ports:
+      - "80:80"
+      - "8080:8080"
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+    networks:
+      - internal
+
   f05_backend:
     build: ./
+    container_name: "f05_backend"
+    labels:
+      - "traefik.http.routers.f05_backend.rule=Host(`f05_backend.localhost`)"
+      - "traefik.http.services.f05_backend.loadbalancer.server.port=8000"
     volumes:
       - ./images/:/f05_backend/images
       - ./f05_backend.env:/f05_backend/f05_backend.env
-    ports:
-      - 8000:8000
     depends_on:
       - database
     networks:
       - postgres-compose-network
+      - internal
 
   database:
     image: postgres
     env_file:
       - database.env # configure postgres
-    ports:
-      - "15432:5432"
     volumes:
       - database-data:/var/lib/postgresql/data/ # persist data even if container shuts down
     networks:
@@ -30,12 +45,13 @@ services:
     environment:
       PGADMIN_DEFAULT_EMAIL: "walterjgsp@dcc.ufmg.br"
       PGADMIN_DEFAULT_PASSWORD: "PgAdmin2020!"
-    ports:
-      - "16543:80"
     depends_on:
       - database
     networks:
       - postgres-compose-network
+      - internal
+    labels:
+      - "traefik.http.routers.pgAdmin.rule=Host(`pgAdmin.localhost`)"
 
 volumes:
   database-data: # named volumes can be managed easier using docker-compose
@@ -43,3 +59,5 @@ volumes:
 networks:
   postgres-compose-network:
     driver: bridge
+    external: false
+  internal:
