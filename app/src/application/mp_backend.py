@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 import sqlalchemy as sa
 
 from src.application.core import config
@@ -17,7 +18,18 @@ Base.metadata.create_all(bind=engine)
 mpApi = FastAPI(
     title='F05 Backend API',
     description='API backend for the project F05',
-    version = "1.0.0"
+    version="1.0.0",
+    openapi_prefix="/f05_backend"
+)
+
+origins = ["*"]
+
+mpApi.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
 mpApi.include_router(
