@@ -1,8 +1,9 @@
 from sqlalchemy import Column, Float, String, BigInteger, ForeignKey
 
 from src.application.core.database import Base
-from src.application.core.helpers import generate_uuid
+from src.application.core.helpers import generate_uuid, is_valid_uuid
 
+from src.application.photo.models.photo import Photo
 
 class PhotoDB(Base):
     __tablename__ = "photo"
@@ -16,3 +17,20 @@ class PhotoDB(Base):
     timestamp = Column(BigInteger)
 
     collect_id = Column(String, ForeignKey("collect.id"))
+
+    @classmethod
+    def from_model(cls, photo: Photo):
+        photo_db = PhotoDB(
+            type=photo.type,
+            collect_id=photo.id_collect,
+            comment=photo.comment,
+            filepath=photo.filepath,
+            longitude=photo.longitude,
+            latitude=photo.latitude,
+            timestamp=photo.timestamp
+        )
+
+        if photo.id and is_valid_uuid(photo.id):
+            photo_db.id = photo.id
+
+        return photo_db

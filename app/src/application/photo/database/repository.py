@@ -15,7 +15,7 @@ def get_photos_by_collect_id(db: Session, collect_id: str) -> List[Photo]:
 
 
 def add_photo(db: Session, photo: Photo) -> Photo:
-    db_photo = photo.to_db()
+    db_photo = PhotoDB.from_model(photo)
     db.add(db_photo)
     db.commit()
     db.refresh(db_photo)

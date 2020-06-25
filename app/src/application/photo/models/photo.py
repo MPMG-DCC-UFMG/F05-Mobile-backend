@@ -1,8 +1,5 @@
 from pydantic import BaseModel
 
-from src.application.photo.database.photoDB import PhotoDB
-from src.application.core.helpers import is_valid_uuid
-
 
 class Photo(BaseModel):
     id: str
@@ -16,19 +13,3 @@ class Photo(BaseModel):
 
     class Config:
         orm_mode = True
-
-    def to_db(self) -> PhotoDB:
-        photo_db = PhotoDB(
-            type=self.type,
-            collect_id=self.id_collect,
-            comment=self.comment,
-            filepath=self.filepath,
-            longitude=self.longitude,
-            latitude=self.latitude,
-            timestamp=self.timestamp
-        )
-
-        if id and is_valid_uuid(id):
-            photo_db.id = self.id
-
-        return photo_db
