@@ -57,7 +57,6 @@ services:
       - "traefik.http.routers.pgAdmin.rule=PathPrefix(`/pgAdmin`)"
       - "traefik.http.middlewares.pgAdmin.stripprefix.prefixes=/pgAdmin"
       - "traefik.http.middlewares.pgadmin.stripprefix.forceslash=false"
-#      - "traefik.http.routers.pgAdmin.middlewares=pgAdmin@docker"
 
 volumes:
   database-data: # named volumes can be managed easier using docker-compose
