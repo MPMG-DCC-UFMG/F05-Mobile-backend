@@ -20,3 +20,11 @@ def add_photo(db: Session, photo: Photo) -> Photo:
     db.commit()
     db.refresh(db_photo)
     return db_photo
+
+
+def delete_photo(db: Session, photo_id: str) -> Photo:
+    db_photo = db.query(PhotoDB).filter(PhotoDB.id == photo_id).first()
+    if db_photo:
+        db.delete(db_photo)
+        db.commit()
+    return db_photo

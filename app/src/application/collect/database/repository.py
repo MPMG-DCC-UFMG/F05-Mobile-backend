@@ -42,4 +42,5 @@ def delete_collect(db: Session, collect_id: str) -> Collect:
     if db_collect:
         db.delete(db_collect)
         db.commit()
+        db_collect.photos = []
     return db_collect

@@ -29,3 +29,12 @@ async def update_collect(collect: Collect, db: Session = Depends(get_db)) -> Col
         return collect_db
     else:
         raise HTTPException(status_code=403, detail="Not able to find collect to update")
+
+
+@collect_router.post("/delete", responses={403: {"description": "Operation forbidden"}})
+async def delete_collect(collect_id: str, db: Session = Depends(get_db)) -> Collect:
+    collect_db = repository.delete_collect(db, collect_id)
+    if collect_db:
+        return collect_db
+    else:
+        raise HTTPException(status_code=403, detail="Not able to find collect to delete")
