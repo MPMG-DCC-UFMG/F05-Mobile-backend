@@ -1,13 +1,13 @@
 from typing import List, Dict
 
 from fastapi import APIRouter, Depends, HTTPException
-from app.src.application.core.database import get_db
+from src.application.core.database import get_db
 from sqlalchemy.orm import Session
 
-from app.src.application.publicwork.models.publicwork import PublicWork
-from app.src.application.publicwork.database import repository as public_work_repository
+from src.application.publicwork.models.publicwork import PublicWork
+from src.application.publicwork.database import repository as public_work_repository
 
-from app.src.application.address.database import repository as address_repository
+from src.application.address.database import repository as address_repository
 
 public_work_router = APIRouter()
 
