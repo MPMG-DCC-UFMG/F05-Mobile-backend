@@ -6,6 +6,7 @@ class Settings(BaseSettings):
     environment: str
     image_folder: str
     database_url: str
+    api_prefix:str
 
     class Config:
         env_file = "../f05_backend.env"

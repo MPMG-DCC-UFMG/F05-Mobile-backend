@@ -18,7 +18,7 @@ class CollectDB(Base):
 
     public_work_id = Column(String, ForeignKey("publicwork.id"))
 
-    photos = relationship("PhotoDB", backref="photo")
+    photos = relationship("PhotoDB", cascade="all,delete-orphan", backref="photo")
 
     @classmethod
     def from_model(cls, collect: Collect):

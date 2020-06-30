@@ -18,8 +18,8 @@ Base.metadata.create_all(bind=engine)
 mpApi = FastAPI(
     title='F05 Backend API',
     description='API backend for the project F05',
-    version="1.0.0",
-    openapi_prefix="/f05_backend"
+    version="1.0.1",
+    openapi_prefix=config.settings.api_prefix
 )
 
 origins = ["*"]
