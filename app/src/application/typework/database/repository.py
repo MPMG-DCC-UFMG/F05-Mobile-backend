@@ -1,8 +1,11 @@
+from sqlalchemy import desc
 from sqlalchemy.orm import Session
 from sqlalchemy_continuum import transaction_class
 
 from src.application.typework.models.typeWork import TypeWork
 from src.application.typework.database.typeWorkDB import TypeWorkDB
+
+from sqlalchemy_continuum.utils import version_class
 
 
 def get_type_work(db: Session) -> list:
@@ -35,5 +38,6 @@ def update_type_work(db: Session, type_work: TypeWork) -> TypeWork:
 
 
 def get_table_version(db: Session) -> int:
-    transaction = transaction_class(TypeWorkDB)
-    return db.query(transaction).count()
+    version = version_class(TypeWorkDB)
+    last_changed = db.query(version).order_by(desc(version.transaction_id)).limit(1)
+    return last_changed[0].transaction_id

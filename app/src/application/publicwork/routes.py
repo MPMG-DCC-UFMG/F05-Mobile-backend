@@ -4,7 +4,7 @@ from fastapi import APIRouter, Depends, HTTPException
 from src.application.core.database import get_db
 from sqlalchemy.orm import Session
 
-from src.application.publicwork.models.publicwork import PublicWork
+from src.application.publicwork.models.publicwork import PublicWork, PublicWorkDiff
 from src.application.publicwork.database import repository as public_work_repository
 
 from src.application.address.database import repository as address_repository
@@ -65,3 +65,8 @@ async def delete_public_work(public_work_id: str, db: Session = Depends(get_db))
 @public_work_router.get("/version")
 async def get_table_version(db: Session = Depends(get_db)) -> Dict[str, int]:
     return {"version": public_work_repository.get_table_version(db)}
+
+
+@public_work_router.get("/changes")
+async def get_changes_from_version(version: int, db: Session = Depends(get_db)) -> List[PublicWorkDiff]:
+    return public_work_repository.get_public_work_changes_from(db, version)

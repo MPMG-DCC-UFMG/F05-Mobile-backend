@@ -11,3 +11,7 @@ class PublicWork(BaseModel):
 
     class Config:
         orm_mode = True
+
+
+class PublicWorkDiff(PublicWork):
+    operation: int
