@@ -1,18 +1,13 @@
+from sqlalchemy import desc
 from sqlalchemy.orm import Session
-from sqlalchemy_continuum import transaction_class
+from sqlalchemy_continuum import version_class
 
-from src.application.publicwork.models.publicwork import PublicWork
+from src.application.publicwork.models.publicwork import PublicWork, PublicWorkDiff
 from src.application.publicwork.database.publicWorkDB import PublicWorkDB
 
 
 def get_public_work(db: Session) -> list:
-    public_work_list = db.query(PublicWorkDB).all()
-    return public_work_list
-
-
-def get_table_version(db: Session) -> int:
-    transaction = transaction_class(PublicWorkDB)
-    return db.query(transaction).count()
+    return db.query(PublicWorkDB).all()
 
 
 def add_public_work(db: Session, public_work: PublicWork) -> PublicWork:
@@ -46,3 +41,28 @@ def upsert_public_work(db: Session, public_work: PublicWork) -> PublicWork:
         return db_public_work
     else:
         return add_public_work(db, public_work)
+
+
+def get_table_version(db: Session) -> int:
+    version = version_class(PublicWorkDB)
+    last_changed = db.query(version).order_by(desc(version.transaction_id)).limit(1)
+    return last_changed[0].transaction_id
+
+
+def get_public_work_changes_from(db: Session, public_work_version: int) -> list:
+    versioned_class = version_class(PublicWorkDB)
+    changes_list = db.query(versioned_class).filter(versioned_class.transaction_id > public_work_version).order_by(
+        desc(versioned_class.transaction_id))
+    changes_dict = {}
+
+    for change in changes_list:
+        if change.id not in changes_dict:
+            changes_dict[change.id] = PublicWorkDiff(
+                id=change.id,
+                name=change.name,
+                type_work_flag=change.type_work_flag,
+                address=change.address,
+                operation=change.operation_type
+            )
+
+    return list(changes_dict.values())

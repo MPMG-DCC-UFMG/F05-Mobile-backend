@@ -1,5 +1,6 @@
+from sqlalchemy import desc
 from sqlalchemy.orm import Session
-from sqlalchemy_continuum import transaction_class
+from sqlalchemy_continuum import transaction_class, version_class
 
 from src.application.typephoto.models.typePhoto import TypePhoto
 from src.application.typephoto.database.typePhotoDB import TypePhotoDB
@@ -35,5 +36,6 @@ def update_type_photo(db: Session, type_photo: TypePhoto) -> TypePhoto:
 
 
 def get_table_version(db: Session) -> int:
-    transaction = transaction_class(TypePhotoDB)
-    return db.query(transaction).count()
+    version = version_class(TypePhotoDB)
+    last_changed = db.query(version).order_by(desc(version.transaction_id)).limit(1)
+    return last_changed[0].transaction_id
