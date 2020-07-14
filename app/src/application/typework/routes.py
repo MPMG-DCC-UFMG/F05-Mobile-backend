@@ -31,6 +31,7 @@ async def update_type_work(type_work: TypeWork, db: Session = Depends(get_db)) -
 async def delete_type_work(type_work_id: int, db: Session = Depends(get_db)) -> TypeWork:
     type_work_db = repository.delete_type_work(db, type_work_id)
     if type_work_db:
+        type_work_db.public_works = []
         return type_work_db
     else:
         raise HTTPException(status_code=403, detail="Not able to find type of work to delete")

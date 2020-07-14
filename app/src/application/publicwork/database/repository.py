@@ -1,6 +1,6 @@
 from sqlalchemy import desc
 from sqlalchemy.orm import Session
-from sqlalchemy_continuum import version_class
+from sqlalchemy_continuum import version_class, Operation
 
 from src.application.publicwork.models.publicwork import PublicWork, PublicWorkDiff
 from src.application.publicwork.database.publicWorkDB import PublicWorkDB
@@ -22,6 +22,7 @@ def delete_public_work(db: Session, public_work_id: str) -> PublicWork:
     db_public_work = db.query(PublicWorkDB).filter(PublicWorkDB.id == public_work_id).first()
     if db_public_work:
         db.delete(db_public_work)
+        db.delete(db_public_work.address)
         db.commit()
     return db_public_work
 
@@ -57,12 +58,21 @@ def get_public_work_changes_from(db: Session, public_work_version: int) -> list:
 
     for change in changes_list:
         if change.id not in changes_dict:
-            changes_dict[change.id] = PublicWorkDiff(
-                id=change.id,
-                name=change.name,
-                type_work_flag=change.type_work_flag,
-                address=change.address,
-                operation=change.operation_type
-            )
+            if change.operation_type == Operation.DELETE:
+                changes_dict[change.id] = PublicWorkDiff(
+                    id=change.id,
+                    operation=change.operation_type
+                )
+            else:
+                try:
+                    changes_dict[change.id] = PublicWorkDiff(
+                        id=change.id,
+                        name=change.name,
+                        type_work_flag=change.type_work_flag,
+                        address=change.address,
+                        operation=change.operation_type
+                    )
+                except Exception:
+                    print("Exception when parsing the public work")
 
     return list(changes_dict.values())

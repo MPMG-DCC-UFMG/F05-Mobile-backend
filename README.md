@@ -24,6 +24,7 @@ SENTRY_KEY=<SENTRY_DNS_ADDRESS>
 IMAGE_FOLDER="../images/"
 DATABASE_URL="sqlite:///./sql_app.db"
 API_PREFIX="" 
+TOKEN_CEP_ABERTO=<TOKEN_CEP_ABERTO>
 ```
 
 ### 1.2. Database

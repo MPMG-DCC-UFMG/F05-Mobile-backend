@@ -55,9 +55,11 @@ async def upsert_public_work(public_work: PublicWork, db: Session = Depends(get_
 
 @public_work_router.post("/delete", responses={403: {"description": "Operation forbidden"}})
 async def delete_public_work(public_work_id: str, db: Session = Depends(get_db)) -> PublicWork:
-    pubic_work_db = public_work_repository.delete_public_work(db, public_work_id)
-    if pubic_work_db:
-        return pubic_work_db
+    public_work_db = public_work_repository.delete_public_work(db, public_work_id)
+    if public_work_db:
+        public_work_db.address = None
+        public_work_db.collect = []
+        return public_work_db
     else:
         raise HTTPException(status_code=403, detail="Not able to find public work to delete")
 
