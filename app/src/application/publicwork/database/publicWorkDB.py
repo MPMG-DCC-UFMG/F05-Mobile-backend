@@ -18,8 +18,8 @@ class PublicWorkDB(Base):
     type_work_flag = Column(Integer, ForeignKey("typework.flag"))
     address_id = Column(String, ForeignKey("address.id"))
 
-    address = relationship("AddressDB", backref=backref("publicwork", uselist=False), lazy=False,
-                           foreign_keys=[address_id])
+    address = relationship("AddressDB", backref=backref("publicwork", cascade="all,delete-orphan", uselist=False),
+                           lazy=False, foreign_keys=[address_id])
     collect = relationship("CollectDB")
 
     @classmethod

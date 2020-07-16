@@ -12,7 +12,7 @@ class TypeWorkDB(Base):
     flag = Column(Integer, primary_key=True, index=True, autoincrement=True)
     name = Column(String)
 
-    public_works = relationship("PublicWorkDB", backref="typework")
+    public_works = relationship("PublicWorkDB", backref="typework", cascade="all, delete-orphan")
 
     def update(self, type_work: TypeWork):
         self.flag = type_work.flag

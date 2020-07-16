@@ -13,5 +13,9 @@ class PublicWork(BaseModel):
         orm_mode = True
 
 
-class PublicWorkDiff(PublicWork):
+class PublicWorkDiff(BaseModel):
     operation: int
+    id: str
+    name: str = None
+    type_work_flag: int = None
+    address: Address = None
