@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String
+from sqlalchemy import Column, Integer, String, ForeignKey
 from sqlalchemy.orm import relationship
 
 from src.application.core.database import Base
@@ -17,4 +17,5 @@ class TypeWorkDB(Base):
     def update(self, type_work: TypeWork):
         self.flag = type_work.flag
         self.name = type_work.name
+
 

@@ -1,6 +1,5 @@
 from sqlalchemy import desc
 from sqlalchemy.orm import Session
-from sqlalchemy_continuum import transaction_class
 
 from src.application.typework.models.typeWork import TypeWork
 from src.application.typework.database.typeWorkDB import TypeWorkDB
