@@ -12,6 +12,7 @@ from src.application.photo.routes import photo_router
 from src.application.image.routes import images_router
 from src.application.typephoto.routes import type_photo_router
 from src.application.address.routes import address_router
+from src.application.associations.routes import association_router
 
 sa.orm.configure_mappers()
 Base.metadata.create_all(bind=engine)
@@ -80,4 +81,11 @@ mpApi.include_router(
     prefix="/address",
     tags=["address"],
     responses={404: {"description": "Address not found"}}
+)
+
+mpApi.include_router(
+    association_router,
+    prefix="/association",
+    tags=["association"],
+    responses={404: {"description": "Association not found"}}
 )
