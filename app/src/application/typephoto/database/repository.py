@@ -1,6 +1,6 @@
 from sqlalchemy import desc
 from sqlalchemy.orm import Session
-from sqlalchemy_continuum import transaction_class, version_class
+from sqlalchemy_continuum import version_class
 
 from src.application.typephoto.models.typePhoto import TypePhoto
 from src.application.typephoto.database.typePhotoDB import TypePhotoDB

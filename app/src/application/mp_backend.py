@@ -13,6 +13,7 @@ from src.application.image.routes import images_router
 from src.application.typephoto.routes import type_photo_router
 from src.application.address.routes import address_router
 from src.application.associations.routes import association_router
+from src.application.security.routes import security_router
 
 sa.orm.configure_mappers()
 Base.metadata.create_all(bind=engine)
@@ -88,4 +89,11 @@ mpApi.include_router(
     prefix="/association",
     tags=["association"],
     responses={404: {"description": "Association not found"}}
+)
+
+mpApi.include_router(
+    security_router,
+    prefix="/security",
+    tags=["security"],
+    responses={404: {"description": "Not authorized"}}
 )
