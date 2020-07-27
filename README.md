@@ -25,7 +25,18 @@ IMAGE_FOLDER="../images/"
 DATABASE_URL="sqlite:///./sql_app.db"
 API_PREFIX="" 
 TOKEN_CEP_ABERTO=<TOKEN_CEP_ABERTO>
+SECRET_KEY=<SECRET_KEY_TO_GENERATE_TOKEB>
 ```
+
+#### 1.1.1 Secret Key
+
+To generate a secret key string that's valid for this project run in the command line:
+
+```bash
+openssl rand -hex 32
+```
+
+Copy the result and past as a string in the environment file.
 
 ### 1.2. Database
 
