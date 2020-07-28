@@ -1,3 +1,5 @@
+from typing import Dict
+
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 
@@ -27,3 +29,13 @@ async def delete_association(type_work_flag: int, type_photo_flag: int,
         return association_db
     else:
         raise HTTPException(status_code=403, detail="Not able to find association to delete")
+
+
+@association_router.get("/tptw/all")
+async def get_all_associations(db: Session = Depends(get_db)) -> list:
+    return repository.get_all_associations(db)
+
+
+@association_router.get("/tptw/version")
+async def get_table_version(db: Session = Depends(get_db)) -> Dict[str, int]:
+    return {"version": repository.get_table_version(db)}

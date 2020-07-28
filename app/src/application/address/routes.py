@@ -1,8 +1,17 @@
+from typing import List, Dict
+
 import requests
 
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException, Depends
+from sqlalchemy.orm import Session
+
+from src.application.core.database import get_db
 from src.application.core import config
+from src.application.shared.response import Response, Error
 from src.application.address.models.address import Address
+from src.application.address.models.city import City
+
+from src.application.address.database import repository
 
 address_router = APIRouter()
 
@@ -28,3 +37,27 @@ async def get_address_by_cep(cep: str) -> Address:
         return address
     except Exception:
         raise HTTPException(status_code=4005, detail="Error in parsing result or invalid CPF")
+
+
+@address_router.post("/city/add")
+async def add_city(city: City, db: Session = Depends(get_db)) -> City:
+    return repository.add_city(db, city)
+
+
+@address_router.get("/city/all")
+async def get_all_cities(db: Session = Depends(get_db)) -> List[City]:
+    return repository.get_all_cities(db)
+
+
+@address_router.post("/city/delete")
+async def delete_city(codigo_ibge: str, db: Session = Depends(get_db)) -> Response:
+    city_db = repository.delete_city(db, codigo_ibge)
+    if city_db:
+        return Response(success=True)
+    else:
+        return Response(success=False, error=Error(status_code=401, message="Not able to delete city"))
+
+
+@address_router.get("/city/version")
+async def get_table_version(db: Session = Depends(get_db)) -> Dict[str, int]:
+    return {"version": repository.get_city_table_version(db)}

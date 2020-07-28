@@ -12,6 +12,10 @@ def get_association_by_type_work_flag(db: Session, type_work_flag: int) -> List[
     return db.query(AssociationTypePhPWDB).filter(AssociationTypePhPWDB.type_work_flag == type_work_flag).all()
 
 
+def get_all_associations(db: Session) -> List[AssociationTypePhPW]:
+    return db.query(AssociationTypePhPWDB).all()
+
+
 def get_table_version(db: Session) -> int:
     version = version_class(AssociationTypePhPWDB)
     last_changed = db.query(version).order_by(desc(version.transaction_id)).limit(1)
