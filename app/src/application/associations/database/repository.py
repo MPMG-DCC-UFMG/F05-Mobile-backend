@@ -15,7 +15,10 @@ def get_association_by_type_work_flag(db: Session, type_work_flag: int) -> List[
 def get_table_version(db: Session) -> int:
     version = version_class(AssociationTypePhPWDB)
     last_changed = db.query(version).order_by(desc(version.transaction_id)).limit(1)
-    return last_changed[0].transaction_id
+    if last_changed.count() > 0:
+        return last_changed[0].transaction_id
+    else:
+        return -1
 
 
 def add_association(db: Session, association: AssociationTypePhPW) -> AssociationTypePhPW:

@@ -47,7 +47,10 @@ def upsert_public_work(db: Session, public_work: PublicWork) -> PublicWork:
 def get_table_version(db: Session) -> int:
     version = version_class(PublicWorkDB)
     last_changed = db.query(version).order_by(desc(version.transaction_id)).limit(1)
-    return last_changed[0].transaction_id
+    if last_changed.count() > 0:
+        return last_changed[0].transaction_id
+    else:
+        return -1
 
 
 def get_public_work_changes_from(db: Session, public_work_version: int) -> list:

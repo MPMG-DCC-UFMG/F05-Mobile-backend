@@ -39,4 +39,7 @@ def update_type_work(db: Session, type_work: TypeWork) -> TypeWork:
 def get_table_version(db: Session) -> int:
     version = version_class(TypeWorkDB)
     last_changed = db.query(version).order_by(desc(version.transaction_id)).limit(1)
-    return last_changed[0].transaction_id
+    if last_changed.count() > 0:
+        return last_changed[0].transaction_id
+    else:
+        return -1
