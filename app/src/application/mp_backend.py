@@ -21,7 +21,7 @@ Base.metadata.create_all(bind=engine)
 mpApi = FastAPI(
     title='F05 Backend API',
     description='API backend for the project F05',
-    version="1.0.1",
+    version="1.1.0",
     openapi_prefix=config.settings.api_prefix
 )
 
