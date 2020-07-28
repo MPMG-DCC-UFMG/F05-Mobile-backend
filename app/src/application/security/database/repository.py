@@ -1,7 +1,7 @@
 from sqlalchemy.orm import Session
 
-from src.application.security.models.user import User
-from src.application.security.database.userDB import UserDB
+from application.security.models.user import User
+from application.security.database.userDB import UserDB
 
 
 def get_user_by_email(db: Session, email: str) -> User:

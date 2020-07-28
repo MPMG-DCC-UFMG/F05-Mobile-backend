@@ -3,9 +3,9 @@ from typing import Dict
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 
-from src.application.core.database import get_db
-from src.application.associations.database import repository
-from src.application.associations.models.association import AssociationTypePhPW
+from application.core.database import get_db
+from application.associations.database import repository
+from application.associations.models.association import AssociationTypePhPW
 
 association_router = APIRouter()
 

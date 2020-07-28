@@ -1,8 +1,8 @@
 from sqlalchemy import Column, Integer, String
 
-from src.application.core.database import Base
+from application.core.database import Base
 
-from src.application.typephoto.models.typePhoto import TypePhoto
+from application.typephoto.models.typePhoto import TypePhoto
 
 
 class TypePhotoDB(Base):

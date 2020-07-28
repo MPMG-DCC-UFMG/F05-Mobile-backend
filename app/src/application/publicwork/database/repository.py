@@ -2,8 +2,8 @@ from sqlalchemy import desc
 from sqlalchemy.orm import Session
 from sqlalchemy_continuum import version_class, Operation
 
-from src.application.publicwork.models.publicwork import PublicWork, PublicWorkDiff
-from src.application.publicwork.database.publicWorkDB import PublicWorkDB
+from application.publicwork.models.publicwork import PublicWork, PublicWorkDiff
+from application.publicwork.database.publicWorkDB import PublicWorkDB
 
 
 def get_public_work(db: Session) -> list:

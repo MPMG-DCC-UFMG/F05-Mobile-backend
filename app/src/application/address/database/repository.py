@@ -4,11 +4,11 @@ from sqlalchemy import desc
 from sqlalchemy.orm import Session
 from sqlalchemy_continuum import version_class
 
-from src.application.address.models.address import Address
-from src.application.address.database.addressDB import AddressDB
+from application.address.models.address import Address
+from application.address.database.addressDB import AddressDB
 
-from src.application.address.models.city import City
-from src.application.address.database.cityDB import CityDB
+from application.address.models.city import City
+from application.address.database.cityDB import CityDB
 
 
 def get_address_by_id(db: Session, address_id) -> Address:

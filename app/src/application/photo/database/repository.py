@@ -2,8 +2,8 @@ from typing import List
 
 from sqlalchemy.orm import Session
 
-from src.application.photo.database.photoDB import PhotoDB
-from src.application.photo.models.photo import Photo
+from application.photo.database.photoDB import PhotoDB
+from application.photo.models.photo import Photo
 
 
 def get_all_photos(db: Session) -> List[Photo]:

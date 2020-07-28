@@ -2,8 +2,8 @@ from sqlalchemy import desc
 from sqlalchemy.orm import Session
 from sqlalchemy_continuum import version_class
 
-from src.application.typephoto.models.typePhoto import TypePhoto
-from src.application.typephoto.database.typePhotoDB import TypePhotoDB
+from application.typephoto.models.typePhoto import TypePhoto
+from application.typephoto.database.typePhotoDB import TypePhotoDB
 
 
 def get_type_photo(db: Session) -> list:

@@ -2,18 +2,18 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 import sqlalchemy as sa
 
-from src.application.core import config
-from src.application.core.database import Base, engine
+from application.core import config
+from application.core.database import Base, engine
 
-from src.application.typework.routes import type_work_router
-from src.application.publicwork.routes import public_work_router
-from src.application.collect.routes import collect_router
-from src.application.photo.routes import photo_router
-from src.application.image.routes import images_router
-from src.application.typephoto.routes import type_photo_router
-from src.application.address.routes import address_router
-from src.application.associations.routes import association_router
-from src.application.security.routes import security_router
+from application.typework.routes import type_work_router
+from application.publicwork.routes import public_work_router
+from application.collect.routes import collect_router
+from application.photo.routes import photo_router
+from application.image.routes import images_router
+from application.typephoto.routes import type_photo_router
+from application.address.routes import address_router
+from application.associations.routes import association_router
+from application.security.routes import security_router
 
 sa.orm.configure_mappers()
 Base.metadata.create_all(bind=engine)

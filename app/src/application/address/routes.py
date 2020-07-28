@@ -5,13 +5,13 @@ import requests
 from fastapi import APIRouter, HTTPException, Depends
 from sqlalchemy.orm import Session
 
-from src.application.core.database import get_db
-from src.application.core import config
-from src.application.shared.response import Response, Error
-from src.application.address.models.address import Address
-from src.application.address.models.city import City
+from application.core.database import get_db
+from application.core import config
+from application.shared.response import Response, Error
+from application.address.models.address import Address
+from application.address.models.city import City
 
-from src.application.address.database import repository
+from application.address.database import repository
 
 address_router = APIRouter()
 

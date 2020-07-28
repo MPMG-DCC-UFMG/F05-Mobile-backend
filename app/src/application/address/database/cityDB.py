@@ -1,7 +1,7 @@
 from sqlalchemy import Column, Float, String
 
-from src.application.core.database import Base
-from src.application.address.models.city import City
+from application.core.database import Base
+from application.address.models.city import City
 
 
 class CityDB(Base):

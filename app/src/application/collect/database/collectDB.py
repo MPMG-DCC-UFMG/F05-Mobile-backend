@@ -2,10 +2,10 @@ from sqlalchemy import Column, BigInteger, String, ForeignKey
 
 from sqlalchemy.orm import relationship
 
-from src.application.core.database import Base
-from src.application.core.helpers import generate_uuid, is_valid_uuid
+from application.core.database import Base
+from application.core.helpers import generate_uuid, is_valid_uuid
 
-from src.application.collect.models.collect import Collect
+from application.collect.models.collect import Collect
 
 
 class CollectDB(Base):

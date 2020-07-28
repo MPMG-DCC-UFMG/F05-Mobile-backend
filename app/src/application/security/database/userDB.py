@@ -1,7 +1,7 @@
 from sqlalchemy import Column, Integer, String
 
-from src.application.core.database import Base
-from src.application.security.models.user import User
+from application.core.database import Base
+from application.security.models.user import User
 
 
 class UserDB(Base):

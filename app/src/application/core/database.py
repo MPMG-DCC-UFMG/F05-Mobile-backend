@@ -3,7 +3,7 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy_continuum import make_versioned
 
-from src.application.core import config
+from application.core import config
 
 SQLALCHEMY_DATABASE_URL = config.settings.database_url
 

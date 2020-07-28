@@ -2,8 +2,8 @@ from typing import List
 
 from sqlalchemy.orm import Session
 
-from src.application.collect.database.collectDB import CollectDB
-from src.application.collect.models.collect import Collect
+from application.collect.database.collectDB import CollectDB
+from application.collect.models.collect import Collect
 
 
 def get_all_collect(db: Session) -> List[Collect]:

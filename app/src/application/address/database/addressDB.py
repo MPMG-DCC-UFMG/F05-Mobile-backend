@@ -1,9 +1,9 @@
 from sqlalchemy import Column, Float, String
 
-from src.application.core.database import Base
-from src.application.core.helpers import generate_uuid, is_valid_uuid
+from application.core.database import Base
+from application.core.helpers import generate_uuid, is_valid_uuid
 
-from src.application.address.models.address import Address
+from application.address.models.address import Address
 
 
 class AddressDB(Base):

@@ -4,8 +4,8 @@ from sqlalchemy import desc
 from sqlalchemy.orm import Session
 from sqlalchemy_continuum.utils import version_class
 
-from src.application.associations.database.association_tp_tw import AssociationTypePhPWDB
-from src.application.associations.models.association import AssociationTypePhPW
+from application.associations.database.association_tp_tw import AssociationTypePhPWDB
+from application.associations.models.association import AssociationTypePhPW
 
 
 def get_association_by_type_work_flag(db: Session, type_work_flag: int) -> List[AssociationTypePhPW]:

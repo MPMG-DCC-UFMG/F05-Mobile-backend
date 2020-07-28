@@ -1,8 +1,8 @@
 from sqlalchemy import desc
 from sqlalchemy.orm import Session
 
-from src.application.typework.models.typeWork import TypeWork
-from src.application.typework.database.typeWorkDB import TypeWorkDB
+from application.typework.models.typeWork import TypeWork
+from application.typework.database.typeWorkDB import TypeWorkDB
 
 from sqlalchemy_continuum.utils import version_class
 

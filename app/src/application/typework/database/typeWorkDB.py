@@ -1,8 +1,8 @@
 from sqlalchemy import Column, Integer, String, ForeignKey
 from sqlalchemy.orm import relationship
 
-from src.application.core.database import Base
-from src.application.typework.models.typeWork import TypeWork
+from application.core.database import Base
+from application.typework.models.typeWork import TypeWork
 
 
 class TypeWorkDB(Base):

@@ -1,11 +1,11 @@
 from typing import List
 
 from fastapi import APIRouter, Depends, HTTPException
-from src.application.core.database import get_db
+from application.core.database import get_db
 from sqlalchemy.orm import Session
 
-from src.application.photo.models.photo import Photo
-from src.application.photo.database import repository
+from application.photo.models.photo import Photo
+from application.photo.database import repository
 
 photo_router = APIRouter()
 

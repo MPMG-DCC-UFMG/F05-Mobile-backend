@@ -6,13 +6,13 @@ from starlette import status
 from fastapi import APIRouter, Depends, HTTPException
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 
-from src.application.security.models.user import User
-from src.application.security.database import repository as security_repository
-from src.application.security.models.token import Token, TokenData
-from src.application.security.core.helpers import get_password_hash, verify_password, authenticate_user, \
+from application.security.models.user import User
+from application.security.database import repository as security_repository
+from application.security.models.token import Token, TokenData
+from application.security.core.helpers import get_password_hash, verify_password, authenticate_user, \
     create_access_token, get_current_user, get_current_active_user
-from src.application.core.database import get_db
-from src.application.shared.response import Response, Error
+from application.core.database import get_db
+from application.shared.response import Response, Error
 
 ACCESS_TOKEN_EXPIRE_MINUTES = 30
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/security/token")
