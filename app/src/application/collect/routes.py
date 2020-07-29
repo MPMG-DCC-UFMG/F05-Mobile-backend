@@ -1,12 +1,12 @@
 from typing import List
 
 from fastapi import APIRouter, Depends, HTTPException
-from src.application.core.database import get_db
+from application.core.database import get_db
 from sqlalchemy.orm import Session
 
-from src.application.collect.models.collect import Collect
+from application.collect.models.collect import Collect
 
-from src.application.collect.database import repository
+from application.collect.database import repository
 
 collect_router = APIRouter()
 

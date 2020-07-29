@@ -5,13 +5,13 @@ from datetime import datetime, timedelta
 from typing import Optional
 from jose import jwt, JWTError
 
-from src.application.security.database import repository as security_repository
-from src.application.security.models.token import TokenData
-from src.application.core import config
+from application.security.database import repository as security_repository
+from application.security.models.token import TokenData
+from application.core import config
 
 from starlette import status
 
-from src.application.security.models.user import User
+from application.security.models.user import User
 
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 30

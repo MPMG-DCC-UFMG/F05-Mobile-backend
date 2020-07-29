@@ -1,9 +1,9 @@
 from sqlalchemy import Column, Float, String, BigInteger, ForeignKey
 
-from src.application.core.database import Base
-from src.application.core.helpers import generate_uuid, is_valid_uuid
+from application.core.database import Base
+from application.core.helpers import generate_uuid, is_valid_uuid
 
-from src.application.photo.models.photo import Photo
+from application.photo.models.photo import Photo
 
 class PhotoDB(Base):
     __tablename__ = "photo"

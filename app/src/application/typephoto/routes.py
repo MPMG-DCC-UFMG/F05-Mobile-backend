@@ -1,9 +1,9 @@
 from typing import Dict
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
-from src.application.typephoto.models.typePhoto import TypePhoto
-from src.application.core.database import get_db
-from src.application.typephoto.database import repository
+from application.typephoto.models.typePhoto import TypePhoto
+from application.core.database import get_db
+from application.typephoto.database import repository
 
 type_photo_router = APIRouter()
 

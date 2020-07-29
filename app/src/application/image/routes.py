@@ -4,8 +4,8 @@ from fastapi import APIRouter, UploadFile, File, HTTPException
 from fastapi.responses import FileResponse
 from starlette.requests import Request
 
-from src.application.image.database import repository
-from src.application.core import config
+from application.image.database import repository
+from application.core import config
 
 images_router = APIRouter()
 

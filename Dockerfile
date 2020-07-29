@@ -10,4 +10,6 @@ RUN mkdir -p ./images
 
 WORKDIR /f05_backend/app
 
+RUN pip install -e ./src
+
 CMD python main.py

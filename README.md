@@ -13,6 +13,13 @@ virtual environment.
 pip install -r requirements.txt
 ```
 
+It's also necessary to install the current application as a library in your python installation.
+Go to the folder **/app/src** and run the command:
+
+```bash
+pip install -e .
+```
+
 ### 1.1. Environment Variables
 
 This project it's configured to use .env files to set main environment variables. For this project to 
@@ -128,6 +135,45 @@ docker-compose up -d
 
 To check if the container was successfully deployed open the browser in the 
 address ***http://localhost:8000/docs/***
+
+If it's necessary to enter the shell to run alembic migrations or run scripts execute:
+
+```bash
+docker-compose exec f05_backend sh 
+```
+
+Container's logs can be seen using:
+
+```bash
+docker-compose logs f05_backend
+```
+
+### 1.3.1 Useful commands
+
+1. Prune unused docker images, volumes and containers:
+
+```bash
+docker system prune -a
+```
+
+2. Remove all images 
+
+```bash
+docker rmi $(docker images -a -q)
+```
+
+3. Stop and remove all containers
+
+```bash
+docker stop $(docker ps -a -q)
+docker rm $(docker ps -a -q)
+```
+
+4. Remove all volumes
+
+```bash
+docker volume prune
+```
 
 ## 2. Documentation
 

@@ -1,6 +1,6 @@
 from pydantic import BaseModel
 
-from src.application.address.models.address import Address
+from application.address.models.address import Address
 
 
 class PublicWork(BaseModel):

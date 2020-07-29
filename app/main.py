@@ -1,7 +1,7 @@
 import uvicorn
 import sentry_sdk
 
-from src.application import mp_backend
+from application import mp_backend
 
 if __name__ == '__main__':
     settings = mp_backend.config.settings

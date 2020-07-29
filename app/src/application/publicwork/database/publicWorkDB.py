@@ -1,12 +1,12 @@
 from sqlalchemy import Column, Integer, String, ForeignKey
-from src.application.address.database.addressDB import AddressDB
-from src.application.collect.database.collectDB import CollectDB
+from application.address.database.addressDB import AddressDB
+from application.collect.database.collectDB import CollectDB
 
 from sqlalchemy.orm import relationship, backref
-from src.application.core.database import Base
-from src.application.core.helpers import generate_uuid, is_valid_uuid
+from application.core.database import Base
+from application.core.helpers import generate_uuid, is_valid_uuid
 
-from src.application.publicwork.models.publicwork import PublicWork
+from application.publicwork.models.publicwork import PublicWork
 
 
 class PublicWorkDB(Base):

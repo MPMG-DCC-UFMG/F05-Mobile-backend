@@ -1,5 +1,5 @@
 from sqlalchemy import Column, Integer, ForeignKey
-from src.application.core.database import Base
+from application.core.database import Base
 
 
 class AssociationTypePhPWDB(Base):

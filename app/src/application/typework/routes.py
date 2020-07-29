@@ -1,9 +1,9 @@
 from typing import Dict
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
-from src.application.typework.models.typeWork import TypeWork
-from src.application.core.database import get_db
-from src.application.typework.database import repository
+from application.typework.models.typeWork import TypeWork
+from application.core.database import get_db
+from application.typework.database import repository
 
 type_work_router = APIRouter()
 
