@@ -120,6 +120,26 @@ look like.
 
 It's possible to run the project using docker doing the deployment with docker-compose. 
 
+Add the following lines to your compose that has database values:
+
+```bash
+f05_backend:
+    image: docker.pkg.github.com/mpmg-dcc-ufmg/f05-mobile-backend/f05-backend-image:v1.1.2
+    labels:
+      - "traefik.http.routers.f05_backend.rule=PathPrefix(`/f05_backend`)"
+      - "traefik.http.services.f05_backend.loadbalancer.server.port=8000"
+      - "traefik.http.middlewares.f05_backend.stripprefix.prefixes=/f05_backend"
+      - "traefik.http.routers.f05_backend.middlewares=f05_backend@docker"
+    volumes:
+      - ./images/:/f05_backend/images
+      - ./f05_backend_prod.env:/f05_backend/f05_backend.env
+    depends_on:
+      - database
+    networks:
+      - postgres-compose-network
+      - internal
+```
+
 First it's necessary to build the image. Go to the folder where the **docker-compose.yml** is and
 execute:
 
@@ -134,7 +154,7 @@ docker-compose up -d
 ```
 
 To check if the container was successfully deployed open the browser in the 
-address ***http://localhost:8000/docs/***
+address ***http://localhost/f05_backend/docs/***
 
 If it's necessary to enter the shell to run alembic migrations or run scripts execute:
 
