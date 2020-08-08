@@ -18,15 +18,18 @@ class AssociationRouter(BaseRouter):
     def route(self) -> APIRouter:
         return self.association_router
 
+    @staticmethod
     @association_router.get("/typework")
     async def get_all_typework_type_photos(type_work_flag: int, db: Session = Depends(get_db)) -> list:
         return repository.get_association_by_type_work_flag(db, type_work_flag)
 
+    @staticmethod
     @association_router.post("/tptw/add")
     async def add_type_photo_to_type_work(association: AssociationTypePhPW,
                                           db: Session = Depends(get_db)) -> AssociationTypePhPW:
         return repository.add_association(db, association)
 
+    @staticmethod
     @association_router.post("/tptw/delete")
     async def delete_association(type_work_flag: int, type_photo_flag: int,
                                  db: Session = Depends(get_db)) -> AssociationTypePhPW:
@@ -36,10 +39,12 @@ class AssociationRouter(BaseRouter):
         else:
             raise HTTPException(status_code=403, detail="Not able to find association to delete")
 
+    @staticmethod
     @association_router.get("/tptw/all")
     async def get_all_associations(db: Session = Depends(get_db)) -> list:
         return repository.get_all_associations(db)
 
+    @staticmethod
     @association_router.get("/tptw/version")
     async def get_table_version(db: Session = Depends(get_db)) -> Dict[str, int]:
         return {"version": repository.get_table_version(db)}
