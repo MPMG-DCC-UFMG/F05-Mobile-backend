@@ -32,7 +32,8 @@ IMAGE_FOLDER="../images/"
 DATABASE_URL="sqlite:///./sql_app.db"
 API_PREFIX="" 
 TOKEN_CEP_ABERTO=<TOKEN_CEP_ABERTO>
-SECRET_KEY=<SECRET_KEY_TO_GENERATE_TOKEB>
+SECRET_KEY=<SECRET_KEY_TO_GENERATE_TOKEN>
+API_KEY=<GENERATED_API_KEY>
 ```
 
 #### 1.1.1 Secret Key
@@ -44,6 +45,14 @@ openssl rand -hex 32
 ```
 
 Copy the result and past as a string in the environment file.
+
+### 1.1.2 API Key
+
+To improve app security it's used an API key to wrap all calls. Can be passed as a header
+or a query parameter with the name **X-TRENA-KEY**.
+
+In order to fill this API Key a strong password generator with 20 digits result can be used.
+
 
 ### 1.2. Database
 
@@ -118,26 +127,30 @@ look like.
 
 ### 1.3. Docker
 
-It's possible to run the project using docker doing the deployment with docker-compose. 
+It's possible to run the project using docker doing the deployment with docker-compose, building locally or
+getting the docker image from github package repository.
 
 Add the following lines to your compose that has database values:
 
 ```bash
-f05_backend:
-    image: docker.pkg.github.com/mpmg-dcc-ufmg/f05-mobile-backend/f05-backend-image:v1.1.2
-    labels:
-      - "traefik.http.routers.f05_backend.rule=PathPrefix(`/f05_backend`)"
-      - "traefik.http.services.f05_backend.loadbalancer.server.port=8000"
-      - "traefik.http.middlewares.f05_backend.stripprefix.prefixes=/f05_backend"
-      - "traefik.http.routers.f05_backend.middlewares=f05_backend@docker"
-    volumes:
-      - ./images/:/f05_backend/images
-      - ./f05_backend_prod.env:/f05_backend/f05_backend.env
-    depends_on:
-      - database
-    networks:
-      - postgres-compose-network
-      - internal
+    f05_backend:
+        #Uncoment the two following lines and comment image if you want to build from local project
+        #build: ./ 
+        #container_name: "f05_backend"
+        image: docker.pkg.github.com/mpmg-dcc-ufmg/f05-mobile-backend/f05-backend-image:v1.1.2
+        labels:
+          - "traefik.http.routers.f05_backend.rule=PathPrefix(`/f05_backend`)"
+          - "traefik.http.services.f05_backend.loadbalancer.server.port=8000"
+          - "traefik.http.middlewares.f05_backend.stripprefix.prefixes=/f05_backend"
+          - "traefik.http.routers.f05_backend.middlewares=f05_backend@docker"
+        volumes:
+          - ./images/:/f05_backend/images
+          - ./f05_backend_prod.env:/f05_backend/f05_backend.env
+        depends_on:
+          - database
+        networks:
+          - postgres-compose-network
+          - internal
 ```
 
 First it's necessary to build the image. Go to the folder where the **docker-compose.yml** is and
