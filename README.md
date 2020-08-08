@@ -46,6 +46,14 @@ openssl rand -hex 32
 
 Copy the result and past as a string in the environment file.
 
+### 1.1.2 API Key
+
+To improve app security it's used an API key to wrap all calls. Can be passed as a header
+or a query parameter with the name **X-TRENA-KEY**.
+
+In order to fill this API Key a strong password generator with 20 digits result can be used.
+
+
 ### 1.2. Database
 
 The project it's configured to use SQLAlchemy as framework to make the connection with database. For the development of this 
