@@ -31,7 +31,6 @@ mpApi = FastAPI(
     openapi_prefix=config.settings.api_prefix,
     docs_url=None,
     redoc_url=None,
-    openapi_url=None,
 )
 
 origins = ["*"]
@@ -65,15 +64,9 @@ async def homepage():
     return "Welcome to the Trena API!"
 
 
-@mpApi.get("/openapi.json", tags=["documentation"], dependencies=[Depends(get_api_key)])
-async def get_open_api_endpoint():
-    response = JSONResponse(
-        get_openapi(title="FastAPI security test", version=mpApi.version, routes=mpApi.routes)
-    )
-    return response
-
-
-@mpApi.get("/docs", tags=["documentation"])
+@mpApi.get("/docs", tags=["docs"], dependencies=[Depends(get_api_key)])
 async def get_documentation(api_key: APIKey = Depends(get_api_key)):
-    response = get_swagger_ui_html(openapi_url="/openapi.json?{0}={1}".format(API_KEY_NAME, api_key), title="docs")
+    response = get_swagger_ui_html(
+        openapi_url="{0}{1}?{2}={3}".format(config.settings.api_prefix, mpApi.openapi_url, API_KEY_NAME, api_key),
+        title="docs")
     return response
