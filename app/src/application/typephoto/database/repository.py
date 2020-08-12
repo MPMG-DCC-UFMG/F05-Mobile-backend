@@ -11,7 +11,7 @@ def get_type_photo(db: Session) -> list:
 
 
 def add_type_photo(db: Session, type_photo: TypePhoto) -> TypePhoto:
-    db_type_photo = TypePhotoDB(name=type_photo.name, description=type_photo.description)
+    db_type_photo = TypePhotoDB.from_model(type_photo)
     db.add(db_type_photo)
     db.commit()
     db.refresh(db_type_photo)

@@ -1,6 +1,6 @@
 from typing import List
 
-from application.core.base_router import BaseRouter
+from application.shared.base_router import BaseRouter
 from fastapi import APIRouter, Depends, HTTPException, FastAPI
 from application.core.database import get_db
 from sqlalchemy.orm import Session

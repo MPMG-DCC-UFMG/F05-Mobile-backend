@@ -17,6 +17,8 @@ class PublicWorkDB(Base):
     name = Column(String)
     type_work_flag = Column(Integer, ForeignKey("typework.flag"))
     address_id = Column(String, ForeignKey("address.id"))
+    user_status = Column(Integer)
+    rnn_status = Column(Integer)
 
     address = relationship("AddressDB", backref=backref("publicwork", cascade="all,delete-orphan", uselist=False),
                            lazy=False, foreign_keys=[address_id])

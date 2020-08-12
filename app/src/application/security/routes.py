@@ -1,7 +1,7 @@
 from datetime import timedelta
 from typing import List
 
-from application.core.base_router import BaseRouter
+from application.shared.base_router import BaseRouter
 from sqlalchemy.orm import Session
 from starlette import status
 

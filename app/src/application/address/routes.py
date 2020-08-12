@@ -1,7 +1,7 @@
 from typing import List, Dict
 
 import requests
-from application.core.base_router import BaseRouter
+from application.shared.base_router import BaseRouter
 
 from fastapi import APIRouter, HTTPException, Depends, FastAPI
 from sqlalchemy.orm import Session

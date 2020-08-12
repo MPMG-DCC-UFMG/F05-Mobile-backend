@@ -8,15 +8,16 @@ from sqlalchemy_continuum.utils import version_class
 
 
 def get_type_work(db: Session) -> list:
-    return db.query(TypeWorkDB).all()
+    db_type_works = db.query(TypeWorkDB).all()
+    return list(map(lambda type_work: type_work.parse_to_type_work(), db_type_works))
 
 
 def add_type_work(db: Session, type_work: TypeWork) -> TypeWork:
-    db_type_work = TypeWorkDB(name=type_work.name)
+    db_type_work = TypeWorkDB.from_model(type_work)
     db.add(db_type_work)
     db.commit()
     db.refresh(db_type_work)
-    return db_type_work
+    return db_type_work.parse_to_type_work()
 
 
 def delete_type_work(db: Session, type_work_id: int) -> TypeWork:
@@ -24,7 +25,7 @@ def delete_type_work(db: Session, type_work_id: int) -> TypeWork:
     if db_type_work:
         db.delete(db_type_work)
         db.commit()
-    return db_type_work
+    return db_type_work.parse_to_type_work()
 
 
 def update_type_work(db: Session, type_work: TypeWork) -> TypeWork:
@@ -33,7 +34,7 @@ def update_type_work(db: Session, type_work: TypeWork) -> TypeWork:
         db_type_work.update(type_work)
         db.commit()
         db.refresh(db_type_work)
-        return db_type_work
+        return db_type_work.parse_to_type_work()
 
 
 def get_table_version(db: Session) -> int:
