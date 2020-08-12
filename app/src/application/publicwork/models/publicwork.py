@@ -8,6 +8,8 @@ class PublicWork(BaseModel):
     name: str
     type_work_flag: int
     address: Address
+    user_status: int = None
+    rnn_status: int = None
 
     class Config:
         orm_mode = True

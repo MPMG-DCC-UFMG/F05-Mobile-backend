@@ -1,7 +1,7 @@
 from pathlib import Path
 from typing import List
 
-from application.core.base_router import BaseRouter
+from application.shared.base_router import BaseRouter
 from fastapi import APIRouter, UploadFile, File, HTTPException, FastAPI, Depends
 from fastapi.responses import FileResponse
 from starlette.requests import Request

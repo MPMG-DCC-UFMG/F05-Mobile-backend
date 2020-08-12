@@ -1,11 +1,10 @@
 from pydantic import BaseModel
-from typing import List
 
 
-class TypeWork(BaseModel):
+class WorkStatus(BaseModel):
     flag: int = None
     name: str
-    status_list: List[int]
+    description: str
 
     class Config:
         orm_mode = True

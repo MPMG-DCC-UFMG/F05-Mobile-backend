@@ -1,4 +1,5 @@
 from application.security.core.api_key import API_KEY_NAME, get_api_key
+from application.workstatus.routes import WorkStatusRouter
 from fastapi import FastAPI, Depends
 from fastapi.middleware.cors import CORSMiddleware
 import sqlalchemy as sa
@@ -27,7 +28,7 @@ Base.metadata.create_all(bind=engine)
 mpApi = FastAPI(
     title='F05 Backend API',
     description='API backend for the project F05',
-    version="1.2.1",
+    version="1.3.0",
     openapi_prefix=config.settings.api_prefix,
     docs_url=None,
     redoc_url=None,
@@ -53,7 +54,8 @@ routes = [TypeWorkRouter("typeworks", mpApi, [Depends(get_api_key)]),
           TypePhotoRouter("typephotos", mpApi, [Depends(get_api_key)]),
           AddressRouter("address", mpApi, [Depends(get_api_key)]),
           AssociationRouter("association", mpApi, [Depends(get_api_key)]),
-          SecurityRouter("security", mpApi, [Depends(get_api_key)])]
+          SecurityRouter("security", mpApi, [Depends(get_api_key)]),
+          WorkStatusRouter("workstatus", mpApi, [Depends(get_api_key)])]
 
 for route in routes:
     route.apply_route()

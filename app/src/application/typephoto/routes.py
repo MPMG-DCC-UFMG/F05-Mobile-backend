@@ -1,6 +1,6 @@
 from typing import Dict, List
 
-from application.core.base_router import BaseRouter
+from application.shared.base_router import BaseRouter
 from fastapi import APIRouter, Depends, HTTPException, FastAPI
 from sqlalchemy.orm import Session
 from application.typephoto.models.typePhoto import TypePhoto
