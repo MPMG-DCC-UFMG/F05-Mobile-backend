@@ -13,6 +13,17 @@ class TypePhotoDB(Base):
     name = Column(String)
     description = Column(String, nullable=True)
 
+    @classmethod
+    def from_model(cls, type_photo: TypePhoto):
+        type_photo_db = TypePhotoDB(
+            name=type_photo.name,
+            description=type_photo.description)
+
+        if type_photo.flag != 0:
+            type_photo_db.flag = type_photo.flag
+
+        return type_photo_db
+
     def update(self, type_photo: TypePhoto):
         self.flag = type_photo.flag
         self.name = type_photo.name
