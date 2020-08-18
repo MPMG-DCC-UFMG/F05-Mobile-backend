@@ -68,13 +68,16 @@ def get_public_work_changes_from(db: Session, public_work_version: int) -> list:
                 )
             else:
                 try:
-                    changes_dict[change.id] = PublicWorkDiff(
+                    public_work = PublicWorkDiff(
                         id=change.id,
                         name=change.name,
                         type_work_flag=change.type_work_flag,
                         address=change.address,
                         operation=change.operation_type
                     )
+                    if change.user_status:
+                        public_work.user_status = change.user_status
+                    changes_dict[change.id] = public_work
                 except Exception:
                     print("Exception when parsing the public work")
 

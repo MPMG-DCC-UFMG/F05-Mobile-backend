@@ -21,3 +21,4 @@ class PublicWorkDiff(BaseModel):
     name: str = None
     type_work_flag: int = None
     address: Address = None
+    user_status: int = 0
