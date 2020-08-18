@@ -29,7 +29,8 @@ class PublicWorkDB(Base):
         public_work_db = PublicWorkDB(
             name=public_work.name,
             type_work_flag=public_work.type_work_flag,
-            address_id=public_work.address.id
+            address_id=public_work.address.id,
+            user_status=public_work.user_status
         )
 
         if public_work.id and is_valid_uuid(public_work.id):
@@ -42,3 +43,6 @@ class PublicWorkDB(Base):
         self.name = public_work.name
         self.type_work_flag = public_work.type_work_flag
         self.address_id = public_work.address.id
+        if public_work.rnn_status:
+            self.rnn_status = public_work.rnn_status
+        self.user_status = public_work.user_status
