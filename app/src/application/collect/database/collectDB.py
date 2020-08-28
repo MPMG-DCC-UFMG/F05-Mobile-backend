@@ -1,4 +1,4 @@
-from sqlalchemy import Column, BigInteger, String, ForeignKey
+from sqlalchemy import Column, BigInteger, String, ForeignKey, Integer
 
 from sqlalchemy.orm import relationship
 
@@ -15,6 +15,7 @@ class CollectDB(Base):
     date = Column(BigInteger)
     comments = Column(String)
     user_email = Column(String)
+    public_work_status = Column(Integer)
 
     public_work_id = Column(String, ForeignKey("publicwork.id"))
 
@@ -26,7 +27,8 @@ class CollectDB(Base):
             date=collect.date,
             comments=collect.comments,
             public_work_id=collect.public_work_id,
-            user_email=collect.user_email
+            user_email=collect.user_email,
+            public_work_status = collect.public_work_status
         )
 
         if collect.id and is_valid_uuid(collect.id):
@@ -40,3 +42,4 @@ class CollectDB(Base):
         self.public_work_id = collect.public_work_id
         self.user_email = collect.user_email
         self.date = collect.date
+        self.public_work_status = collect.public_work_status

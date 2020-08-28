@@ -61,9 +61,17 @@ def add_city(db: Session, city: City) -> City:
     db_city = CityDB.from_model(city)
     db.add(db_city)
     db.commit()
-    db.refresh(db_city)
     return db_city
 
+
+def add_cities(db: Session, cities: List[City]) -> List[City]:
+    db_city_list = []
+    for city in cities:
+        db_city = CityDB.from_model(city)
+        db_city_list.append(db_city)
+    db.add_all(db_city_list)
+    db.commit()
+    return db_city_list
 
 def get_all_cities(db: Session) -> List[City]:
     return db.query(CityDB).all()

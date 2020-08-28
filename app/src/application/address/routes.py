@@ -53,6 +53,11 @@ class AddressRouter(BaseRouter):
         return repository.add_city(db, city)
 
     @staticmethod
+    @address_router.post("/city/addAll")
+    async def add_city(city: List[City], db: Session = Depends(get_db)) -> List[City]:
+        return repository.add_cities(db, city)
+
+    @staticmethod
     @address_router.get("/city/all")
     async def get_all_cities(db: Session = Depends(get_db)) -> List[City]:
         return repository.get_all_cities(db)

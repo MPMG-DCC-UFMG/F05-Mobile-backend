@@ -18,9 +18,7 @@ from application.associations.routes import AssociationRouter
 from application.security.routes import SecurityRouter
 from fastapi.openapi.docs import get_swagger_ui_html
 from fastapi.openapi.models import APIKey
-from fastapi.openapi.utils import get_openapi
 from sentry_sdk.integrations.asgi import SentryAsgiMiddleware
-from starlette.responses import JSONResponse
 
 sa.orm.configure_mappers()
 Base.metadata.create_all(bind=engine)
@@ -28,7 +26,7 @@ Base.metadata.create_all(bind=engine)
 mpApi = FastAPI(
     title='F05 Backend API',
     description='API backend for the project F05',
-    version="1.3.2",
+    version="1.3.3",
     openapi_prefix=config.settings.api_prefix,
     docs_url=None,
     redoc_url=None,
