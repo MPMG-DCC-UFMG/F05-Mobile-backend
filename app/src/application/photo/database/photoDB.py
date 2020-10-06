@@ -22,7 +22,7 @@ class PhotoDB(Base):
     def from_model(cls, photo: Photo):
         photo_db = PhotoDB(
             type=photo.type,
-            collect_id=photo.id_collect,
+            collect_id=photo.collect_id,
             comment=photo.comment,
             filepath=photo.filepath,
             longitude=photo.longitude,

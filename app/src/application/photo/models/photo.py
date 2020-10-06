@@ -3,7 +3,7 @@ from pydantic import BaseModel
 
 class Photo(BaseModel):
     id: str
-    id_collect: str
+    collect_id: str
     type: str
     filepath: str
     latitude: float
