@@ -129,6 +129,12 @@ look like.
 It's possible to run the project using docker doing the deployment with docker-compose, building locally or
 getting the docker image from github package repository.
 
+To build the image locally from source code run: 
+
+```bash
+docker build -t f05_backend . 
+```
+
 Add the following lines to your compose that has database values:
 
 ```bash
