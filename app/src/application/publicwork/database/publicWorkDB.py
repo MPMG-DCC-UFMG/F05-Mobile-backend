@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, ForeignKey
+from sqlalchemy import Column, Integer, String, ForeignKey, BigInteger
 from application.address.database.addressDB import AddressDB
 from application.collect.database.collectDB import CollectDB
 
@@ -20,7 +20,7 @@ class PublicWorkDB(Base):
     address_id = Column(String, ForeignKey("address.id"))
     user_status = Column(Integer)
     rnn_status = Column(Integer)
-    timestamp = Column(Integer, default=get_today())
+    timestamp = Column(BigInteger, default=get_today())
 
     address = relationship("AddressDB", backref=backref("publicwork", cascade="all,delete-orphan", uselist=False),
                            lazy=False, foreign_keys=[address_id])
