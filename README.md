@@ -53,7 +53,6 @@ or a query parameter with the name **X-TRENA-KEY**.
 
 In order to fill this API Key a strong password generator with 20 digits result can be used.
 
-
 ### 1.2. Database
 
 The project it's configured to use SQLAlchemy as framework to make the connection with database. For the development of this 
@@ -180,6 +179,14 @@ Container's logs can be seen using:
 ```bash
 docker-compose logs f05_backend
 ```
+
+### 1.4 Third Party
+
+Some third party solutions are used to deliver features: 
+
+* [CEP Aberto](https://cepaberto.com/) : It is a project that aims to provide free access and collaboratively 
+build a database with the geolocalized Postal Address Codes (CEP) from all over Brazil. **It's necessary to
+get an API Key from this service in order to use the get address by CEP feature**
 
 ### 1.3.1 Useful commands
 

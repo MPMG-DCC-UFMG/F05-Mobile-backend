@@ -47,3 +47,13 @@ class CollectRouter(BaseRouter):
             return collect_db
         else:
             raise HTTPException(status_code=403, detail="Not able to find collect to delete")
+
+    @staticmethod
+    @collect_router.get("/publicWork")
+    async def get_collect_by_public_work_id(public_work_id: str, db: Session = Depends(get_db)) -> List[Collect]:
+        return repository.get_public_work_collects(db, public_work_id)
+
+    @staticmethod
+    @collect_router.get("/month/count")
+    async def get_collect_month_count(db: Session = Depends(get_db)) -> int:
+        return repository.get_month_collects_count(db)

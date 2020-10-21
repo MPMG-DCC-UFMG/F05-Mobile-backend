@@ -10,6 +10,10 @@ def get_public_work(db: Session) -> list:
     return db.query(PublicWorkDB).all()
 
 
+def count_public_work(db: Session) -> int:
+    return db.query(PublicWorkDB).all().count()
+
+
 def add_public_work(db: Session, public_work: PublicWork) -> PublicWork:
     db_public_work = PublicWorkDB.from_model(public_work)
     db.add(db_public_work)
