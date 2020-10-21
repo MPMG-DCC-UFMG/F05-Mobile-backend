@@ -2,6 +2,7 @@ from sqlalchemy import Column, Integer, String, ForeignKey
 from application.address.database.addressDB import AddressDB
 from application.collect.database.collectDB import CollectDB
 
+from application.calendar.calendar_utils import get_today
 from sqlalchemy.orm import relationship, backref
 from application.core.database import Base
 from application.core.helpers import generate_uuid, is_valid_uuid
@@ -19,6 +20,7 @@ class PublicWorkDB(Base):
     address_id = Column(String, ForeignKey("address.id"))
     user_status = Column(Integer)
     rnn_status = Column(Integer)
+    timestamp = Column(Integer, default=get_today())
 
     address = relationship("AddressDB", backref=backref("publicwork", cascade="all,delete-orphan", uselist=False),
                            lazy=False, foreign_keys=[address_id])
