@@ -62,3 +62,17 @@ class SecurityRouter(BaseRouter):
             return Response(success=True)
         else:
             raise HTTPException(status_code=403, detail="Not able to create user account")
+
+    @staticmethod
+    @security_router.get("/users")
+    async def get_all_users(db: Session = Depends(get_db)) -> List[str]:
+        return security_repository.get_registered_users(db)
+
+    @staticmethod
+    @security_router.post("/users/delete")
+    async def delete_user(email: str, db: Session = Depends(get_db)) -> Response:
+        user = security_repository.delete_user_by_email(db, email)
+        if user:
+            return Response(success=True)
+        else:
+            return Response(success=False, error=Error(status_code=401, message="User not found"))

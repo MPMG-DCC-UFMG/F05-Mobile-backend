@@ -70,7 +70,7 @@ class PublicWorkRouter(BaseRouter):
             public_work_db.collect = []
             return public_work_db
         else:
-            raise HTTPException(status_code=403, detail="Not able to find public work to delete")
+            raise HTTPException(status_code=402, detail="Not able to find public work to delete")
 
     @staticmethod
     @public_work_router.get("/version")
@@ -81,3 +81,8 @@ class PublicWorkRouter(BaseRouter):
     @public_work_router.get("/changes")
     async def get_changes_from_version(version: int, db: Session = Depends(get_db)) -> List[PublicWorkDiff]:
         return public_work_repository.get_public_work_changes_from(db, version)
+
+    @staticmethod
+    @public_work_router.get("/count")
+    async def get_public_work_count(db: Session = Depends(get_db)) -> int:
+        return public_work_repository.count_public_work(db)
