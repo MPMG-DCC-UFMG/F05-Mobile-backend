@@ -6,8 +6,10 @@ from application.core.database import get_db
 from sqlalchemy.orm import Session
 
 from application.collect.models.collect import Collect
+from application.collect.models.collect_report import CollectReport
 
 from application.collect.database import repository
+from starlette.responses import FileResponse
 
 
 class CollectRouter(BaseRouter):
@@ -57,3 +59,17 @@ class CollectRouter(BaseRouter):
     @collect_router.get("/month/count")
     async def get_collect_month_count(db: Session = Depends(get_db)) -> int:
         return repository.get_month_collects_count(db)
+
+    @staticmethod
+    @collect_router.get("/report/json")
+    async def get_collect_report_json(public_work_id: str, db: Session = Depends(get_db)) -> List[CollectReport]:
+        collects = repository.create_public_work_collect_report_json(db, public_work_id)
+        return collects
+
+    @staticmethod
+    @collect_router.get("/report/json/file")
+    async def get_collect_report_json_file(public_work_id: str, db: Session = Depends(get_db)) -> FileResponse:
+        path = repository.create_public_work_collect_report_json_file(db, public_work_id)
+        response = FileResponse(path, media_type='application/octet-stream', filename=public_work_id + ".json")
+        response.headers["Content-Disposition"] = "attachment; filename={0}.json".format(public_work_id)
+        return response
