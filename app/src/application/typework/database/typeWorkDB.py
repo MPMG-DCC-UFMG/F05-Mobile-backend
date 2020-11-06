@@ -28,7 +28,9 @@ class TypeWorkDB(Base):
         return type_work_db
 
     def parse_to_type_work(self):
-        parsed_list = list(map(int, self.status_list.split(',')))
+        parsed_list = []
+        if len(self.status_list) > 0:
+            parsed_list = list(map(int, self.status_list.split(',')))
         return TypeWork(
             flag=self.flag,
             name=self.name,

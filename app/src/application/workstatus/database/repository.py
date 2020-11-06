@@ -6,7 +6,8 @@ from sqlalchemy_continuum import version_class
 
 
 def get_work_status(db: Session) -> list:
-    return db.query(WorkStatusDB).all()
+    db_work_status = db.query(WorkStatusDB).all()
+    return list(map(lambda work_status: work_status.parse_to_work_status(), db_work_status))
 
 
 def add_work_status(db: Session, work_status: WorkStatus) -> WorkStatus:
