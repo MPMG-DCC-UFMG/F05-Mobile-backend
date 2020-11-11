@@ -3,6 +3,7 @@ from sqlalchemy import Column, Integer, String
 from application.core.database import Base
 
 from application.typephoto.models.typePhoto import TypePhoto
+from sqlalchemy.orm import relationship
 
 
 class TypePhotoDB(Base):
@@ -12,6 +13,8 @@ class TypePhotoDB(Base):
     flag = Column(Integer, primary_key=True, index=True, autoincrement=True)
     name = Column(String)
     description = Column(String, nullable=True)
+
+    type_works = relationship("TypeWorkDB", secondary='association_type_ph_pw')
 
     @classmethod
     def from_model(cls, type_photo: TypePhoto):
@@ -28,5 +31,3 @@ class TypePhotoDB(Base):
         self.flag = type_photo.flag
         self.name = type_photo.name
         self.description = type_photo.description
-
-
