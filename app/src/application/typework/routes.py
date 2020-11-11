@@ -82,7 +82,7 @@ class TypeWorkRouter(BaseRouter):
     @type_work_router.post("/workStatus/update")
     async def update_work_statuses_to_type_work(type_work_id: int = Body(...), work_statuses: List[int] = Body(...),
                                                 db: Session = Depends(get_db)) -> Response:
-        result = repository.update_work_statuses_to_type_work(db, type_work_id, work_statuses)
+        result = repository.update_work_statuses_of_type_work(db, type_work_id, work_statuses)
         if result:
             return Response(success=result)
         else:

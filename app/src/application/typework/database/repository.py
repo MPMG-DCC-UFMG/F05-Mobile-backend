@@ -76,7 +76,8 @@ def update_type_photos_to_type_work(db: Session, type_work_id: int, type_photos:
     db_type_work = db.query(TypeWorkDB).filter(TypeWorkDB.flag == type_work_id).first()
     db_type_photos = db.query(TypePhotoDB).filter(TypePhotoDB.flag.in_(type_photos))
     if db_type_work and db_type_photos.count() > 0:
-        db_type_work.work_statuse.clear()
+        db_type_work.type_photos = []
+        db.commit()
         for type_photo in list(db_type_photos):
             db_type_work.type_photos.append(type_photo)
         db.commit()
@@ -86,11 +87,12 @@ def update_type_photos_to_type_work(db: Session, type_work_id: int, type_photos:
         return False
 
 
-def update_work_statuses_to_type_work(db: Session, type_work_id: int, work_statuses: List[int]) -> bool:
+def update_work_statuses_of_type_work(db: Session, type_work_id: int, work_statuses: List[int]) -> bool:
     db_type_work = db.query(TypeWorkDB).filter(TypeWorkDB.flag == type_work_id).first()
     db_work_statuses = db.query(WorkStatusDB).filter(WorkStatusDB.flag.in_(work_statuses))
     if db_type_work and db_work_statuses.count() > 0:
-        db_type_work.work_statuse.clear()
+        db_type_work.work_statuses = []
+        db.commit()
         for work_status in list(db_work_statuses):
             db_type_work.work_statuses.append(work_status)
         db.commit()
