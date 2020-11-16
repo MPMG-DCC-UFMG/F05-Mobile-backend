@@ -1,5 +1,6 @@
 from typing import List
 
+from application.associations.database.association_tw_ws import AssociationTWWSDB
 from sqlalchemy import desc
 from sqlalchemy.orm import Session
 from sqlalchemy_continuum.utils import version_class
@@ -14,6 +15,10 @@ def get_association_by_type_work_flag(db: Session, type_work_flag: int) -> List[
 
 def get_all_associations(db: Session) -> List[AssociationTypePhPW]:
     return db.query(AssociationTypePhPWDB).all()
+
+
+def get_all_work_status_associations(db: Session) -> List[AssociationTWWSDB]:
+    return db.query(AssociationTWWSDB).all()
 
 
 def get_table_version(db: Session) -> int:

@@ -11,16 +11,15 @@ class TypeWorkDB(Base):
 
     flag = Column(Integer, primary_key=True, index=True, autoincrement=True)
     name = Column(String)
-    status_list = Column(String)
 
     public_works = relationship("PublicWorkDB", backref="typework", cascade="all, delete-orphan")
 
+    type_photos = relationship("TypePhotoDB", secondary='association_type_ph_pw')
+    work_statuses = relationship("WorkStatusDB", secondary='association_tw_ws')
+
     @classmethod
     def from_model(cls, type_work: TypeWork):
-        parsed_list = ",".join(map(str, type_work.status_list))
-        type_work_db = TypeWorkDB(
-            name=type_work.name,
-            status_list=parsed_list)
+        type_work_db = TypeWorkDB(name=type_work.name)
 
         if type_work.flag != 0:
             type_work_db.flag = type_work.flag
@@ -29,8 +28,8 @@ class TypeWorkDB(Base):
 
     def parse_to_type_work(self):
         parsed_list = []
-        if len(self.status_list) > 0:
-            parsed_list = list(map(int, self.status_list.split(',')))
+        if len(self.work_statuses) > 0:
+            parsed_list = list(map(lambda work_status: work_status.flag, self.work_statuses))
         return TypeWork(
             flag=self.flag,
             name=self.name,
@@ -38,7 +37,5 @@ class TypeWorkDB(Base):
         )
 
     def update(self, type_work: TypeWork):
-        parsed_list = ",".join(map(str, type_work.status_list))
         self.flag = type_work.flag
         self.name = type_work.name
-        self.status_list = parsed_list

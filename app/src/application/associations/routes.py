@@ -1,12 +1,15 @@
 from typing import Dict, List
 
 from application.shared.base_router import BaseRouter
+from application.typephoto.models.typePhoto import TypePhoto
 from fastapi import APIRouter, Depends, HTTPException, FastAPI
 from sqlalchemy.orm import Session
 
 from application.core.database import get_db
 from application.associations.database import repository
 from application.associations.models.association import AssociationTypePhPW
+
+from application.typephoto.database import repository as typePhotoRepository
 
 
 class AssociationRouter(BaseRouter):
@@ -43,6 +46,11 @@ class AssociationRouter(BaseRouter):
     @association_router.get("/tptw/all")
     async def get_all_associations(db: Session = Depends(get_db)) -> list:
         return repository.get_all_associations(db)
+
+    @staticmethod
+    @association_router.get("/twws/all")
+    async def get_all_associations(db: Session = Depends(get_db)) -> list:
+        return repository.get_all_work_status_associations(db)
 
     @staticmethod
     @association_router.get("/tptw/version")
