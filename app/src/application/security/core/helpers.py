@@ -1,3 +1,4 @@
+from application.security.models.roles import UserRoles
 from fastapi import HTTPException
 from passlib.context import CryptContext
 from sqlalchemy.orm import Session
@@ -36,6 +37,11 @@ def authenticate_user(db: Session, username: str, password: str):
     return user
 
 
+def check_user_role(token: str, role: UserRoles, db: Session) -> bool:
+    current_user: User = get_current_user(token, db)
+    return current_user.role == role.name
+
+
 def create_access_token(data: dict, expires_delta: Optional[timedelta] = None):
     to_encode = data.copy()
     if expires_delta:
@@ -47,7 +53,7 @@ def create_access_token(data: dict, expires_delta: Optional[timedelta] = None):
     return encoded_jwt
 
 
-def get_current_user(token: str, db: Session):
+def get_current_user(token: str, db: Session) -> User:
     credentials_exception = HTTPException(
         status_code=status.HTTP_401_UNAUTHORIZED,
         detail="Could not validate credentials",
@@ -55,10 +61,11 @@ def get_current_user(token: str, db: Session):
     )
     try:
         payload = jwt.decode(token, config.settings.secret_key, algorithms=[ALGORITHM])
-        username: str = payload.get("sub")
+        username: str = payload.get("email")
+        role: str = payload.get("role")
         if username is None:
             raise credentials_exception
-        token_data = TokenData(username=username)
+        token_data = TokenData(username=username, role=role)
     except JWTError:
         raise credentials_exception
     user = security_repository.get_user_by_email(db, email=token_data.username)

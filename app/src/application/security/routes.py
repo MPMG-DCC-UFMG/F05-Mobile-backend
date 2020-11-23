@@ -1,24 +1,26 @@
 from datetime import timedelta
-from typing import List
+from typing import List, Optional
 
+from application.security.core.checker import admin_role
+from application.security.models.roles import UserRoles
 from application.shared.base_router import BaseRouter
 from sqlalchemy.orm import Session
 from starlette import status
 
-from fastapi import APIRouter, Depends, HTTPException, FastAPI
+from fastapi import APIRouter, Depends, HTTPException, FastAPI, Header
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 
 from application.security.models.user import User
 from application.security.database import repository as security_repository
 from application.security.models.token import Token
 from application.security.core.helpers import get_password_hash, authenticate_user, create_access_token, \
-    get_current_active_user, ACCESS_TOKEN_EXPIRE_MINUTES
+    get_current_active_user, ACCESS_TOKEN_EXPIRE_MINUTES, check_user_role
 from application.core.database import get_db
 from application.shared.response import Response, Error
 
 
 class SecurityRouter(BaseRouter):
-    oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/security/token")
+    oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/security/users/login")
     security_router = APIRouter()
 
     def __init__(self, prefix: str, app: FastAPI, dependencies: List[Depends] = None):
@@ -28,7 +30,7 @@ class SecurityRouter(BaseRouter):
         return self.security_router
 
     @staticmethod
-    @security_router.post("/token", response_model=Token)
+    @security_router.post("/users/login", response_model=Token)
     async def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)):
         user = authenticate_user(db, form_data.username, form_data.password)
         if not user:
@@ -39,9 +41,9 @@ class SecurityRouter(BaseRouter):
             )
         access_token_expires = timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
         access_token = create_access_token(
-            data={"sub": user.email}, expires_delta=access_token_expires
+            data={"email": user.email, "role": user.role}, expires_delta=access_token_expires
         )
-        return {"access_token": access_token, "token_type": "bearer"}
+        return {"access_token": access_token, "token_type": "bearer", "role": user.role}
 
     @staticmethod
     @security_router.get("/users/me", response_model=User)
@@ -54,7 +56,6 @@ class SecurityRouter(BaseRouter):
         old_user = security_repository.get_user_by_email(db, user.email)
         if old_user:
             return Response(success=False, error=Error(status_code=401, message="Email already exist in database"))
-
         hashed_password = get_password_hash(user.authentication)
         user.authentication = hashed_password
         saved_user = security_repository.add_user(db, user)
@@ -64,7 +65,31 @@ class SecurityRouter(BaseRouter):
             raise HTTPException(status_code=403, detail="Not able to create user account")
 
     @staticmethod
-    @security_router.get("/users")
+    @security_router.post("/users/create/admin")
+    async def create_admin_user(
+            user: User, token: Optional[str] = Header(None),
+            db: Session = Depends(get_db)
+    ) -> Response:
+        old_user = security_repository.get_user_by_email(db, user.email)
+
+        if old_user:
+            return Response(success=False, error=Error(status_code=401, message="Email already exist in database"))
+        if not token and security_repository.count_admin_users(db) > 0:
+            return Response(success=False, error=Error(status_code=401, message="Missing admin token to create admin"))
+        if token and security_repository.count_admin_users(db) > 0 and not check_user_role(token, UserRoles.ADMIN, db):
+            return Response(success=False, error=Error(status_code=403, message="Unauthorized"))
+
+        hashed_password = get_password_hash(user.authentication)
+        user.authentication = hashed_password
+        user.role = UserRoles.ADMIN.name
+        saved_user = security_repository.add_user(db, user)
+        if saved_user:
+            return Response(success=True)
+        else:
+            raise HTTPException(status_code=403, detail="Not able to create user account")
+
+    @staticmethod
+    @security_router.get("/users",dependencies=[Depends(admin_role)])
     async def get_all_users(db: Session = Depends(get_db)) -> List[str]:
         return security_repository.get_registered_users(db)
 

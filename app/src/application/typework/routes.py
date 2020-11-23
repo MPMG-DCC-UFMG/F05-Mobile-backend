@@ -1,5 +1,6 @@
 from typing import Dict, List
 
+from application.security.core.checker import admin_role
 from application.shared.base_router import BaseRouter
 from application.shared.response import Response
 from application.typephoto.models.typePhoto import TypePhoto
@@ -25,7 +26,7 @@ class TypeWorkRouter(BaseRouter):
         return repository.get_type_work(db)
 
     @staticmethod
-    @type_work_router.post("/add", )
+    @type_work_router.post("/add")
     async def add_type_work(type_work: TypeWork, db: Session = Depends(get_db)) -> TypeWork:
         return repository.add_type_work(db, type_work)
 
