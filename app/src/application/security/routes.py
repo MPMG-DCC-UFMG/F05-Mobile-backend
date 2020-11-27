@@ -14,7 +14,7 @@ from application.security.models.user import User
 from application.security.database import repository as security_repository
 from application.security.models.token import Token
 from application.security.core.helpers import get_password_hash, authenticate_user, create_access_token, \
-    get_current_active_user, ACCESS_TOKEN_EXPIRE_MINUTES, check_user_role
+    get_current_active_user, ACCESS_TOKEN_EXPIRE_MINUTES, check_user_role, check_password_strength
 from application.core.database import get_db
 from application.shared.response import Response, Error
 
@@ -55,7 +55,9 @@ class SecurityRouter(BaseRouter):
     async def create_user(user: User, db: Session = Depends(get_db)) -> Response:
         old_user = security_repository.get_user_by_email(db, user.email)
         if old_user:
-            return Response(success=False, error=Error(status_code=401, message="Email already exist in database"))
+            return Response(success=False, error=Error(status_code=401, message="Esse usuário utilizado."))
+        if not check_password_strength(user.authentication, 0.2):
+            return Response(success=False, error=Error(status_code=401, message="Senha muito fraca."))
         hashed_password = get_password_hash(user.authentication)
         user.authentication = hashed_password
         saved_user = security_repository.add_user(db, user)
@@ -73,11 +75,14 @@ class SecurityRouter(BaseRouter):
         old_user = security_repository.get_user_by_email(db, user.email)
 
         if old_user:
-            return Response(success=False, error=Error(status_code=401, message="Email already exist in database"))
+            return Response(success=False, error=Error(status_code=401, message="Esse usuário foi utilizado."))
         if not token and security_repository.count_admin_users(db) > 0:
-            return Response(success=False, error=Error(status_code=401, message="Missing admin token to create admin"))
+            return Response(success=False, error=Error(status_code=401,
+                                                       message="Usuário não tem permissão para criar administradores"))
         if token and security_repository.count_admin_users(db) > 0 and not check_user_role(token, UserRoles.ADMIN, db):
-            return Response(success=False, error=Error(status_code=403, message="Unauthorized"))
+            return Response(success=False, error=Error(status_code=403, message="Não autorizado"))
+        if not check_password_strength(user.authentication, 0.5):
+            return Response(success=False, error=Error(status_code=401, message="Senha muito fraca."))
 
         hashed_password = get_password_hash(user.authentication)
         user.authentication = hashed_password
@@ -89,12 +94,12 @@ class SecurityRouter(BaseRouter):
             raise HTTPException(status_code=403, detail="Not able to create user account")
 
     @staticmethod
-    @security_router.get("/users",dependencies=[Depends(admin_role)])
-    async def get_all_users(db: Session = Depends(get_db)) -> List[str]:
+    @security_router.get("/users", dependencies=[Depends(admin_role)])
+    async def get_all_users(db: Session = Depends(get_db)) -> List[User]:
         return security_repository.get_registered_users(db)
 
     @staticmethod
-    @security_router.post("/users/delete")
+    @security_router.post("/users/delete", dependencies=[Depends(admin_role)])
     async def delete_user(email: str, db: Session = Depends(get_db)) -> Response:
         user = security_repository.delete_user_by_email(db, email)
         if user:

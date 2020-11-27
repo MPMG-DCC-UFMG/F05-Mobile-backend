@@ -27,10 +27,9 @@ def add_user(db: Session, user: User) -> User:
     return db_user
 
 
-def get_registered_users(db: Session) -> List[str]:
+def get_registered_users(db: Session) -> List[User]:
     db_users = db.query(UserDB).all()
-    emails = list(map(lambda x: x.email, db_users))
-    return emails
+    return db_users
 
 
 def count_users(db: Session) -> int:

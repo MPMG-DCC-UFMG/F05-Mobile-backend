@@ -26,12 +26,13 @@ class TypeWorkRouter(BaseRouter):
         return repository.get_type_work(db)
 
     @staticmethod
-    @type_work_router.post("/add")
+    @type_work_router.post("/add", dependencies=[Depends(admin_role)])
     async def add_type_work(type_work: TypeWork, db: Session = Depends(get_db)) -> TypeWork:
         return repository.add_type_work(db, type_work)
 
     @staticmethod
-    @type_work_router.put("/update", responses={403: {"description": "Operation forbidden"}})
+    @type_work_router.put("/update", dependencies=[Depends(admin_role)],
+                          responses={403: {"description": "Operation forbidden"}})
     async def update_type_work(type_work: TypeWork, db: Session = Depends(get_db)) -> TypeWork:
         type_work_db = repository.update_type_work(db, type_work)
         if type_work_db:
@@ -40,7 +41,8 @@ class TypeWorkRouter(BaseRouter):
             raise HTTPException(status_code=603, detail="Not able to find type of work to update")
 
     @staticmethod
-    @type_work_router.post("/delete", responses={403: {"description": "Operation forbidden"}})
+    @type_work_router.post("/delete", dependencies=[Depends(admin_role)],
+                           responses={403: {"description": "Operation forbidden"}})
     async def delete_type_work(type_work_id: int, db: Session = Depends(get_db)) -> TypeWork:
         type_work_db = repository.delete_type_work(db, type_work_id)
         if type_work_db:
@@ -55,7 +57,7 @@ class TypeWorkRouter(BaseRouter):
         return {"version": repository.get_table_version(db)}
 
     @staticmethod
-    @type_work_router.post("/typePhoto/add")
+    @type_work_router.post("/typePhoto/add", dependencies=[Depends(admin_role)])
     async def add_type_photo_to_type_work(type_work_id: int, type_photo_id: int,
                                           db: Session = Depends(get_db)) -> Response:
         result = repository.add_type_photo_to_type_work(db, type_work_id, type_photo_id)
@@ -65,7 +67,7 @@ class TypeWorkRouter(BaseRouter):
             raise HTTPException(status_code=603, detail="Not able to create association")
 
     @staticmethod
-    @type_work_router.post("/typePhoto/update")
+    @type_work_router.post("/typePhoto/update", dependencies=[Depends(admin_role)])
     async def update_type_photos_to_type_work(type_work_id: int = Body(...), type_photos: List[int] = Body(...),
                                               db: Session = Depends(get_db)) -> Response:
         result = repository.update_type_photos_to_type_work(db, type_work_id, type_photos)
@@ -80,7 +82,7 @@ class TypeWorkRouter(BaseRouter):
         return repository.get_type_work_type_photos(db, type_work_id)
 
     @staticmethod
-    @type_work_router.post("/workStatus/update")
+    @type_work_router.post("/workStatus/update", dependencies=[Depends(admin_role)])
     async def update_work_statuses_to_type_work(type_work_id: int = Body(...), work_statuses: List[int] = Body(...),
                                                 db: Session = Depends(get_db)) -> Response:
         result = repository.update_work_statuses_of_type_work(db, type_work_id, work_statuses)

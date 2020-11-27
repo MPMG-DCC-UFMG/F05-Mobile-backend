@@ -1,5 +1,6 @@
 from typing import List, Dict
 
+from application.security.core.checker import admin_role
 from application.shared.base_router import BaseRouter
 from fastapi import APIRouter, Depends, HTTPException, FastAPI
 from application.core.database import get_db
@@ -66,7 +67,7 @@ class PublicWorkRouter(BaseRouter):
             raise HTTPException(status_code=603, detail="Not able to find public work to update")
 
     @staticmethod
-    @public_work_router.post("/delete", responses={603: {"description": "Operation forbidden"}})
+    @public_work_router.post("/delete",dependencies=[Depends(admin_role)], responses={603: {"description": "Operation forbidden"}})
     async def delete_public_work(public_work_id: str, db: Session = Depends(get_db)) -> PublicWork:
         public_work_db = public_work_repository.delete_public_work(db, public_work_id)
         if public_work_db:

@@ -1,13 +1,13 @@
 from application.security.models.roles import UserRoles
 from fastapi import HTTPException
 from passlib.context import CryptContext
+from password_strength import PasswordStats
 from sqlalchemy.orm import Session
 from datetime import datetime, timedelta
 from typing import Optional
 from jose import jwt, JWTError
 
 from application.security.database import repository as security_repository
-from application.security.models.token import TokenData
 from application.core import config
 
 from starlette import status
@@ -62,13 +62,11 @@ def get_current_user(token: str, db: Session) -> User:
     try:
         payload = jwt.decode(token, config.settings.secret_key, algorithms=[ALGORITHM])
         username: str = payload.get("email")
-        role: str = payload.get("role")
         if username is None:
             raise credentials_exception
-        token_data = TokenData(username=username, role=role)
     except JWTError:
         raise credentials_exception
-    user = security_repository.get_user_by_email(db, email=token_data.username)
+    user = security_repository.get_user_by_email(db, email=username)
     if user is None:
         raise credentials_exception
     return user
@@ -79,3 +77,8 @@ def get_current_active_user(token: str, db: Session) -> User:
     if not current_user:
         raise HTTPException(status_code=400, detail="Inactive user")
     return User(email=current_user.email, full_name=current_user.full_name, authentication=token)
+
+
+def check_password_strength(password: str, minimum: float) -> bool:
+    stats = PasswordStats(password)
+    return stats.strength() >= minimum
