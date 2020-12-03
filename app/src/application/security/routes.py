@@ -81,7 +81,7 @@ class SecurityRouter(BaseRouter):
                                                        message="Usuário não tem permissão para criar administradores"))
         if token and security_repository.count_admin_users(db) > 0 and not check_user_role(token, UserRoles.ADMIN, db):
             return Response(success=False, error=Error(status_code=403, message="Não autorizado"))
-        if not check_password_strength(user.authentication, 0.5):
+        if not check_password_strength(user.authentication, 0.3):
             return Response(success=False, error=Error(status_code=401, message="Senha muito fraca."))
 
         hashed_password = get_password_hash(user.authentication)

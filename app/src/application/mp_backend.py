@@ -1,3 +1,4 @@
+from application.receiving_queue.routes import QueueRouter
 from application.security.core.api_key import API_KEY_NAME, get_api_key
 from application.workstatus.routes import WorkStatusRouter
 from fastapi import FastAPI, Depends
@@ -44,16 +45,19 @@ mpApi.add_middleware(
 
 mpApi.add_middleware(SentryAsgiMiddleware)
 
-routes = [TypeWorkRouter("typeworks", mpApi, [Depends(get_api_key)]),
-          PublicWorkRouter("publicworks", mpApi, [Depends(get_api_key)]),
-          CollectRouter("collects", mpApi, [Depends(get_api_key)]),
-          PhotoRouter("photos", mpApi, [Depends(get_api_key)]),
-          ImageRouter("images", mpApi, [Depends(get_api_key)]),
-          TypePhotoRouter("typephotos", mpApi, [Depends(get_api_key)]),
-          AddressRouter("address", mpApi, [Depends(get_api_key)]),
-          AssociationRouter("association", mpApi, [Depends(get_api_key)]),
-          SecurityRouter("security", mpApi, [Depends(get_api_key)]),
-          WorkStatusRouter("workstatus", mpApi, [Depends(get_api_key)])]
+routes = [
+    TypeWorkRouter("typeworks", mpApi, [Depends(get_api_key)]),
+    PublicWorkRouter("publicworks", mpApi, [Depends(get_api_key)]),
+    CollectRouter("collects", mpApi, [Depends(get_api_key)]),
+    PhotoRouter("photos", mpApi, [Depends(get_api_key)]),
+    ImageRouter("images", mpApi, [Depends(get_api_key)]),
+    TypePhotoRouter("typephotos", mpApi, [Depends(get_api_key)]),
+    AddressRouter("address", mpApi, [Depends(get_api_key)]),
+    AssociationRouter("association", mpApi, [Depends(get_api_key)]),
+    SecurityRouter("security", mpApi, [Depends(get_api_key)]),
+    WorkStatusRouter("workstatus", mpApi, [Depends(get_api_key)]),
+    QueueRouter("queue", mpApi, [Depends(get_api_key)])
+]
 
 for route in routes:
     route.apply_route()

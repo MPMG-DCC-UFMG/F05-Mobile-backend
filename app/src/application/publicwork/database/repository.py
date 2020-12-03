@@ -1,3 +1,7 @@
+from typing import Optional
+
+from application.core.helpers import paginate
+from application.core.models.pagination import Pagination
 from sqlalchemy import desc
 from sqlalchemy.orm import Session
 from sqlalchemy_continuum import version_class, Operation
@@ -8,6 +12,10 @@ from application.publicwork.database.publicWorkDB import PublicWorkDB
 
 def get_public_work(db: Session) -> list:
     return db.query(PublicWorkDB).all()
+
+
+def get_public_work_paginated(db: Session, page: int, per_page: int = 20) -> Optional[Pagination]:
+    return paginate(db.query(PublicWorkDB), page, per_page)
 
 
 def count_public_work(db: Session) -> int:

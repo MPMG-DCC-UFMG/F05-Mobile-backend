@@ -1,3 +1,6 @@
+from typing import List
+
+from application.photo.models.photo import Photo
 from pydantic import BaseModel
 
 
@@ -8,6 +11,7 @@ class Collect(BaseModel):
     user_email: str
     comments: str = None
     public_work_status: int = None
+    photos: List[Photo] = []
 
     class Config:
         orm_mode = True

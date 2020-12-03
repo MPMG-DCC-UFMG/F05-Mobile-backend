@@ -1,8 +1,9 @@
 from typing import List, Dict
 
+from application.core.models.pagination import Pagination
 from application.security.core.checker import admin_role
 from application.shared.base_router import BaseRouter
-from fastapi import APIRouter, Depends, HTTPException, FastAPI
+from fastapi import APIRouter, Depends, HTTPException, FastAPI, Query
 from application.core.database import get_db
 from sqlalchemy.orm import Session
 
@@ -22,18 +23,26 @@ class PublicWorkRouter(BaseRouter):
         return self.public_work_router
 
     @staticmethod
-    @public_work_router.get(
-        "/"
-    )
+    @public_work_router.get("/")
     async def get_all_public_work(db: Session = Depends(get_db)) -> List[PublicWork]:
         public_work_list = public_work_repository.get_public_work(db)
         return public_work_list
 
     @staticmethod
+    @public_work_router.get("/paginated")
+    async def get_public_work_paginated(page: int = Query(1), per_page: int = Query(10),
+                                        db: Session = Depends(get_db)) -> Pagination:
+        public_work_list = public_work_repository.get_public_work_paginated(db, page, per_page)
+        if public_work_list:
+            return public_work_list
+        else:
+            raise HTTPException(status_code=402, detail="Invalid combination of pages")
+
+    @staticmethod
     @public_work_router.post("/add", )
     async def add_public_work(public_work: PublicWork, db: Session = Depends(get_db)) -> PublicWork:
         if public_work.address.public_work_id != public_work.id:
-            raise HTTPException(status_code=603, detail="Not able to add public work")
+            raise HTTPException(status_code=403, detail="Not able to add public work")
         address_db = address_repository.add_address(db, public_work.address)
         public_work.address.id = address_db.id
         public_work_db = public_work_repository.add_public_work(db, public_work)
@@ -41,7 +50,7 @@ class PublicWorkRouter(BaseRouter):
         return public_work_db
 
     @staticmethod
-    @public_work_router.put("/update", responses={603: {"description": "Operation forbidden"}})
+    @public_work_router.put("/update", responses={403: {"description": "Operation forbidden"}})
     async def update_public_work(public_work: PublicWork, db: Session = Depends(get_db)) -> PublicWork:
         public_work.address.public_work_id = public_work.id
         address_db = address_repository.update_address(db, public_work.address)
@@ -51,10 +60,10 @@ class PublicWorkRouter(BaseRouter):
         if public_work_db and address_db:
             return public_work_db
         else:
-            raise HTTPException(status_code=603, detail="Not able to find public work to update")
+            raise HTTPException(status_code=403, detail="Not able to find public work to update")
 
     @staticmethod
-    @public_work_router.post("/upsert", responses={603: {"description": "Operation forbidden"}})
+    @public_work_router.post("/upsert", responses={403: {"description": "Operation forbidden"}})
     async def upsert_public_work(public_work: PublicWork, db: Session = Depends(get_db)) -> PublicWork:
         public_work.address.public_work_id = public_work.id
         address_db = address_repository.upsert_address(db, public_work.address)
@@ -67,7 +76,8 @@ class PublicWorkRouter(BaseRouter):
             raise HTTPException(status_code=603, detail="Not able to find public work to update")
 
     @staticmethod
-    @public_work_router.post("/delete",dependencies=[Depends(admin_role)], responses={603: {"description": "Operation forbidden"}})
+    @public_work_router.post("/delete", dependencies=[Depends(admin_role)],
+                             responses={403: {"description": "Operation forbidden"}})
     async def delete_public_work(public_work_id: str, db: Session = Depends(get_db)) -> PublicWork:
         public_work_db = public_work_repository.delete_public_work(db, public_work_id)
         if public_work_db:
@@ -75,7 +85,7 @@ class PublicWorkRouter(BaseRouter):
             public_work_db.collect = []
             return public_work_db
         else:
-            raise HTTPException(status_code=603, detail="Not able to find public work to delete")
+            raise HTTPException(status_code=403, detail="Not able to find public work to delete")
 
     @staticmethod
     @public_work_router.get("/version")

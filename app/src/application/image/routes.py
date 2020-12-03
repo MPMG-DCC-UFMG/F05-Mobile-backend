@@ -31,7 +31,7 @@ class ImageRouter(BaseRouter):
             raise HTTPException(status_code=403, detail="Not able to find public work to delete")
 
     @staticmethod
-    @images_router.get("/")
+    @images_router.get("/{image_name}")
     async def get_image(image_name: str) -> FileResponse:
         file_path = "{0}{1}".format(config.settings.image_folder, image_name)
         return FileResponse(file_path)
