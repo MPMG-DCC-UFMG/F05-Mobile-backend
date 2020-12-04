@@ -124,6 +124,24 @@ With this we have a connection onto the database
 All files of this project can be used as an example of how your production environment files should
 look like.
 
+#### 1.2.2 MongoDB
+
+Mongo DB it's a database used for the queue process of the collects. All collects are first saved in the database and just after
+being evaluated they are saved into Postgree and can be used in the app.
+
+First step it's to install an instance of MongoDb on the machine or in the docker environment. To install using docker compose 
+add the following lines into your docker-compose file:
+
+```bash
+services:
+  mobodb:
+    image: mongo:latest
+    volumes:
+      - mongo-data:/data/db
+    ports:
+      - 27017:27017
+```
+
 ### 1.3. Docker
 
 It's possible to run the project using docker doing the deployment with docker-compose, building locally or
