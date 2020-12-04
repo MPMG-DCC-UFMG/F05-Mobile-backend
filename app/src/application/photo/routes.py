@@ -1,5 +1,6 @@
 from typing import List
 
+from application.security.core.checker import admin_role
 from application.shared.base_router import BaseRouter
 from fastapi import APIRouter, Depends, HTTPException, FastAPI
 from application.core.database import get_db
@@ -35,7 +36,8 @@ class PhotoRouter(BaseRouter):
         return repository.get_photos_by_collect_id(db, collect_id)
 
     @staticmethod
-    @photo_router.post("/delete", responses={403: {"description": "Operation forbidden"}})
+    @photo_router.post("/delete", dependencies=[Depends(admin_role)],
+                       responses={403: {"description": "Operation forbidden"}})
     async def delete_photo(photo_id: str, db: Session = Depends(get_db)) -> Photo:
         photo_db = repository.delete_photo(db, photo_id)
         if photo_db:

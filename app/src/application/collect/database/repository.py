@@ -1,6 +1,8 @@
 from pathlib import Path
-from typing import List
+from typing import List, Optional
 
+from application.core.helpers import paginate
+from application.core.models.pagination import Pagination
 from sqlalchemy.orm import Session
 
 from application.collect.database.collectDB import CollectDB
@@ -15,6 +17,14 @@ import application.publicwork.database.repository as public_work_repository
 
 def get_all_collect(db: Session) -> List[Collect]:
     return db.query(CollectDB).all()
+
+
+def get_all_collect_paginated(db: Session, page: int, per_page: int = 20) -> Optional[Pagination]:
+    return paginate(db.query(CollectDB), page, per_page)
+
+
+def get_collect_by_id(db: Session, collect_id: str) -> Collect:
+    return db.query(CollectDB).filter(CollectDB.id == collect_id).first()
 
 
 def get_public_work_collects(db: Session, public_work_id: str) -> List[Collect]:

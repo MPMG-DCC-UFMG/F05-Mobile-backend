@@ -1,7 +1,9 @@
 from typing import List
 
+from application.core.models.pagination import Pagination
+from application.security.core.checker import admin_role
 from application.shared.base_router import BaseRouter
-from fastapi import APIRouter, Depends, HTTPException, FastAPI
+from fastapi import APIRouter, Depends, HTTPException, FastAPI, Query
 from application.core.database import get_db
 from sqlalchemy.orm import Session
 
@@ -27,6 +29,12 @@ class CollectRouter(BaseRouter):
         return repository.get_all_collect(db)
 
     @staticmethod
+    @collect_router.get("/paginated")
+    async def get_collect_paginated(page: int = Query(1), per_page: int = Query(20),
+                                    db: Session = Depends(get_db)) -> Pagination:
+        return repository.get_all_collect_paginated(db, page, per_page)
+
+    @staticmethod
     @collect_router.post("/add")
     async def add_collect(collect: Collect, db: Session = Depends(get_db)) -> Collect:
         collect_db = repository.add_collect(db, collect)
@@ -42,7 +50,8 @@ class CollectRouter(BaseRouter):
             raise HTTPException(status_code=403, detail="Not able to find collect to update")
 
     @staticmethod
-    @collect_router.post("/delete", responses={403: {"description": "Operation forbidden"}})
+    @collect_router.post("/delete", dependencies=[Depends(admin_role)],
+                         responses={403: {"description": "Operation forbidden"}})
     async def delete_collect(collect_id: str, db: Session = Depends(get_db)) -> Collect:
         collect_db = repository.delete_collect(db, collect_id)
         if collect_db:

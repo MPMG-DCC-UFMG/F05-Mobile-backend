@@ -1,5 +1,6 @@
 from typing import List
 
+from application.security.models.roles import UserRoles
 from sqlalchemy.orm import Session
 
 from application.security.models.user import User
@@ -26,7 +27,16 @@ def add_user(db: Session, user: User) -> User:
     return db_user
 
 
-def get_registered_users(db: Session) -> List[str]:
+def get_registered_users(db: Session) -> List[User]:
     db_users = db.query(UserDB).all()
-    emails = list(map(lambda x: x.email, db_users))
-    return emails
+    return db_users
+
+
+def count_users(db: Session) -> int:
+    db_users = db.query(UserDB).all()
+    return db_users.count()
+
+
+def count_admin_users(db: Session) -> int:
+    db_users = db.query(UserDB).filter(UserDB.role == UserRoles.ADMIN.name)
+    return db_users.count()

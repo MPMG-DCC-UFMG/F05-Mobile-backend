@@ -1,5 +1,6 @@
 from typing import List, Dict
 
+from application.security.core.checker import admin_role
 from application.shared.base_router import BaseRouter
 from application.workstatus.database import repository
 from application.workstatus.models.workStatus import WorkStatus
@@ -24,13 +25,13 @@ class WorkStatusRouter(BaseRouter):
         return response
 
     @staticmethod
-    @work_status_router.post("/add")
+    @work_status_router.post("/add",dependencies=[Depends(admin_role)])
     async def add_work_status(work_status: WorkStatus, db: Session = Depends(get_db)) -> WorkStatus:
         response = repository.add_work_status(db, work_status)
         return response
 
     @staticmethod
-    @work_status_router.put("/update", responses={403: {"description": "Operation forbidden"}})
+    @work_status_router.put("/update",dependencies=[Depends(admin_role)], responses={403: {"description": "Operation forbidden"}})
     async def update_work_status(work_status: WorkStatus, db: Session = Depends(get_db)) -> WorkStatus:
         work_status_db = repository.update_work_status(db, work_status)
         if work_status_db:
@@ -39,7 +40,7 @@ class WorkStatusRouter(BaseRouter):
             raise HTTPException(status_code=403, detail="Not able to find type of work to update")
 
     @staticmethod
-    @work_status_router.post("/delete", responses={403: {"description": "Operation forbidden"}})
+    @work_status_router.post("/delete",dependencies=[Depends(admin_role)], responses={403: {"description": "Operation forbidden"}})
     async def delete_work_status(work_status_id: int, db: Session = Depends(get_db)) -> WorkStatus:
         work_status_db = repository.delete_work_status(db, work_status_id)
         if work_status_db:

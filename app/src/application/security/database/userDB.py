@@ -15,13 +15,15 @@ class UserDB(Base):
     birthday = Column(BigInteger)
     phone = Column(String)
     hashed_password = Column(String)
+    role = Column(String)
 
     @classmethod
     def from_model(cls, user: User):
         user_db = UserDB(
             email=user.email,
             full_name=user.full_name,
-            hashed_password=user.authentication
+            hashed_password=user.authentication,
+            role = user.role
         )
 
         return user_db
