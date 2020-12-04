@@ -101,3 +101,12 @@ class QueueRouter(BaseRouter):
             return Response(success=True)
         else:
             return Response(success=False, error=Error(status_code=401, message="Erro ao aceitar foto"))
+
+
+    @staticmethod
+    @queueRouter.post("/publicwork/{public_work_id}/photo/{photo_id}/delete")
+    async def accept_photo(public_work_id: str, photo_id: str, db: Session = Depends(get_db)) -> Response:
+        if repository.deletePhoto(db, public_work_id, photo_id):
+            return Response(success=True)
+        else:
+            return Response(success=False, error=Error(status_code=401, message="Erro ao aceitar foto"))

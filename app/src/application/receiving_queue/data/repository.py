@@ -20,11 +20,12 @@ DATA_ID_KEY = "data.id"
 db = QueueDB.database()
 
 
-def add_public_work(public_work: PublicWork):
+def add_public_work(public_work: PublicWork) -> bool:
     db[public_work.id].replace_one(
         {DATA_ID_KEY: public_work.id},
         {"type": "publicwork", "data": public_work.dict()},
         upsert=True)
+    return True
 
 
 def add_collect(sqldb: Session, collect: Collect) -> bool:
@@ -63,6 +64,7 @@ def add_photo(sqldb: Session, photo: Photo) -> bool:
             {DATA_ID_KEY: photo.id},
             {"type": "photo", "data": photo.dict()},
             upsert=True)
+        return True
     else:
         return False
 
@@ -140,7 +142,7 @@ def accept_collect(sqldb: Session, public_work_id: str, collect_id: str) -> bool
     if collect:
         parsed = Collect.parse_obj(collect['data'])
         if collect_repository.add_collect(sqldb, parsed):
-            collect.remove()
+            db[public_work_id].delete_many({"type": "collect", DATA_ID_KEY: collect_id})
             check_collection_empty(public_work_id)
             return True
         return False
@@ -153,12 +155,19 @@ def accept_photo(sqldb: Session, public_work_id: str, photo_id: str) -> bool:
     if photo:
         parsed = Photo.parse_obj(photo['data'])
         if photo_repository.add_photo(sqldb, parsed):
-            photo.remove()
+            db[public_work_id].delete_many({"type": "photo", DATA_ID_KEY: photo_id})
             check_collection_empty(public_work_id)
             return True
         return False
     return False
 
+
+def deletePhoto(public_work_id: str, photo_id: str) -> bool:
+    photo = db[public_work_id].find_one({"type": "photo", DATA_ID_KEY: photo_id})
+    if photo:
+        photo.remove()
+        return True
+    return False
 
 def check_collection_empty(public_work_id: str):
     if db[public_work_id].count() == 0:
