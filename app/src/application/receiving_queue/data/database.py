@@ -5,7 +5,7 @@ class QueueDB:
     _instance = None
 
     def __init__(self):
-        self.client = MongoClient(port=27017)
+        self.client = MongoClient('mongodb', 27017)
         self.queue_db = self.client.trena
 
     @classmethod
