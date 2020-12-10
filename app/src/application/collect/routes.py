@@ -30,9 +30,11 @@ class CollectRouter(BaseRouter):
 
     @staticmethod
     @collect_router.get("/paginated")
-    async def get_collect_paginated(page: int = Query(1), per_page: int = Query(20),
+    async def get_collect_paginated(page: int = 1, per_page: int = 20,
                                     db: Session = Depends(get_db)) -> Pagination:
-        return repository.get_all_collect_paginated(db, page, per_page)
+        paginatedCollects = repository.get_all_collect_paginated(db, page, per_page)
+        paginatedCollects.data = list(map(lambda collect: collect.parse_to_collect(), paginatedCollects.data))
+        return paginatedCollects
 
     @staticmethod
     @collect_router.post("/add")

@@ -72,12 +72,28 @@ class QueueRouter(BaseRouter):
             return Response(success=False, error=Error(status_code=401, message="Erro ao aceitar obra pública"))
 
     @staticmethod
+    @queueRouter.post("/publicwork/{id}/delete")
+    async def delete_public_work(id: str) -> Response:
+        if repository.delete_public_work(id):
+            return Response(success=True)
+        else:
+            return Response(success=False, error=Error(status_code=401, message="Erro ao deletar obra pública"))
+
+    @staticmethod
     @queueRouter.post("/publicwork/{public_work_id}/collect/{collect_id}/accept")
     async def accept_collect(public_work_id: str, collect_id: str, db: Session = Depends(get_db)) -> Response:
         if repository.accept_collect(db, public_work_id, collect_id):
             return Response(success=True)
         else:
             return Response(success=False, error=Error(status_code=401, message="Erro ao aceitar coleta"))
+
+    @staticmethod
+    @queueRouter.post("/publicwork/{public_work_id}/collect/{collect_id}/delete")
+    async def delete_collect(public_work_id: str, collect_id: str) -> Response:
+        if repository.delete_collect(public_work_id, collect_id):
+            return Response(success=True)
+        else:
+            return Response(success=False, error=Error(status_code=401, message="Erro ao deletar coleta"))
 
     @staticmethod
     @queueRouter.get("/publicwork/{public_work_id}/collect/{collect_id}/photos")
@@ -102,11 +118,10 @@ class QueueRouter(BaseRouter):
         else:
             return Response(success=False, error=Error(status_code=401, message="Erro ao aceitar foto"))
 
-
     @staticmethod
     @queueRouter.post("/publicwork/{public_work_id}/photo/{photo_id}/delete")
-    async def accept_photo(public_work_id: str, photo_id: str, db: Session = Depends(get_db)) -> Response:
+    async def delete_photo(public_work_id: str, photo_id: str, db: Session = Depends(get_db)) -> Response:
         if repository.deletePhoto(db, public_work_id, photo_id):
             return Response(success=True)
         else:
-            return Response(success=False, error=Error(status_code=401, message="Erro ao aceitar foto"))
+            return Response(success=False, error=Error(status_code=401, message="Erro ao deletar foto"))

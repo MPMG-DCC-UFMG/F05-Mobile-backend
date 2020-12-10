@@ -137,6 +137,10 @@ def accept_public_work(sqldb: Session, public_work_id: str) -> bool:
         return False
 
 
+def delete_public_work(public_work_id: str) -> bool:
+    db[public_work_id].drop()
+
+
 def accept_collect(sqldb: Session, public_work_id: str, collect_id: str) -> bool:
     collect = db[public_work_id].find_one({"type": "collect", DATA_ID_KEY: collect_id})
     if collect:
@@ -148,6 +152,16 @@ def accept_collect(sqldb: Session, public_work_id: str, collect_id: str) -> bool
         return False
     else:
         return False
+
+
+def delete_collect(public_work_id: str, collect_id: str) -> bool:
+    collect = db[public_work_id].find_one({"type": "collect", DATA_ID_KEY: collect_id})
+    if collect:
+        db[public_work_id].delete_many({"type": "collect", DATA_ID_KEY: collect_id})
+        db[public_work_id].delete_many({"type": "photo", 'data.collect_id': collect_id})
+        check_collection_empty(public_work_id)
+        return True
+    return False
 
 
 def accept_photo(sqldb: Session, public_work_id: str, photo_id: str) -> bool:
@@ -165,9 +179,11 @@ def accept_photo(sqldb: Session, public_work_id: str, photo_id: str) -> bool:
 def deletePhoto(public_work_id: str, photo_id: str) -> bool:
     photo = db[public_work_id].find_one({"type": "photo", DATA_ID_KEY: photo_id})
     if photo:
-        photo.remove()
+        db[public_work_id].delete_many({"type": "photo", DATA_ID_KEY: photo_id})
+        check_collection_empty(public_work_id)
         return True
     return False
+
 
 def check_collection_empty(public_work_id: str):
     if db[public_work_id].count() == 0:

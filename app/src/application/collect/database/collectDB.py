@@ -28,13 +28,24 @@ class CollectDB(Base):
             comments=collect.comments,
             public_work_id=collect.public_work_id,
             user_email=collect.user_email,
-            public_work_status = collect.public_work_status
+            public_work_status=collect.public_work_status
         )
 
         if collect.id and is_valid_uuid(collect.id):
             collect_db.id = collect.id
 
         return collect_db
+
+    def parse_to_collect(self):
+        return Collect(
+            id=self.id,
+            public_work_id=self.public_work_id,
+            date=self.date,
+            user_email=self.user_email,
+            comments=self.comments,
+            public_work_status=self.public_work_status,
+            photos=self.photos
+        )
 
     def update(self, collect: Collect):
         self.id = collect.id

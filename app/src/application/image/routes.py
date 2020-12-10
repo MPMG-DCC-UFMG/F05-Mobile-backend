@@ -22,13 +22,14 @@ class ImageRouter(BaseRouter):
     @staticmethod
     @images_router.post("/upload", responses={403: {"description": "Operation forbidden"}})
     def upload_image(request: Request, file: UploadFile = File(...)):
+        repository.check_folder_exists()
         image_folder = config.settings.image_folder
         saved = repository.save_upload_file(file, Path(image_folder))
         if saved:
             filepath = "{0}{1}{2}".format(request.base_url.__str__(), "images/", file.filename)
             return {"filepath": filepath}
         else:
-            raise HTTPException(status_code=403, detail="Not able to find public work to delete")
+            raise HTTPException(status_code=403, detail="Not able to add image")
 
     @staticmethod
     @images_router.get("/{image_name}")
