@@ -68,9 +68,9 @@ async def homepage():
     return "Welcome to the Trena API!"
 
 
-@mpApi.get("/docs", tags=["docs"], dependencies=[Depends(get_api_key)])
-async def get_documentation(api_key: APIKey = Depends(get_api_key)):
+@mpApi.get("/docs", tags=["docs"])
+async def get_documentation():
     response = get_swagger_ui_html(
-        openapi_url="{0}{1}?{2}={3}".format(config.settings.api_prefix, mpApi.openapi_url, API_KEY_NAME, api_key),
+        openapi_url="{0}{1}".format(config.settings.api_prefix, mpApi.openapi_url),
         title="docs")
     return response
