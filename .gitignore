@@ -102,9 +102,6 @@ celerybeat.pid
 *.sage.py
 
 # Environments
-.env
-.venv
-env/
 venv/
 ENV/
 env.bak/
@@ -134,5 +131,4 @@ dmypy.json
 /images/*
 /app/sql_app.db
 /f05_backend*
-/database.env
 /reports/
