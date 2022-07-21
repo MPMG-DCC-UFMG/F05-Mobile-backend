@@ -15,10 +15,11 @@ class InspectionDB(Base):
     public_work_id = Column(String)
     collect_id = Column(String)
     status = Column(Integer)
+    user_status = Column(Integer)
 
     @classmethod
     def from_model(cls, inspection: Inspection):
-        inspection_db = InspectionDB(name=inspection.name, description=inspection.description, public_work_id=inspection.public_work_id, collect_id=inspection.collect_id, status=inspection.status)
+        inspection_db = InspectionDB(name=inspection.name, description=inspection.description, public_work_id=inspection.public_work_id, collect_id=inspection.collect_id, status=inspection.status, user_status=inspection.user_status)
         return inspection_db
 
     def parse_to_inspect(self):

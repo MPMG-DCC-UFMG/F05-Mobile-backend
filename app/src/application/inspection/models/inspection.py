@@ -9,6 +9,7 @@ class Inspection(BaseModel):
     public_work_id: str = None
     collect_id: str = None
     status: int
+    user_status: int = None
 
     class Config:
         orm_mode = True
