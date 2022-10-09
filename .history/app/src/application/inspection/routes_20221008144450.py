@@ -9,8 +9,7 @@ from sqlalchemy.orm import Session
 
 from application.core.database import get_db
 from application.inspection.database import repository
-from application.inspection.models.inspection import Inspection, InspectionDiff
-from application.inspection.database import repository as inspection_repository
+from application.inspection.models.inspection import Inspection
 
 
 class InspectionRouter(BaseRouter):
@@ -28,15 +27,14 @@ class InspectionRouter(BaseRouter):
         return repository.get_inspection(db)
 
     @staticmethod
-    @inspection_router.post(
-        "/add",
-    )
+    @inspection_router.post("/add",)
     async def add_inspection(inspection: Inspection, db: Session = Depends(get_db)) -> Inspection:
         response = repository.add_inspection(db, inspection)
         return response
 
     @staticmethod
-    @inspection_router.put("/update", responses={403: {"description": "Operation forbidden"}})
+    @inspection_router.put("/update", 
+                          responses={403: {"description": "Operation forbidden"}})
     async def update_inspection(inspection: Inspection, db: Session = Depends(get_db)) -> Inspection:
         inspection_db = repository.update_inspection(db, inspection)
         if inspection_db:
@@ -44,28 +42,14 @@ class InspectionRouter(BaseRouter):
         else:
             raise HTTPException(status_code=603, detail="Not able to find type of work to update")
 
+
     @staticmethod
-    @inspection_router.get(
-        "/publicwork/{public_work_id}",
-    )
-    async def get_inspection_by_work_id(public_work_id: str, db: Session = Depends(get_db)) -> list:
+    @inspection_router.get("/publicwork/{public_work_id}", )
+    async def get_inspection_by_work_id(public_work_id:str, db: Session = Depends(get_db)) -> list:
         inspection_db = repository.get_inspection_by_work_id(db, public_work_id)
         if inspection_db:
             return inspection_db
         else:
             raise HTTPException(status_code=603, detail="Not able to find type of work to update")
 
-    @staticmethod
-    @inspection_router.get("/version")
-    async def get_table_version(db: Session = Depends(get_db)) -> Dict[str, int]:
-        return {"version": inspection_repository.get_table_version(db)}
 
-    @staticmethod
-    @inspection_router.get("/changes")
-    async def get_changes_from_version(version: int, db: Session = Depends(get_db)) -> List[PublicWorkDiff]:
-        return inspection_repository.get_inspection_changes_from(db, version)
-
-    @staticmethod
-    @inspection_router.get("/count")
-    async def get_inspection_count(db: Session = Depends(get_db)) -> int:
-        return inspection_repository.count_inspection(db)

@@ -1,7 +1,6 @@
-from sqlalchemy import Column, Integer, String, ForeignKey
+from sqlalchemy import Column, Integer, String
 from sqlalchemy.orm import relationship
 
-from sqlalchemy.orm import relationship, backref
 from application.core.database import Base
 from application.inspection.models.inspection import Inspection
 
@@ -16,26 +15,10 @@ class InspectionDB(Base):
     public_work_id = Column(String)
     collect_id = Column(String)
     status = Column(Integer)
-    user_id = Column(String, ForeignKey("user.email"))
-
-    user = relationship(
-        "UserDB",
-        backref=backref("inspection", cascade="all,delete-orphan", uselist=False),
-        lazy=False,
-        foreign_keys=[user_id],
-    )
 
     @classmethod
     def from_model(cls, inspection: Inspection):
-        inspection_db = InspectionDB(
-            name=inspection.name,
-            description=inspection.description,
-            public_work_id=inspection.public_work_id,
-            collect_id=inspection.collect_id,
-            status=inspection.status,
-            user_id=inspection.user_id,
-            flag=inspection.flag,
-        )
+        inspection_db = InspectionDB(name=inspection.name, description=inspection.description, public_work_id=inspection.public_work_id, collect_id=inspection.collect_id, status=inspection.status)
         return inspection_db
 
     def parse_to_inspect(self):
@@ -45,8 +28,7 @@ class InspectionDB(Base):
             description=self.description,
             public_work_id=self.public_work_id,
             collect_id=self.collect_id,
-            status=self.status,
-            user_id=self.user_id,
+            status=self.status
         )
 
     def update(self, inspection: Inspection):
@@ -56,4 +38,3 @@ class InspectionDB(Base):
         self.public_work_id = inspection.public_work_id
         self.collect_id = inspection.collect_id
         self.status = inspection.status
-        self.user_id = inspection.user_id

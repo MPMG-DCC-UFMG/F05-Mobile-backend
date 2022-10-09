@@ -33,8 +33,6 @@ class InspectionDB(Base):
             public_work_id=inspection.public_work_id,
             collect_id=inspection.collect_id,
             status=inspection.status,
-            user_id=inspection.user_id,
-            flag=inspection.flag,
         )
         return inspection_db
 
@@ -46,7 +44,6 @@ class InspectionDB(Base):
             public_work_id=self.public_work_id,
             collect_id=self.collect_id,
             status=self.status,
-            user_id=self.user_id,
         )
 
     def update(self, inspection: Inspection):
@@ -56,4 +53,3 @@ class InspectionDB(Base):
         self.public_work_id = inspection.public_work_id
         self.collect_id = inspection.collect_id
         self.status = inspection.status
-        self.user_id = inspection.user_id

@@ -22,12 +22,8 @@ class PublicWorkDB(Base):
     rnn_status = Column(Integer)
     timestamp = Column(BigInteger, default=get_today())
 
-    address = relationship(
-        "AddressDB",
-        backref=backref("publicwork", cascade="all,delete-orphan", uselist=False),
-        lazy=False,
-        foreign_keys=[address_id],
-    )
+    address = relationship("AddressDB", backref=backref("publicwork", cascade="all,delete-orphan", uselist=False),
+                           lazy=False, foreign_keys=[address_id])
     collect = relationship("CollectDB")
 
     @classmethod
@@ -36,7 +32,7 @@ class PublicWorkDB(Base):
             name=public_work.name,
             type_work_flag=public_work.type_work_flag,
             address_id=public_work.address.id,
-            user_status=public_work.user_status,
+            user_status=public_work.user_status
         )
 
         if public_work.id and is_valid_uuid(public_work.id):

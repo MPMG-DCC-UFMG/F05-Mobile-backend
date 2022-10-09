@@ -4,10 +4,11 @@ from application.typephoto.database.typePhotoDB import TypePhotoDB
 from application.workstatus.database.workStatusDB import WorkStatusDB
 from sqlalchemy import desc
 from sqlalchemy.orm import Session
-from sqlalchemy_continuum.utils import version_class, Operation
 
 from application.inspection.models.inspection import Inspection, InspectionDiff
 from application.inspection.database.inspectionDB import InspectionDB
+
+from sqlalchemy_continuum.utils import version_class, Operation
 
 
 def get_inspection(db: Session) -> list:

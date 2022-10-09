@@ -46,7 +46,6 @@ class InspectionDB(Base):
             public_work_id=self.public_work_id,
             collect_id=self.collect_id,
             status=self.status,
-            user_id=self.user_id,
         )
 
     def update(self, inspection: Inspection):
