@@ -18,7 +18,6 @@ class CollectDB(Base):
     public_work_status = Column(Integer)
 
     public_work_id = Column(String, ForeignKey("publicwork.id"))
-    inspection_flag = Column(String, ForeignKey("inspection.flag"))
 
     photos = relationship("PhotoDB", cascade="all,delete-orphan", backref="photo")
 
@@ -28,7 +27,6 @@ class CollectDB(Base):
             date=collect.date,
             comments=collect.comments,
             public_work_id=collect.public_work_id,
-            inspection_flag=collect.inspection_flag,
             user_email=collect.user_email,
             public_work_status=collect.public_work_status
         )
@@ -42,7 +40,6 @@ class CollectDB(Base):
         return Collect(
             id=self.id,
             public_work_id=self.public_work_id,
-            inspection_flag=self.inspection_flag,
             date=self.date,
             user_email=self.user_email,
             comments=self.comments,
@@ -54,7 +51,6 @@ class CollectDB(Base):
         self.id = collect.id
         self.comments = collect.comments
         self.public_work_id = collect.public_work_id
-        self.inspection_flag = collect.inspection_flag
         self.user_email = collect.user_email
         self.date = collect.date
         self.public_work_status = collect.public_work_status

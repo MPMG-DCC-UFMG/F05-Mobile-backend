@@ -7,7 +7,6 @@ from application.photo.models.photo import Photo
 class CollectReport(BaseModel):
     id: str = None
     public_work_id: str
-    inspection_flag: str
     date: int
     user_email: str
     comments: str = None

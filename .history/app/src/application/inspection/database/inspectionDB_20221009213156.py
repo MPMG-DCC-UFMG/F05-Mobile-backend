@@ -16,8 +16,7 @@ class InspectionDB(Base):
     public_work_id = Column(String)
     collect_id = Column(String)
     status = Column(Integer)
-    user_email = Column(String)
-    # user_id = Column(String, ForeignKey("user.id"))
+    user_email = Column(String, ForeignKey("user.email"))
 
     # user = relationship(
     #     "UserDB",
@@ -29,13 +28,13 @@ class InspectionDB(Base):
     @classmethod
     def from_model(cls, inspection: Inspection):
         inspection_db = InspectionDB(
-            flag=inspection.flag,
             name=inspection.name,
             description=inspection.description,
             public_work_id=inspection.public_work_id,
             collect_id=inspection.collect_id,
             status=inspection.status,
             user_email=inspection.user_email,
+            flag=inspection.flag,
         )
         return inspection_db
 

@@ -31,10 +31,6 @@ def get_public_work_collects(db: Session, public_work_id: str) -> List[Collect]:
     return db.query(CollectDB).filter(CollectDB.public_work_id == public_work_id).all()
 
 
-def get_inspection_collects(db: Session, inspection_flag: str) -> List[Collect]:
-    return db.query(CollectDB).filter(CollectDB.inspection_flag == inspection_flag).all()
-
-
 def add_collect(db: Session, collect: Collect) -> Collect:
     db_collect = CollectDB.from_model(collect)
     db.add(db_collect)
