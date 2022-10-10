@@ -136,3 +136,5 @@ dmypy.json
 /f05_backend*
 /database.env
 /reports/
+.history/
+.vscode/
