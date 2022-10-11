@@ -15,9 +15,18 @@ def get_inspection(db: Session) -> list:
     return list(map(lambda inspect: inspect.parse_to_inspect(), db_inspection))
 
 
-def get_inspection_by_work_id(db: Session, public_work_id: int) -> list:
+def get_inspection_by_work_id(db: Session, public_work_id: str) -> list:
     db_inspection = db.query(InspectionDB).filter(InspectionDB.public_work_id == public_work_id)
     return list(map(lambda inspect: inspect.parse_to_inspect(), db_inspection))
+
+
+def get_inspection_by_user_email(db: Session, user_email: str) -> list:
+    db_inspection = db.query(InspectionDB).filter(InspectionDB.user_email == user_email)
+    return list(map(lambda inspect: inspect.parse_to_inspect(), db_inspection))
+
+
+def count_inspection(db: Session) -> int:
+    return db.query(InspectionDB).count()
 
 
 def add_inspection(db: Session, inspect: Inspection) -> Inspection:
@@ -26,6 +35,10 @@ def add_inspection(db: Session, inspect: Inspection) -> Inspection:
     db.commit()
     db.refresh(db_inspect)
     return db_inspect.parse_to_inspect()
+
+
+def get_inspection_by_flag(db: Session, inspection_flag: str) -> Inspection:
+    return db.query(InspectionDB).filter(InspectionDB.flag == inspection_flag).first()
 
 
 def update_inspection(db: Session, inspection: Inspection) -> Inspection:

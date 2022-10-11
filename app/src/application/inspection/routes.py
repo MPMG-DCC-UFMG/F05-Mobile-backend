@@ -53,7 +53,18 @@ class InspectionRouter(BaseRouter):
         if inspection_db:
             return inspection_db
         else:
-            raise HTTPException(status_code=603, detail="Not able to find type of work to update")
+            raise HTTPException(status_code=603, detail="Not able to find inspections by public work id")
+
+    @staticmethod
+    @inspection_router.get(
+        "/user/{user_email}",
+    )
+    async def get_inspection_by_user_email(user_email: str, db: Session = Depends(get_db)) -> list:
+        inspection_db = repository.get_inspection_by_user_email(db, user_email)
+        if inspection_db:
+            return inspection_db
+        else:
+            raise HTTPException(status_code=603, detail="Not able to find inspection by user email")
 
     @staticmethod
     @inspection_router.get("/version")

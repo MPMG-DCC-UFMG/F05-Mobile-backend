@@ -1,9 +1,10 @@
-from sqlalchemy import Column, Integer, String, ForeignKey
+from sqlalchemy import Column, Integer, String, ForeignKey, BigInteger
 from sqlalchemy.orm import relationship
 
 from sqlalchemy.orm import relationship, backref
 from application.core.database import Base
 from application.inspection.models.inspection import Inspection
+from application.calendar.calendar_utils import get_today
 
 
 class InspectionDB(Base):
@@ -13,10 +14,11 @@ class InspectionDB(Base):
     flag = Column(Integer, primary_key=True, index=True, autoincrement=True)
     name = Column(String)
     description = Column(String)
-    public_work_id = Column(String)
+    public_work_id = Column(String, ForeignKey("publicwork.id"))
     collect_id = Column(String)
     status = Column(Integer)
     user_email = Column(String)
+    timestamp = Column(BigInteger, default=get_today())
     # user_id = Column(String, ForeignKey("user.id"))
 
     # user = relationship(
