@@ -11,6 +11,10 @@ from application.address.models.city import City
 from application.address.database.cityDB import CityDB
 
 
+def get_address(db: Session) -> list:
+    return db.query(AddressDB).all()
+
+
 def get_address_by_id(db: Session, address_id) -> Address:
     return db.query(AddressDB).filter(AddressDB.id == address_id).first()
 

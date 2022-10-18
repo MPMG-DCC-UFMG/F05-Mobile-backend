@@ -25,6 +25,12 @@ class AddressRouter(BaseRouter):
         return self.address_router
 
     @staticmethod
+    @address_router.get("/")
+    async def get_all_address(db: Session = Depends(get_db)) -> List[Address]:
+        address_list = repository.get_address(db)
+        return address_list
+
+    @staticmethod
     @address_router.get("/by_cep/")
     async def get_address_by_cep(cep: str) -> Address:
         url = "https://www.cepaberto.com/api/v3/cep?cep={0}".format(cep)
