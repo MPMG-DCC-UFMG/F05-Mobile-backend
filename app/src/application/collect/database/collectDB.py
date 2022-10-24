@@ -18,7 +18,7 @@ class CollectDB(Base):
     public_work_status = Column(Integer)
 
     public_work_id = Column(String, ForeignKey("publicwork.id"))
-    inspection_flag = Column(String, ForeignKey("inspection.flag"))
+    inspection_flag = Column(String, ForeignKey("inspection.flag"), nullable=True)
 
     photos = relationship("PhotoDB", cascade="all,delete-orphan", backref="photo")
 
@@ -28,7 +28,7 @@ class CollectDB(Base):
             date=collect.date,
             comments=collect.comments,
             public_work_id=collect.public_work_id,
-            inspection_flag=collect.inspection_flag,
+            inspection_flag=collect.inspection_flag if collect.inspection_flag != "" else None,
             user_email=collect.user_email,
             public_work_status=collect.public_work_status
         )
