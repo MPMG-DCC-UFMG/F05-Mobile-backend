@@ -11,7 +11,7 @@ class UserDB(Base):
     email = Column(String)
     full_name = Column(String)
     cpf = Column(String)
-    profile_pic = Column(String)
+    picture = Column(String)
     birthday = Column(BigInteger)
     phone = Column(String)
     hashed_password = Column(String)
@@ -22,6 +22,7 @@ class UserDB(Base):
         user_db = UserDB(
             email=user.email,
             full_name=user.full_name,
+            picture=user.picture,
             hashed_password=user.authentication,
             role = user.role
         )

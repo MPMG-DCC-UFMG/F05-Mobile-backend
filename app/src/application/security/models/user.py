@@ -8,6 +8,7 @@ class User(BaseModel):
     email: str
     authentication: str
     full_name: Optional[str] = None
+    picture: Optional[str] = None
     role: str = UserRoles.NORMAL.name
 
     class Config:

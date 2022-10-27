@@ -47,7 +47,7 @@ class SecurityRouter(BaseRouter):
 
     @staticmethod
     @security_router.get("/users/me", response_model=User)
-    async def read_users_me(token: str = Depends(oauth2_scheme), db: Session = Depends(get_db)) -> User:
+    async def read_users_me(token: str, db: Session = Depends(get_db)) -> User:
         return get_current_active_user(token, db)
 
     @staticmethod
@@ -55,7 +55,7 @@ class SecurityRouter(BaseRouter):
     async def create_user(user: User, db: Session = Depends(get_db)) -> Response:
         old_user = security_repository.get_user_by_email(db, user.email)
         if old_user:
-            return Response(success=False, error=Error(status_code=401, message="Esse usuário utilizado."))
+            return Response(success=False, error=Error(status_code=401, message="Usuário já utilizado."))
         if not check_password_strength(user.authentication, 0.2):
             return Response(success=False, error=Error(status_code=401, message="Senha muito fraca."))
         hashed_password = get_password_hash(user.authentication)

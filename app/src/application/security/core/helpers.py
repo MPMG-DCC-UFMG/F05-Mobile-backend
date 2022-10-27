@@ -76,7 +76,7 @@ def get_current_active_user(token: str, db: Session) -> User:
     current_user: User = get_current_user(token, db)
     if not current_user:
         raise HTTPException(status_code=400, detail="Inactive user")
-    return User(email=current_user.email, full_name=current_user.full_name, authentication=token)
+    return User(email=current_user.email, full_name=current_user.full_name, picture=current_user.picture, authentication=token)
 
 
 def check_password_strength(password: str, minimum: float) -> bool:
