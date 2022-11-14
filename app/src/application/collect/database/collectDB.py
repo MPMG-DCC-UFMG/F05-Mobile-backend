@@ -1,4 +1,4 @@
-from sqlalchemy import Column, BigInteger, String, ForeignKey, Integer
+from sqlalchemy import Column, BigInteger, String, ForeignKey, Integer, Boolean
 
 from sqlalchemy.orm import relationship
 
@@ -16,6 +16,8 @@ class CollectDB(Base):
     comments = Column(String)
     user_email = Column(String)
     public_work_status = Column(Integer)
+    accepted = Column(Boolean, default=True)
+    accepted_date =  Column(BigInteger, nullable=True)
 
     public_work_id = Column(String, ForeignKey("publicwork.id"))
     inspection_flag = Column(String, ForeignKey("inspection.flag"), nullable=True)
@@ -30,7 +32,9 @@ class CollectDB(Base):
             public_work_id=collect.public_work_id,
             inspection_flag=collect.inspection_flag if collect.inspection_flag != "" else None,
             user_email=collect.user_email,
-            public_work_status=collect.public_work_status
+            public_work_status=collect.public_work_status,
+            accepted=collect.accepted,
+            accepted_date=collect.accepted_date
         )
 
         if collect.id and is_valid_uuid(collect.id):
@@ -47,6 +51,8 @@ class CollectDB(Base):
             user_email=self.user_email,
             comments=self.comments,
             public_work_status=self.public_work_status,
+            accepted=self.accepted,
+            accepted_date=self.accepted_date,
             photos=self.photos
         )
 
@@ -58,3 +64,5 @@ class CollectDB(Base):
         self.user_email = collect.user_email
         self.date = collect.date
         self.public_work_status = collect.public_work_status
+        self.accepted=collect.accepted
+        self.accepted_date=collect.accepted_date

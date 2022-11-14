@@ -10,6 +10,7 @@ class Inspection(BaseModel):
     collect_id: str = None
     status: int
     user_email: str
+    request_date: int = None
 
     class Config:
         orm_mode = True
@@ -24,3 +25,4 @@ class InspectionDiff(BaseModel):
     collect_id: str = None
     status: int = 0
     user_email: str = None
+    request_date: int = None

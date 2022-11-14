@@ -18,6 +18,7 @@ class InspectionDB(Base):
     collect_id = Column(String)
     status = Column(Integer)
     user_email = Column(String)
+    request_date = Column(BigInteger, default=get_today())
     timestamp = Column(BigInteger, default=get_today())
     # user_id = Column(String, ForeignKey("user.id"))
 
@@ -38,6 +39,7 @@ class InspectionDB(Base):
             collect_id=inspection.collect_id,
             status=inspection.status,
             user_email=inspection.user_email,
+            request_date=inspection.request_date,
         )
         return inspection_db
 
@@ -50,6 +52,7 @@ class InspectionDB(Base):
             collect_id=self.collect_id,
             status=self.status,
             user_email=self.user_email,
+            request_date=self.request_date,
         )
 
     def update(self, inspection: Inspection):
@@ -60,3 +63,4 @@ class InspectionDB(Base):
         self.collect_id = inspection.collect_id
         self.status = inspection.status
         self.user_email = inspection.user_email
+        self.request_date = inspection.request_date
