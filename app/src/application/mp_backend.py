@@ -51,7 +51,7 @@ routes = [
     PublicWorkRouter("publicworks", mpApi, [Depends(get_api_key)]),
     CollectRouter("collects", mpApi, [Depends(get_api_key)]),
     PhotoRouter("photos", mpApi, [Depends(get_api_key)]),
-    ImageRouter("images", mpApi, [Depends(get_api_key)]),
+    ImageRouter("images", mpApi),
     TypePhotoRouter("typephotos", mpApi, [Depends(get_api_key)]),
     AddressRouter("address", mpApi, [Depends(get_api_key)]),
     AssociationRouter("association", mpApi, [Depends(get_api_key)]),
