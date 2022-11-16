@@ -11,7 +11,7 @@ from sqlalchemy.orm import Session
 
 from application.inspection.models.inspectionPdf import InspectionPdfDTO
 from application.inspection.util.pdfService import generate_pdf
-from application.inspection.util.pdfServiceByFlag import generate_pdf_from_flag
+from application.inspection.util.pdfServiceByFlag import generate_pdf_by_flag
 
 from application.core.database import get_db
 from application.inspection.models.inspection import Inspection, InspectionDiff
@@ -99,7 +99,7 @@ class InspectionRouter(BaseRouter):
 
     @staticmethod
     @inspection_router.get("/report/{inspection_flag}")
-    async def generate_report_from_flag(inspection_flag: int, db: Session = Depends(get_db)):
+    async def generate_report_by_flag(inspection_flag: int, db: Session = Depends(get_db)):
         inspection_db = repository.get_inspection_by_flag(db, inspection_flag)
         public_work_db = public_work_repository.get_public_work_by_id(db, inspection_db.public_work_id)
         collects_db = collect_repository.get_inspection_collects(db, inspection_flag)
@@ -113,7 +113,8 @@ class InspectionRouter(BaseRouter):
                 {
                 "image_path": "../" + photo.filepath,
                 "description": photo.comment,
-                "coordinates": str(photo.latitude) + " " + str(photo.longitude)
+                "latitude": str(photo.latitude),
+                "longitude": str(photo.longitude)
                 } for photo in photos_db
             ],
             "inspector": {
@@ -122,6 +123,6 @@ class InspectionRouter(BaseRouter):
             }
         }
         print(pdfDto)
-        pdf = generate_pdf_from_flag(InspectionPdfDTO.parse_obj(pdfDto))
+        pdf = generate_pdf_by_flag(InspectionPdfDTO.parse_obj(pdfDto))
         headers = {'Content-Disposition': f'attachment; filename={pdf}'}
         return FileResponse(pdf, headers=headers, media_type="application/pdf")
