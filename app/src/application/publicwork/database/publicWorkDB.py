@@ -20,6 +20,8 @@ class PublicWorkDB(Base):
     address_id = Column(String, ForeignKey("address.id"))
     user_status = Column(Integer)
     rnn_status = Column(Integer)
+    queue_status = Column(Integer, default=0)
+    queue_status_date =  Column(BigInteger, default=get_today())
     timestamp = Column(BigInteger, default=get_today())
 
     address = relationship(
@@ -38,6 +40,8 @@ class PublicWorkDB(Base):
             type_work_flag=public_work.type_work_flag,
             address_id=public_work.address.id,
             user_status=public_work.user_status,
+            queue_status=public_work.queue_status,
+            queue_status_date=public_work.queue_status_date,
         )
 
         # if public_work.id and is_valid_uuid(public_work.id):
@@ -53,3 +57,5 @@ class PublicWorkDB(Base):
         if public_work.rnn_status:
             self.rnn_status = public_work.rnn_status
         self.user_status = public_work.user_status
+        self.queue_status = public_work.queue_status
+        self.queue_status_date = public_work.queue_status_date

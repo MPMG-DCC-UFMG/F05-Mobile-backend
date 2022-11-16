@@ -8,8 +8,8 @@ class Collect(BaseModel):
     id: str = None
     public_work_id: str
     inspection_flag: str
-    accepted: bool = True
-    accepted_date: int = None
+    queue_status: int = 0
+    queue_status_date: int = None
     date: int
     user_email: str
     comments: str = None

@@ -17,8 +17,8 @@ class CollectDB(Base):
     comments = Column(String)
     user_email = Column(String)
     public_work_status = Column(Integer)
-    accepted = Column(Boolean, default=True)
-    accepted_date =  Column(BigInteger, default=get_today())
+    queue_status = Column(Integer, default=0)
+    queue_status_date =  Column(BigInteger, default=get_today())
 
     public_work_id = Column(String, ForeignKey("publicwork.id"))
     inspection_flag = Column(String, ForeignKey("inspection.flag"), nullable=True)
@@ -34,8 +34,8 @@ class CollectDB(Base):
             inspection_flag=collect.inspection_flag if collect.inspection_flag != "" else None,
             user_email=collect.user_email,
             public_work_status=collect.public_work_status,
-            accepted=collect.accepted,
-            accepted_date=collect.accepted_date
+            queue_status=collect.queue_status,
+            queue_status_date=collect.queue_status_date
         )
 
         if collect.id and is_valid_uuid(collect.id):
@@ -52,8 +52,8 @@ class CollectDB(Base):
             user_email=self.user_email,
             comments=self.comments,
             public_work_status=self.public_work_status,
-            accepted=self.accepted,
-            accepted_date=self.accepted_date,
+            queue_status=self.queue_status,
+            queue_status_date=self.queue_status_date,
             photos=self.photos
         )
 
@@ -65,5 +65,5 @@ class CollectDB(Base):
         self.user_email = collect.user_email
         self.date = collect.date
         self.public_work_status = collect.public_work_status
-        self.accepted=collect.accepted
-        self.accepted_date=collect.accepted_date
+        self.queue_status=collect.queue_status
+        self.queue_status_date=collect.queue_status_date
