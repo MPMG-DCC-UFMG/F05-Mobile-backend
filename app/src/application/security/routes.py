@@ -91,7 +91,7 @@ class SecurityRouter(BaseRouter):
         if saved_user:
             return Response(success=True)
         else:
-            raise HTTPException(status_code=403, detail="Not able to create user account")
+            raise HTTPException(status_code=403, detail="Não foi possível criar a conta de usuário")
 
     @staticmethod
     @security_router.get("/users", dependencies=[Depends(admin_role)])
@@ -105,4 +105,4 @@ class SecurityRouter(BaseRouter):
         if user:
             return Response(success=True)
         else:
-            return Response(success=False, error=Error(status_code=401, message="User not found"))
+            return Response(success=False, error=Error(status_code=401, message="Usuário não encontrado"))

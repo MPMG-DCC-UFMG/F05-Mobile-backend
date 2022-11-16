@@ -1,3 +1,4 @@
+from application.calendar.calendar_utils import get_today
 from sqlalchemy import Column, BigInteger, String, ForeignKey, Integer, Boolean
 
 from sqlalchemy.orm import relationship
@@ -17,7 +18,7 @@ class CollectDB(Base):
     user_email = Column(String)
     public_work_status = Column(Integer)
     accepted = Column(Boolean, default=True)
-    accepted_date =  Column(BigInteger, nullable=True)
+    accepted_date =  Column(BigInteger, default=get_today())
 
     public_work_id = Column(String, ForeignKey("publicwork.id"))
     inspection_flag = Column(String, ForeignKey("inspection.flag"), nullable=True)

@@ -1,16 +1,25 @@
 from typing import Dict, List
+from datetime import datetime
 
 from application.security.core.checker import admin_role
 from application.shared.base_router import BaseRouter
 from application.shared.response import Response
 from application.typephoto.models.typePhoto import TypePhoto
 from fastapi import APIRouter, Depends, HTTPException, FastAPI, Body
+from fastapi.responses import FileResponse
 from sqlalchemy.orm import Session
 
+from application.inspection.models.inspectionPdf import InspectionPdfDTO
+from application.inspection.util.pdfService import generate_pdf
+from application.inspection.util.pdfServiceByFlag import generate_pdf_from_flag
+
 from application.core.database import get_db
-from application.inspection.database import repository
 from application.inspection.models.inspection import Inspection, InspectionDiff
-from application.inspection.database import repository as inspection_repository
+from application.inspection.database import repository
+from application.collect.database import repository as collect_repository
+from application.publicwork.database import repository as public_work_repository
+from application.photo.database import repository as photo_repository
+from application.security.database import repository as security_repository
 
 
 class InspectionRouter(BaseRouter):
@@ -69,14 +78,50 @@ class InspectionRouter(BaseRouter):
     @staticmethod
     @inspection_router.get("/version")
     async def get_table_version(db: Session = Depends(get_db)) -> Dict[str, int]:
-        return {"version": inspection_repository.get_table_version(db)}
+        return {"version": repository.get_table_version(db)}
 
     @staticmethod
     @inspection_router.get("/changes")
     async def get_changes_from_version(version: int, db: Session = Depends(get_db)) -> List[InspectionDiff]:
-        return inspection_repository.get_inspection_changes_from(db, version)
+        return repository.get_inspection_changes_from(db, version)
 
     @staticmethod
     @inspection_router.get("/count")
     async def get_inspection_count(db: Session = Depends(get_db)) -> int:
-        return inspection_repository.count_inspection(db)
+        return repository.count_inspection(db)
+
+    @staticmethod
+    @inspection_router.post("/report")
+    async def generate_report(pdfDto: InspectionPdfDTO):
+        pdf = generate_pdf(pdfDto)
+        headers = {'Content-Disposition': f'attachment; filename={pdf}'}
+        return FileResponse(pdf, headers=headers, media_type="application/pdf")
+
+    @staticmethod
+    @inspection_router.get("/report/{inspection_flag}")
+    async def generate_report_from_flag(inspection_flag: int, db: Session = Depends(get_db)):
+        inspection_db = repository.get_inspection_by_flag(db, inspection_flag)
+        public_work_db = public_work_repository.get_public_work_by_id(db, inspection_db.public_work_id)
+        collects_db = collect_repository.get_inspection_collects(db, inspection_flag)
+        photos_db = photo_repository.get_photos_by_collect_id(db, collects_db[0].id)
+        user_db = security_repository.get_user_by_email(db, collects_db[0].user_email)
+        pdfDto = {
+            "inspection_id": str(inspection_db.flag),
+            "local": public_work_db.address.street + ", " + public_work_db.address.number + " - " + public_work_db.address.city + "/"  + public_work_db.address.state,
+            "inspection_date": str(datetime.fromtimestamp(collects_db[0].date)),
+            "content": [
+                {
+                "image_path": "../" + photo.filepath,
+                "description": photo.comment,
+                "coordinates": str(photo.latitude) + " " + str(photo.longitude)
+                } for photo in photos_db
+            ],
+            "inspector": {
+                "name": user_db.full_name,
+                "role": "Vistoriador do MPMG"
+            }
+        }
+        print(pdfDto)
+        pdf = generate_pdf_from_flag(InspectionPdfDTO.parse_obj(pdfDto))
+        headers = {'Content-Disposition': f'attachment; filename={pdf}'}
+        return FileResponse(pdf, headers=headers, media_type="application/pdf")
