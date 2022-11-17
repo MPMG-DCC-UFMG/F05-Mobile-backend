@@ -5,6 +5,7 @@ from application.shared.base_router import BaseRouter
 from fastapi import APIRouter, UploadFile, File, HTTPException, FastAPI, Depends
 from fastapi.responses import FileResponse
 from starlette.requests import Request
+from application.security.core.api_key import get_api_key
 
 from application.image.database import repository
 from application.core import config
@@ -20,7 +21,7 @@ class ImageRouter(BaseRouter):
         return self.images_router
 
     @staticmethod
-    @images_router.post("/upload", responses={403: {"description": "Operation forbidden"}})
+    @images_router.post("/upload", dependencies=[Depends(get_api_key)], responses={403: {"description": "Operation forbidden"}})
     def upload_image(request: Request, file: UploadFile = File(...)):
         repository.check_folder_exists()
         image_folder = config.settings.image_folder
