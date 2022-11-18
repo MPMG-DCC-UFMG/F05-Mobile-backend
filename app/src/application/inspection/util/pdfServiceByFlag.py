@@ -1,13 +1,15 @@
 import math
+from datetime import datetime
 
+from application.core import config
 from application.inspection.models.inspectionPdf import (InspectionPdfDTO,
                                                          Inspector)
 from application.inspection.models.pdfPhoto import PdfPhoto
 from reportlab.lib.pagesizes import A4
 from reportlab.lib.utils import ImageReader
-from reportlab.pdfgen import canvas
+from reportlab.pdfgen.canvas import Canvas
 
-MPMG_logo = ImageReader('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSAh1FmzGdI-yOVfQFas-ZPtLdNMRjky0lVlhxPed8C&s')
+MPMG_logo = ImageReader('../assets/mpmg_pdf_logo.png')
 
 PDF_SIDE_SPACING = 24.45
 PDF_TOP_SPACING = 8.10
@@ -19,7 +21,18 @@ PDF_BOTTOM_LIMIT = 160
 def __mm_to_p(mm):
   return mm / 0.352777
 
-def __draw_header(pdf: canvas.Canvas):
+
+def __draw_template(pdf: Canvas):
+  timestamp = datetime.now().strftime("%d/%m/%Y às %H:%M:%S")
+  pdf.setFont("Helvetica-Bold", 14)
+  pdf.drawString(__mm_to_p(60), __mm_to_p(250), "Relatório Automático de Vistoria")
+  pdf.setFont("Helvetica", 12)
+  pdf.drawString(__mm_to_p(30), __mm_to_p(235), f"Software: {config.settings.system_name}")
+  pdf.drawString(__mm_to_p(30), __mm_to_p(225), f"Versão: {config.settings.system_version}")
+  pdf.drawString(__mm_to_p(30), __mm_to_p(215), f"Relatório gerado em: {timestamp}")
+
+
+def __draw_header(pdf: Canvas):
   pdf.drawImage(MPMG_logo,__mm_to_p(PDF_SIDE_INITIAL_VALUE), __mm_to_p(265) , width=150, height=60)
   pdf.setFont("Helvetica-Bold", 12)
   pdf.drawString(__mm_to_p(110), __mm_to_p(280) , '   Procuradoria-Geral de Justiça')
@@ -27,7 +40,8 @@ def __draw_header(pdf: canvas.Canvas):
   pdf.drawString(__mm_to_p(110), __mm_to_p(270), '        Setor de Engenharia')
   pdf.setFont("Helvetica", 12)
 
-def __draw_footer(pdf: canvas.Canvas):
+
+def __draw_footer(pdf: Canvas):
   page_num = pdf.getPageNumber()
   pdf.setFont("Helvetica-Bold", 8)
   pdf.drawString(__mm_to_p(160), __mm_to_p(21), f'Página {page_num}')
@@ -39,8 +53,8 @@ def __draw_footer(pdf: canvas.Canvas):
   pdf.drawString(__mm_to_p(148), __mm_to_p(10), 'www.mpmg.mp.br')
   pdf.setFont("Helvetica", 12)
 
-#TO-DO: clickabe see on map with coordinates
-def __draw_content(pdf: canvas.Canvas, position: tuple, content: PdfPhoto, index: int):
+
+def __draw_content(pdf: Canvas, position: tuple, content: PdfPhoto, index: int):
   width = 400
   height = 200
   x, y = position
@@ -49,20 +63,22 @@ def __draw_content(pdf: canvas.Canvas, position: tuple, content: PdfPhoto, index
   end_point_y = y - 40
   latitude = getattr(content, 'latitude')
   longitude = getattr(content, 'longitude')
+  description = getattr(content, 'description') if getattr(content, 'description') is not None else "Não há descrição"
 
   pdf.setFont("Helvetica", 9)
   pdf.rect(x, y, width, height)
   pdf.drawImage(image, x, y, width, height)
   pdf.rect(end_point_x, end_point_y, width, height/5)
-  pdf.drawString(x + 4, end_point_y + 6, f"Descrição: {getattr(content, 'description')}")
-  pdf.drawString(x + 4, end_point_y + 28, f"Coordenadas geográficas: {__convert_coordinates_to_DMS(latitude, longitude)}")
+  pdf.drawString(x + 4, end_point_y + 6, f"Coordenadas geográficas: {__convert_coordinates_to_DMS(latitude, longitude)}")
+  pdf.drawString(x + 4, end_point_y + 28, f"Foto {index}: {description}")
   # pdf.drawString(x + 220, end_point_y + 28, "(ver no mapa)")
 
   pdf.setFont("Helvetica", 12)
 
   return end_point_x, end_point_y - 215
 
-def __draw_comments(pdf: canvas.Canvas, inspector: Inspector):
+
+def __draw_comments(pdf: Canvas, inspector: Inspector):
   pdf.showPage()
   __draw_header(pdf)
   __draw_footer(pdf)
@@ -77,6 +93,7 @@ def __draw_comments(pdf: canvas.Canvas, inspector: Inspector):
   pdf.line(__mm_to_p(50), __mm_to_p(140), __mm_to_p(150), __mm_to_p(140))
   pdf.drawString(__mm_to_p(70), __mm_to_p(135), f"{getattr(inspector, 'name')}")
   pdf.drawString(__mm_to_p(70), __mm_to_p(130), f"{getattr(inspector, 'role')}")
+
 
 def __getDMS(value: str):
   value =  abs(float(value))
@@ -97,19 +114,20 @@ def __convert_coordinates_to_DMS(lat: str, lng: str):
 
 
 def generate_pdf_by_flag(data: InspectionPdfDTO):
-  pdf = canvas.Canvas(f"../reports/relatorio-vistoria-{getattr(data, 'inspection_id')}.pdf", pagesize=A4)
+  pdf = Canvas(f"../reports/relatorio-vistoria-{getattr(data, 'inspection_id')}.pdf", pagesize=A4)
   pdf.setAuthor("Equipe F05")
-  pdf.setTitle(f"Relatório da Vistoria {getattr(data, 'inspection_id')}")
+  pdf.setTitle(f"Relatório Automático - Vistoria {getattr(data, 'inspection_id')}")
   __draw_header(pdf)
   __draw_footer(pdf)
+  __draw_template(pdf)
 
   pdf.setFont("Helvetica-Bold", 14)
-  pdf.drawString(__mm_to_p(70), __mm_to_p(250), "Relatório de Vistoria")
+  pdf.drawString(__mm_to_p(90), __mm_to_p(200), "Vistoria")
   pdf.setFont("Helvetica", 12)
 
-  pdf.drawString(__mm_to_p(30), __mm_to_p(235), f"Local: {getattr(data, 'local')}")
-  pdf.drawString(__mm_to_p(30), __mm_to_p(225), f"Data da Vistoria: {getattr(data, 'inspection_date')}")
-  entry_point = (__mm_to_p(30), __mm_to_p(150))
+  pdf.drawString(__mm_to_p(30), __mm_to_p(185), f"Local: {getattr(data, 'local')}")
+  pdf.drawString(__mm_to_p(30), __mm_to_p(175), f"Data da Vistoria: {getattr(data, 'inspection_date')}")
+  entry_point = (__mm_to_p(30), __mm_to_p(90))
   end_point = (0, 0)
 
   for index, content in enumerate(getattr(data, 'content')):
@@ -118,10 +136,10 @@ def generate_pdf_by_flag(data: InspectionPdfDTO):
       __draw_header(pdf)
       __draw_footer(pdf)
       entry_point = (__mm_to_p(30), __mm_to_p(170))
-      end_point = __draw_content(pdf, entry_point, content, index)
+      end_point = __draw_content(pdf, entry_point, content, index+1)
       entry_point = end_point
     else:
-      end_point = __draw_content(pdf, entry_point, content, index)
+      end_point = __draw_content(pdf, entry_point, content, index+1)
       entry_point = end_point
 
   __draw_comments(pdf, getattr(data, 'inspector'))
