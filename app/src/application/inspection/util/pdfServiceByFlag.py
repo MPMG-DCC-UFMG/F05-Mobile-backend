@@ -51,6 +51,9 @@ def __draw_footer(pdf: Canvas):
   pdf.drawString(__mm_to_p(70), __mm_to_p(10), 'Telefone: (31) 3330-8283. E-mail: ceat@mpmg.mp.br')
   pdf.setFont("Helvetica-Bold", 9)
   pdf.drawString(__mm_to_p(148), __mm_to_p(10), 'www.mpmg.mp.br')
+
+  link_rect = (__mm_to_p(148), __mm_to_p(10), __mm_to_p(148), __mm_to_p(10))
+  pdf.linkURL('http://www.mpmg.mp.br', rect=link_rect, relative=1)
   pdf.setFont("Helvetica", 12)
 
 
@@ -71,7 +74,10 @@ def __draw_content(pdf: Canvas, position: tuple, content: PdfPhoto, index: int):
   pdf.rect(end_point_x, end_point_y, width, height/5)
   pdf.drawString(x + 4, end_point_y + 6, f"Coordenadas geográficas: {__convert_coordinates_to_DMS(latitude, longitude)}")
   pdf.drawString(x + 4, end_point_y + 28, f"Foto {index}: {description}")
-  # pdf.drawString(x + 220, end_point_y + 28, "(ver no mapa)")
+
+  pdf.drawString(x + 250, end_point_y + 6, '(ver no mapa)')
+  link_rect = (x + 250, end_point_y + 4, (x+250) + 55, (end_point_y + 6) + 10)
+  pdf.linkURL(f'https://maps.google.com/?q={latitude},{longitude}&z=15', rect=link_rect, relative=1)
 
   pdf.setFont("Helvetica", 12)
 
