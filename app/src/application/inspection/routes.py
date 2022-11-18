@@ -1,25 +1,24 @@
-from typing import Dict, List
 from datetime import datetime
+from typing import Dict, List
 
-from application.security.core.checker import admin_role
-from application.shared.base_router import BaseRouter
-from application.shared.response import Response
-from application.typephoto.models.typePhoto import TypePhoto
-from fastapi import APIRouter, Depends, HTTPException, FastAPI, Body
-from fastapi.responses import FileResponse
-from sqlalchemy.orm import Session
-
+from application.collect.database import repository as collect_repository
+from application.core.database import get_db
+from application.inspection.database import repository
+from application.inspection.models.inspection import Inspection, InspectionDiff
 from application.inspection.models.inspectionPdf import InspectionPdfDTO
 from application.inspection.util.pdfService import generate_pdf
 from application.inspection.util.pdfServiceByFlag import generate_pdf_by_flag
-
-from application.core.database import get_db
-from application.inspection.models.inspection import Inspection, InspectionDiff
-from application.inspection.database import repository
-from application.collect.database import repository as collect_repository
-from application.publicwork.database import repository as public_work_repository
 from application.photo.database import repository as photo_repository
+from application.publicwork.database import \
+    repository as public_work_repository
+from application.security.core.checker import admin_role
 from application.security.database import repository as security_repository
+from application.shared.base_router import BaseRouter
+from application.shared.response import Response
+from application.typephoto.models.typePhoto import TypePhoto
+from fastapi import APIRouter, Body, Depends, FastAPI, HTTPException
+from fastapi.responses import FileResponse
+from sqlalchemy.orm import Session
 
 
 class InspectionRouter(BaseRouter):
@@ -108,7 +107,7 @@ class InspectionRouter(BaseRouter):
         pdfDto = {
             "inspection_id": str(inspection_db.flag),
             "local": public_work_db.address.street + ", " + public_work_db.address.number + " - " + public_work_db.address.city + "/"  + public_work_db.address.state,
-            "inspection_date": str(datetime.fromtimestamp(collects_db[0].date)),
+            "inspection_date": datetime.fromtimestamp(collects_db[0].date).strftime("%d/%m/%Y às %H:%M:%S"),
             "content": [
                 {
                 "image_path": "../" + photo.filepath,
