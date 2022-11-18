@@ -1,9 +1,11 @@
+import math
+
+from application.inspection.models.inspectionPdf import (InspectionPdfDTO,
+                                                         Inspector)
+from application.inspection.models.pdfPhoto import PdfPhoto
 from reportlab.lib.pagesizes import A4
 from reportlab.lib.utils import ImageReader
 from reportlab.pdfgen import canvas
-
-from application.inspection.models.inspectionPdf import InspectionPdfDTO, Inspector
-from application.inspection.models.pdfPhoto import PdfPhoto
 
 MPMG_logo = ImageReader('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSAh1FmzGdI-yOVfQFas-ZPtLdNMRjky0lVlhxPed8C&s')
 
@@ -38,7 +40,7 @@ def __draw_footer(pdf: canvas.Canvas):
   pdf.setFont("Helvetica", 12)
 
 #TO-DO: clickabe see on map with coordinates
-def __draw_content(pdf: canvas.Canvas, position: tuple, content: PdfPhoto):
+def __draw_content(pdf: canvas.Canvas, position: tuple, content: PdfPhoto, index: int):
   width = 400
   height = 200
   x, y = position
@@ -53,8 +55,8 @@ def __draw_content(pdf: canvas.Canvas, position: tuple, content: PdfPhoto):
   pdf.drawImage(image, x, y, width, height)
   pdf.rect(end_point_x, end_point_y, width, height/5)
   pdf.drawString(x + 4, end_point_y + 6, f"Descrição: {getattr(content, 'description')}")
-  pdf.drawString(x + 4, end_point_y + 28, f"Coordenadas geográficas: {latitude}, {longitude}")
-  pdf.drawString(x + 220, end_point_y + 28, "(ver no mapa)")
+  pdf.drawString(x + 4, end_point_y + 28, f"Coordenadas geográficas: {__convert_coordinates_to_DMS(latitude, longitude)}")
+  # pdf.drawString(x + 220, end_point_y + 28, "(ver no mapa)")
 
   pdf.setFont("Helvetica", 12)
 
@@ -76,6 +78,23 @@ def __draw_comments(pdf: canvas.Canvas, inspector: Inspector):
   pdf.drawString(__mm_to_p(70), __mm_to_p(135), f"{getattr(inspector, 'name')}")
   pdf.drawString(__mm_to_p(70), __mm_to_p(130), f"{getattr(inspector, 'role')}")
 
+def __getDMS(value: str):
+  value =  abs(float(value))
+  degree = math.floor(value)
+  minutes = math.floor((value - degree) * 60)
+  seconds = round((value - degree - minutes / 60) * 3600 * 1000) / 1000
+
+  return f"{degree}º{minutes}'{seconds}\""
+
+
+def __convert_coordinates_to_DMS(lat: str, lng: str):
+  finalLat = __getDMS(lat)
+  finalLat += 'N' if float(lat) >= 0 else 'S'
+  finalLng = __getDMS(lng)
+  finalLng += 'L' if float(lat) >= 0 else 'O'
+
+  return finalLat + ", " + finalLng
+
 
 def generate_pdf_by_flag(data: InspectionPdfDTO):
   pdf = canvas.Canvas(f"../reports/relatorio-vistoria-{getattr(data, 'inspection_id')}.pdf", pagesize=A4)
@@ -93,16 +112,16 @@ def generate_pdf_by_flag(data: InspectionPdfDTO):
   entry_point = (__mm_to_p(30), __mm_to_p(150))
   end_point = (0, 0)
 
-  for content in getattr(data, 'content'):
+  for index, content in enumerate(getattr(data, 'content')):
     if end_point[1] <= PDF_BOTTOM_LIMIT and end_point[1] != 0: # Reset axis on new page
       pdf.showPage()
       __draw_header(pdf)
       __draw_footer(pdf)
       entry_point = (__mm_to_p(30), __mm_to_p(170))
-      end_point = __draw_content(pdf, entry_point, content)
+      end_point = __draw_content(pdf, entry_point, content, index)
       entry_point = end_point
     else:
-      end_point = __draw_content(pdf, entry_point, content)
+      end_point = __draw_content(pdf, entry_point, content, index)
       entry_point = end_point
 
   __draw_comments(pdf, getattr(data, 'inspector'))
