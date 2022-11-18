@@ -11,6 +11,8 @@ class Settings(BaseSettings):
     token_cep_aberto: str
     secret_key: str
     api_key: str
+    system_name: str
+    system_version: str
 
     class Config:
         env_file = "../f05_backend.env"
