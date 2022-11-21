@@ -1,22 +1,22 @@
 from pathlib import Path
 from typing import List, Optional
 
-from application.core.helpers import paginate
-from application.core.models.pagination import Pagination
-from sqlalchemy.orm import Session
-
+import application.publicwork.database.repository as public_work_repository
+from application.calendar.calendar_utils import get_first_day_of_month
 from application.collect.database.collectDB import CollectDB
 from application.collect.models.collect import Collect
 from application.collect.models.collect_report import CollectReport
-
-from application.calendar.calendar_utils import get_first_day_of_month
+from application.core.helpers import paginate
+from application.core.models.pagination import Pagination
 from application.file.file_utils import create_json_file_from_list
-
-import application.publicwork.database.repository as public_work_repository
+from sqlalchemy.orm import Session
 
 
 def get_all_collect(db: Session) -> List[Collect]:
     return db.query(CollectDB).all()
+
+def get_all_citizen_collects(db: Session) -> List[Collect]:
+  return db.query(CollectDB).filter(CollectDB.inspection_flag.is_(None)).all()
 
 
 def get_all_collect_paginated(db: Session, page: int, per_page: int = 20) -> Optional[Pagination]:
