@@ -30,6 +30,11 @@ class CollectRouter(BaseRouter):
     @collect_router.get("/citizen")
     async def get_all_citizen_collects(db: Session = Depends(get_db)) -> List[Collect]:
       return repository.get_all_citizen_collects(db)
+    
+    @staticmethod
+    @collect_router.get("/citizen/queue")
+    async def get_citizen_collect_queue(db: Session = Depends(get_db)) -> List[Collect]:
+      return repository.get_citizen_collects_queue(db)
 
     @staticmethod
     @collect_router.get("/paginated")
