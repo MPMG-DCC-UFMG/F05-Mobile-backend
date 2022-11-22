@@ -1,7 +1,12 @@
 from datetime import datetime
 from typing import Dict, List
 
+from fastapi import APIRouter, Body, Depends, FastAPI, HTTPException
+from fastapi.responses import FileResponse
+from sqlalchemy.orm import Session
+
 from application.collect.database import repository as collect_repository
+from application.collect.models.collect import Collect
 from application.core.database import get_db
 from application.inspection.database import repository
 from application.inspection.models.inspection import Inspection, InspectionDiff
@@ -16,9 +21,6 @@ from application.security.database import repository as security_repository
 from application.shared.base_router import BaseRouter
 from application.shared.response import Response
 from application.typephoto.models.typePhoto import TypePhoto
-from fastapi import APIRouter, Body, Depends, FastAPI, HTTPException
-from fastapi.responses import FileResponse
-from sqlalchemy.orm import Session
 
 
 class InspectionRouter(BaseRouter):
@@ -95,6 +97,11 @@ class InspectionRouter(BaseRouter):
         pdf = generate_pdf(pdfDto)
         headers = {'Content-Disposition': f'attachment; filename={pdf}'}
         return FileResponse(pdf, headers=headers, media_type="application/pdf")
+
+    @staticmethod
+    @inspection_router.get("/collect/{inspection_flag}")
+    async def get_inspection_collects(inspection_flag: str, db: Session = Depends(get_db)) -> List[Collect]:
+      return collect_repository.get_inspection_collects(db, inspection_flag)
 
     @staticmethod
     @inspection_router.get("/report/{inspection_flag}")
