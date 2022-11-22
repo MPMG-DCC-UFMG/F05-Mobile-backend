@@ -5,6 +5,7 @@ from typing import List
 class Inspection(BaseModel):
     flag: int = None
     name: str
+    inquire_number: int
     description: str
     public_work_id: str = None
     collect_id: str = None
@@ -20,6 +21,7 @@ class InspectionDiff(BaseModel):
     operation: int
     flag: int
     name: str = None
+    inquire_number: int
     description: str = None
     public_work_id: str = None
     collect_id: str = None

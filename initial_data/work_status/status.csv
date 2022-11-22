@@ -1,0 +1,9 @@
+flag,name,description
+1,Obra não iniciada (terreno),terreno
+2,Infraestrutura, fundacao construcao - laje
+3,Vedação vertical, alvenaria - vedacao construcao - verga
+4,Coberturas, calha - cobertura construcao - telha
+5,Esquadrias, esquadria
+6,Revestimentos externos, emboco - forro - pintura construcao - reboco
+7,Pisos externos e paisagismo, ceramica - paisagismo - pisos externos
+99,Finalizada,obra finalizada

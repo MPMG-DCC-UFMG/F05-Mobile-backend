@@ -1,0 +1,29 @@
+id,public_work_id,inspection_flag,queue_status,queue_status_date,date,user_email,comments,public_work_status
+ff9845a3-c8fb-4f22-afca-e1ae84c12108,c4d82ca8-1120-493c-9a0a-8d14cec1567a,1,1,1668525301,1668525301,filipe@trena.mpmg.mg.br,Dentro do cronograma,4
+5d4fd235-ebfd-463e-9a9b-d5b71defbeb1,6895f41a-185b-40ef-a2f9-a6a6ead243f1,2,1,1668525301,1668525301,filipe@trena.mpmg.mg.br,Etapa A.4 do contrato teŕa que ser refeita,6
+5f9b506e-ad26-4de7-a149-085be92e42df,e688ea6d-473f-4b9e-b6de-4dd494dd7c08,3,1,1668525301,1668525301,filipe@trena.mpmg.mg.br,Atraso de 2 semanas com relacao ao previsto,3
+e03013f5-8f08-4805-8a94-8fc8f88e84f7,bd5d2ac4-058a-417a-9966-6225e69ae57b,4,1,1668525301,1668525301,filipe@trena.mpmg.mg.br,Cor de tinta fora do especificado,2
+22d272b8-be80-404a-940f-4f7a106e42bf,5741f2bd-d090-4e17-aabe-cc476f3b6e79,5,1,1668525301,1668525301,filipe@trena.mpmg.mg.br,Fiacao de internet não está instalada,5
+076c0bbc-f7fd-417a-b1cf-ef6f54f8102f,2554adac-24b9-4014-bb49-817ff3d9264f,6,1,1668525301,1668525301,filipe@trena.mpmg.mg.br,Troca do piso em andamento,4
+3f05cb91-18e0-405b-836a-fe1e6041e19e,af71a3fa-ec40-44e0-a7f5-9d4339fa265f,7,1,1668525301,1668525301,filipe@trena.mpmg.mg.br,Atraso de 1 semana com relacao ao previsto,3
+85f82fa3-8211-4a44-b803-a3d541ea4200,09335b86-bba1-46df-b1e2-4921c6af418a,8,1,1668525301,1668525301,marco@trena.mpmg.mg.br,Tubulacao hidraulica não está de acordo com o especificado,5
+af2a4495-ce1b-4281-beae-c8a0108dcfbf,62afe7e5-e8f8-4f57-955e-c40b2999877f,9,1,1668525301,1668525301,marco@trena.mpmg.mg.br,Alvenaria em andamento,3
+dd574abe-2640-4d66-8f77-5af5adc6257b,849d51b4-cdb1-48bd-a7bf-83e9f2024a3b,10,1,1668525301,1668525301,marco@trena.mpmg.mg.br,Instalacao dos quadros brancos,6
+2b70a2a6-ff2c-4c6e-9584-497f1b2ef187,f47dc5c1-b6a3-4154-8fcf-5d9488d73acf,11,1,1668525301,1668525301,marco@trena.mpmg.mg.br,Pintura e acabamento das grades,3
+e8d87703-e8b0-47a0-a129-5386cd9c7a3b,6f4a9826-2563-45ee-bc09-1bd77e0f871e,12,1,1668525301,1668525301,marco@trena.mpmg.mg.br,Instalacao de novos pontos de tomada,1
+c10b7e02-58df-4f1d-a8d4-f655440a0e9e,d1a4b2cc-f977-40d4-9bd6-0afd6d6dceda,13,1,1668525301,1668525301,marco@trena.mpmg.mg.br,Instalacao das prateleiras,2
+d23a2fe4-a2fa-4cd9-8ff2-6098c19e2cbe,5dbb431f-8df9-4e8a-a0b1-913af835c56b,14,1,1668525301,1668525301,marco@trena.mpmg.mg.br,Pintura dos rodapes,3
+425418d3-12d9-4491-a115-440b1c6ead7b,c4d82ca8-1120-493c-9a0a-8d14cec1567a,,1,1668531536,1668525434,george@trena.mpmg.mg.br,Dentro do cronograma,4
+0774e4b7-587d-44ee-998a-9a1e0addb15c,6895f41a-185b-40ef-a2f9-a6a6ead243f1,,1,1668531536,1668525434,george@trena.mpmg.mg.br,Etapa A.4 do contrato teŕa que ser refeita,3
+f4f1c900-b343-41f3-84b4-88e311854b20,e688ea6d-473f-4b9e-b6de-4dd494dd7c08,,1,1668531536,1668525434,george@trena.mpmg.mg.br,Atraso de 2 semanas com relacao ao previsto,2
+b81d233d-71fd-4b0f-8f4d-abafa6935b9f,bd5d2ac4-058a-417a-9966-6225e69ae57b,,1,1668531536,1668525434,george@trena.mpmg.mg.br,Cor de tinta fora do especificado,4
+866adb5b-a64d-4b8f-abeb-fd21ca0d04d3,5741f2bd-d090-4e17-aabe-cc476f3b6e79,,1,1668531536,1668525434,george@trena.mpmg.mg.br,Fiacao de internet não está instalada,3
+72cb26ed-43af-45e1-8978-182e5d879743,2554adac-24b9-4014-bb49-817ff3d9264f,,0,1668531536,1668525434,george@trena.mpmg.mg.br,Troca do piso em andamento,4
+98aed9ea-8ba1-4fed-98ad-062d1f88893d,af71a3fa-ec40-44e0-a7f5-9d4339fa265f,,0,1668531536,1668525434,george@trena.mpmg.mg.br,Atraso de 1 semana com relacao ao previsto,3
+1d68afc9-3a30-4a7f-91f8-66900c440b2d,09335b86-bba1-46df-b1e2-4921c6af418a,,0,1668531536,1668525434,joao@trena.mpmg.mg.br,Tubulacao hidraulica não está de acordo com o especificado,5
+27a3b7b8-f8a4-4683-9b62-2be541be711d,62afe7e5-e8f8-4f57-955e-c40b2999877f,,0,1668531536,1668525434,joao@trena.mpmg.mg.br,Alvenaria em andamento,3
+a45a6d77-07df-48b6-a97b-84d5ec5a7e6f,849d51b4-cdb1-48bd-a7bf-83e9f2024a3b,,2,1668531536,1668525434,joao@trena.mpmg.mg.br,Instalacao dos quadros brancos,4
+c7cb4c66-f065-41f3-855f-c7a5e2a1894a,f47dc5c1-b6a3-4154-8fcf-5d9488d73acf,,2,1668531536,1668525434,joao@trena.mpmg.mg.br,Pintura e acabamento das grades,5
+771cd8a5-aaac-4c5b-abed-b4b7b5cbdbc7,6f4a9826-2563-45ee-bc09-1bd77e0f871e,,2,1668531536,1668525434,joao@trena.mpmg.mg.br,Instalacao de novos pontos de tomada,3
+3ef2fe16-f33a-4786-afe0-f8e78342ef99,d1a4b2cc-f977-40d4-9bd6-0afd6d6dceda,,2,1668531536,1668525434,joao@trena.mpmg.mg.br,Instalacao das prateleiras,4
+051e96f9-a770-4e60-a9bd-87117ef95bc3,5dbb431f-8df9-4e8a-a0b1-913af835c56b,,2,1668531536,1668525434,joao@trena.mpmg.mg.br,Pintura dos rodapes,5

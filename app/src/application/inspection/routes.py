@@ -106,6 +106,7 @@ class InspectionRouter(BaseRouter):
         user_db = security_repository.get_user_by_email(db, collects_db[0].user_email)
         pdfDto = {
             "inspection_id": str(inspection_db.flag),
+            "inquire_number": str(inspection_db.inquire_number),
             "local": public_work_db.address.street + ", " + public_work_db.address.number + " - " + public_work_db.address.city + "/"  + public_work_db.address.state,
             "inspection_date": datetime.fromtimestamp(collects_db[0].date).strftime("%d/%m/%Y às %H:%M:%S"),
             "content": [
@@ -121,7 +122,6 @@ class InspectionRouter(BaseRouter):
                 "role": "Vistoriador do MPMG"
             }
         }
-        print(pdfDto)
         pdf = generate_pdf_by_flag(InspectionPdfDTO.parse_obj(pdfDto))
         headers = {'Content-Disposition': f'attachment; filename={pdf}'}
         return FileResponse(pdf, headers=headers, media_type="application/pdf")

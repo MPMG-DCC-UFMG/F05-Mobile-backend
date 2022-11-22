@@ -120,15 +120,15 @@ def __convert_coordinates_to_DMS(lat: str, lng: str):
 
 
 def generate_pdf_by_flag(data: InspectionPdfDTO):
-  pdf = Canvas(f"../reports/relatorio-vistoria-{getattr(data, 'inspection_id')}.pdf", pagesize=A4)
+  pdf = Canvas(f"../reports/relatorio-vistoria-{getattr(data, 'inquire_number')}.pdf", pagesize=A4)
   pdf.setAuthor("Equipe F05")
-  pdf.setTitle(f"Relatório Automático - Vistoria {getattr(data, 'inspection_id')}")
+  pdf.setTitle(f"Relatório Automático - Vistoria {getattr(data, 'inquire_number')}")
   __draw_header(pdf)
   __draw_footer(pdf)
   __draw_template(pdf)
 
   pdf.setFont("Helvetica-Bold", 14)
-  pdf.drawString(__mm_to_p(90), __mm_to_p(200), "Vistoria")
+  pdf.drawString(__mm_to_p(90), __mm_to_p(200), f"Vistoria n° {getattr(data, 'inquire_number')}")
   pdf.setFont("Helvetica", 12)
 
   pdf.drawString(__mm_to_p(30), __mm_to_p(185), f"Local: {getattr(data, 'local')}")
@@ -151,4 +151,4 @@ def generate_pdf_by_flag(data: InspectionPdfDTO):
   __draw_comments(pdf, getattr(data, 'inspector'))
   pdf.save()
 
-  return f"../reports/relatorio-vistoria-{getattr(data, 'inspection_id')}.pdf"
+  return f"../reports/relatorio-vistoria-{getattr(data, 'inquire_number')}.pdf"

@@ -13,6 +13,7 @@ class InspectionDB(Base):
 
     flag = Column(Integer, primary_key=True, index=True, autoincrement=True)
     name = Column(String)
+    inquire_number = Column(Integer)
     description = Column(String)
     public_work_id = Column(String, ForeignKey("publicwork.id"))
     collect_id = Column(String)
@@ -34,6 +35,7 @@ class InspectionDB(Base):
         inspection_db = InspectionDB(
             flag=inspection.flag,
             name=inspection.name,
+            inquire_number=inspection.inquire_number,
             description=inspection.description,
             public_work_id=inspection.public_work_id,
             collect_id=inspection.collect_id,
@@ -47,6 +49,7 @@ class InspectionDB(Base):
         return Inspection(
             flag=self.flag,
             name=self.name,
+            inquire_number=self.inquire_number,
             description=self.description,
             public_work_id=self.public_work_id,
             collect_id=self.collect_id,
@@ -58,6 +61,7 @@ class InspectionDB(Base):
     def update(self, inspection: Inspection):
         self.flag = inspection.flag
         self.name = inspection.name
+        self.inquire_number = inspection.inquire_number
         self.description = inspection.description
         self.public_work_id = inspection.public_work_id
         self.collect_id = inspection.collect_id
