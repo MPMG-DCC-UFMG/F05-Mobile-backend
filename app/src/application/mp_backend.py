@@ -67,11 +67,12 @@ for route in routes:
 
 @mpApi.get("/")
 async def homepage():
-    return "Welcome to the Trena API!"
+    return "Welcome to the Trena API test docker!"
 
 
 @mpApi.get("/docs", tags=["docs"])
 async def get_documentation():
+    print("{0}{1}".format(config.settings.api_prefix, mpApi.openapi_url))
     response = get_swagger_ui_html(
         openapi_url="{0}{1}".format(config.settings.api_prefix, mpApi.openapi_url),
         title="docs")
