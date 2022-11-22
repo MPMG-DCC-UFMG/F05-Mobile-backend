@@ -125,7 +125,7 @@ def add_inspections():
                             {
                                 "flag": inspection[0],
                                 "name": inspection[1],
-                                "inquire_number": inspection[2],
+                                "inquiry_number": inspection[2],
                                 "description": inspection[3],
                                 "public_work_id": inspection[4],
                                 "collect_id": inspection[5],

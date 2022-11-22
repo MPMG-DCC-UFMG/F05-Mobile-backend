@@ -1,4 +1,4 @@
-flag,name,inquire_number,description,public_work_id,collect_id,status,user_email,request_date
+flag,name,inquiry_number,description,public_work_id,collect_id,status,user_email,request_date
 1,Esc. Educ. Infantil - Tipo B,2245,Verificacao da quadra poliesportiva,c4d82ca8-1120-493c-9a0a-8d14cec1567a,,0,admin@admin.com,1665841677
 2,Esc. Educ. Infantil - Tipo C,2056,Ampliacao do numero de salas,6895f41a-185b-40ef-a2f9-a6a6ead243f1,,0,admin@admin.com,1665841677
 3,Espaço Educativo Urbano I,1976,Reforma das salas de aula,e688ea6d-473f-4b9e-b6de-4dd494dd7c08,,0,admin@admin.com,1665841677

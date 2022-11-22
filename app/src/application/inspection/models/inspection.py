@@ -21,7 +21,7 @@ class InspectionDiff(BaseModel):
     operation: int
     flag: int
     name: str = None
-    inquire_number: int
+    inquiry_number: int
     description: str = None
     public_work_id: str = None
     collect_id: str = None

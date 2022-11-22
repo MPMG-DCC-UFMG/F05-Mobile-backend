@@ -12,7 +12,7 @@ class Inspector(BaseModel):
 
 class InspectionPdfDTO(BaseModel):
   inspection_id: str
-  inquire_number: str
+  inquiry_number: str
   local: str
   inspection_date: str
   content: List[PdfPhoto]
