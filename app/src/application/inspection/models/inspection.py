@@ -5,7 +5,7 @@ from typing import List
 class Inspection(BaseModel):
     flag: int = None
     name: str
-    inquire_number: int
+    inquiry_number: int
     description: str
     public_work_id: str = None
     collect_id: str = None
