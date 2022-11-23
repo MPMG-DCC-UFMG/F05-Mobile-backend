@@ -116,6 +116,7 @@ class InspectionRouter(BaseRouter):
             "inquiry_number": str(inspection_db.inquiry_number),
             "local": public_work_db.address.street + ", " + public_work_db.address.number + " - " + public_work_db.address.city + "/"  + public_work_db.address.state,
             "inspection_date": datetime.fromtimestamp(collects_db[0].date).strftime("%d/%m/%Y às %H:%M:%S"),
+            "observations": str(collects_db[0].comments),
             "content": [
                 {
                 "image_path": "../" + photo.filepath,
@@ -126,6 +127,7 @@ class InspectionRouter(BaseRouter):
             ],
             "inspector": {
                 "name": user_db.full_name,
+                "email": user_db.email,
                 "role": "Vistoriador do MPMG"
             }
         }

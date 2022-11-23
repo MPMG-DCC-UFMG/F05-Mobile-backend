@@ -8,6 +8,7 @@ from application.inspection.models.pdfPhoto import PdfPhoto
 from reportlab.lib.pagesizes import A4
 from reportlab.lib.utils import ImageReader
 from reportlab.pdfgen.canvas import Canvas
+from textwrap import wrap
 
 MPMG_logo = ImageReader('../assets/mpmg_pdf_logo.png')
 
@@ -35,9 +36,9 @@ def __draw_template(pdf: Canvas):
 def __draw_header(pdf: Canvas):
   pdf.drawImage(MPMG_logo,__mm_to_p(PDF_SIDE_INITIAL_VALUE), __mm_to_p(265) , width=150, height=60)
   pdf.setFont("Helvetica-Bold", 12)
-  pdf.drawString(__mm_to_p(110), __mm_to_p(280) , '   Procuradoria-Geral de Justiça')
-  pdf.drawString(__mm_to_p(110), __mm_to_p(275), 'Centro de Apoio Técnico - CEAT')
-  pdf.drawString(__mm_to_p(110), __mm_to_p(270), '        Setor de Engenharia')
+  pdf.drawString(__mm_to_p(110), __mm_to_p(280) , config.settings.report_institution)
+  pdf.drawString(__mm_to_p(110), __mm_to_p(275), config.settings.report_department)
+  pdf.drawString(__mm_to_p(110), __mm_to_p(270), config.settings.report_section)
   pdf.setFont("Helvetica", 12)
 
 
@@ -47,13 +48,13 @@ def __draw_footer(pdf: Canvas):
   pdf.drawString(__mm_to_p(160), __mm_to_p(21), f'Página {page_num}')
   pdf.line(__mm_to_p(20), __mm_to_p(20), __mm_to_p(180), __mm_to_p(20))
   pdf.setFont("Helvetica", 9)
-  pdf.drawString(__mm_to_p(45), __mm_to_p(15), 'Avenida Álvares Cabral, 1690. Bairro Santo Agostinho. Belo Horizonte/MG. CEP: 30170-008')
-  pdf.drawString(__mm_to_p(70), __mm_to_p(10), 'Telefone: (31) 3330-8283. E-mail: ceat@mpmg.mp.br')
+  pdf.drawString(__mm_to_p(45), __mm_to_p(15), config.settings.report_address)
+  pdf.drawString(__mm_to_p(70), __mm_to_p(10), config.settings.report_contact)
   pdf.setFont("Helvetica-Bold", 9)
-  pdf.drawString(__mm_to_p(148), __mm_to_p(10), 'www.mpmg.mp.br')
+  pdf.drawString(__mm_to_p(148), __mm_to_p(10), config.settings.report_website)
 
   link_rect = (__mm_to_p(148), __mm_to_p(10), __mm_to_p(148), __mm_to_p(10))
-  pdf.linkURL('http://www.mpmg.mp.br', rect=link_rect, relative=1)
+  pdf.linkURL(f'http://{config.settings.report_website}', rect=link_rect, relative=1)
   pdf.setFont("Helvetica", 12)
 
 
@@ -86,20 +87,22 @@ def __draw_content(pdf: Canvas, position: tuple, content: PdfPhoto, index: int):
   return end_point_x, end_point_y - 215
 
 
-def __draw_comments(pdf: Canvas, inspector: Inspector):
+def __draw_comments(pdf: Canvas, observations: str, inspector: Inspector):
   pdf.showPage()
   __draw_header(pdf)
   __draw_footer(pdf)
   pdf.setFont("Helvetica", 12)
   pdf.drawString(__mm_to_p(30), __mm_to_p(235), 'Observações:')
 
-  spacing = 0 # spacing between lines
-  for _ in range(10):
-    pdf.line(__mm_to_p(30), __mm_to_p(220 - spacing), __mm_to_p(180), __mm_to_p(220 - spacing))
-    spacing += 5
+  # Handle multi-linetext
+  textobject = pdf.beginText()
+  textobject.setTextOrigin(__mm_to_p(30), __mm_to_p(220))
+  observations_with_line_breaks = "\n".join(wrap(observations, 80)) # 80 is line width
+  textobject.textLines(observations_with_line_breaks)
+  pdf.drawText(textobject)
 
   pdf.line(__mm_to_p(50), __mm_to_p(140), __mm_to_p(150), __mm_to_p(140))
-  pdf.drawString(__mm_to_p(70), __mm_to_p(135), f"{getattr(inspector, 'name')}")
+  pdf.drawString(__mm_to_p(70), __mm_to_p(135), f"{getattr(inspector, 'name')} - {getattr(inspector, 'email')}")
   pdf.drawString(__mm_to_p(70), __mm_to_p(130), f"{getattr(inspector, 'role')}")
 
 
@@ -150,7 +153,7 @@ def generate_pdf_by_flag(data: InspectionPdfDTO):
       end_point = __draw_content(pdf, entry_point, content, index+1)
       entry_point = end_point
 
-  __draw_comments(pdf, getattr(data, 'inspector'))
+  __draw_comments(pdf, getattr(data, 'observations'), getattr(data, 'inspector'))
   pdf.save()
 
   return f"../reports/relatorio-vistoria-{getattr(data, 'inquiry_number')}.pdf"

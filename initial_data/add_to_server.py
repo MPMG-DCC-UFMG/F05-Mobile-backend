@@ -152,7 +152,9 @@ def add_collects():
                                 "queue_status": collect[3],
                                 "queue_status_date": collect[4],
                                 "date": collect[5],
-                                "user_email": collect[6]
+                                "user_email": collect[6],
+                                "comments": collect[7],
+                                "public_work_status": collect[8]
                             })
             if response.status_code == 200:
                 uploaded = uploaded + 1
