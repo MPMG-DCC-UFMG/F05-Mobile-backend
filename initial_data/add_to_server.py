@@ -3,8 +3,8 @@ import pathlib
 from fastapi import UploadFile, File
 
 # BASE_URL = "https://trena.gsi.mpmg.mp.br/f05_backend/"
-BASE_URL = "http://localhost/f05_backend/"
-# BASE_URL = "http://0.0.0.0:8000/"
+# BASE_URL = "http://localhost/f05_backend/"
+BASE_URL = "http://0.0.0.0:8000/"
 
 # API_KEY = "DA28L9EEppwvC25tHg2X"
 API_KEY = "0a944fb8-2bbc-4f03-a81a-bf84899cd4f2"

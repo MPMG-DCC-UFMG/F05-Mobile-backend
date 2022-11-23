@@ -61,7 +61,8 @@ def __draw_content(pdf: Canvas, position: tuple, content: PdfPhoto, index: int):
   width = 400
   height = 200
   x, y = position
-  image = ImageReader(getattr(content, 'image_path'))
+  image_path = getattr(content, 'image_path')
+  image = ImageReader(image_path)
   end_point_x = x
   end_point_y = y - 40
   latitude = getattr(content, 'latitude')
@@ -71,6 +72,7 @@ def __draw_content(pdf: Canvas, position: tuple, content: PdfPhoto, index: int):
   pdf.setFont("Helvetica", 9)
   pdf.rect(x, y, width, height)
   pdf.drawImage(image, x, y, width, height)
+  pdf.linkURL(f'http://0.0.0.0:8000/images/{image_path}', rect=(x, y, width+x, height+y), relative=1)
   pdf.rect(end_point_x, end_point_y, width, height/5)
   pdf.drawString(x + 4, end_point_y + 6, f"Coordenadas geográficas: {__convert_coordinates_to_DMS(latitude, longitude)}")
   pdf.drawString(x + 4, end_point_y + 28, f"Foto {index}: {description}")
