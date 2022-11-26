@@ -7,13 +7,15 @@ from application.inspection.models.pdfPhoto import PdfPhoto
 
 class Inspector(BaseModel):
   name: str
+  email: str
   role: str
 
 
 class InspectionPdfDTO(BaseModel):
   inspection_id: str
-  inquire_number: str
+  inquiry_number: str
   local: str
   inspection_date: str
+  observations: str
   content: List[PdfPhoto]
   inspector: Inspector

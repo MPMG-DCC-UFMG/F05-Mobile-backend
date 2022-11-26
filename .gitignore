@@ -133,7 +133,7 @@ dmypy.json
 
 /images/*
 /app/sql_app.db
-/f05_backend*
+/f05_backend.env
 /database.env
 /reports/
 .history/

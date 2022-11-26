@@ -246,7 +246,7 @@ After starting the API, you can load it with mock data by running two commands:
 1. Run Python script to populate the database based on .csv files:
 
 ```bash
-cd initial_data && python add_to_server.py
+cd initial_data && python3 add_to_server.py
 ```
 
 2. Copy initial_data/photos/images to images folder:

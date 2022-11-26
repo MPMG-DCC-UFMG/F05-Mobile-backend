@@ -3,8 +3,8 @@ import pathlib
 from fastapi import UploadFile, File
 
 # BASE_URL = "https://trena.gsi.mpmg.mp.br/f05_backend/"
-BASE_URL = "http://localhost/f05_backend/"
-# BASE_URL = "http://0.0.0.0:8000/"
+# BASE_URL = "http://localhost/f05_backend/"
+BASE_URL = "http://0.0.0.0:8000/"
 
 # API_KEY = "DA28L9EEppwvC25tHg2X"
 API_KEY = "0a944fb8-2bbc-4f03-a81a-bf84899cd4f2"
@@ -125,7 +125,7 @@ def add_inspections():
                             {
                                 "flag": inspection[0],
                                 "name": inspection[1],
-                                "inquire_number": inspection[2],
+                                "inquiry_number": inspection[2],
                                 "description": inspection[3],
                                 "public_work_id": inspection[4],
                                 "collect_id": inspection[5],
@@ -152,7 +152,9 @@ def add_collects():
                                 "queue_status": collect[3],
                                 "queue_status_date": collect[4],
                                 "date": collect[5],
-                                "user_email": collect[6]
+                                "user_email": collect[6],
+                                "comments": collect[7],
+                                "public_work_status": collect[8]
                             })
             if response.status_code == 200:
                 uploaded = uploaded + 1

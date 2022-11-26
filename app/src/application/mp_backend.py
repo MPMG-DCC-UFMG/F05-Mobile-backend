@@ -67,7 +67,7 @@ for route in routes:
 
 @mpApi.get("/")
 async def homepage():
-    return "Welcome to the Trena API test docker!"
+    return "Welcome to the Trena API!"
 
 
 @mpApi.get("/docs", tags=["docs"])
