@@ -1,15 +1,15 @@
 id,name,type_work_flag,queue_status,queue_status_date,address_id,street,neighborhood,number,latitude,longitude,city,state,cep
-c4d82ca8-1120-493c-9a0a-8d14cec1567a,Esc. Educ. Infantil - Tipo B,1,1,1668525301,fdda8ab3-8d99-42dd-af99-17aef7c52f5d,R. Salvador Guilherme,Sao Goncalo Do Abaete,250,-18.333917,-45.829780,São Gonçalo do Abaeté,MG,38790-000
-6895f41a-185b-40ef-a2f9-a6a6ead243f1,Esc. Educ. Infantil - Tipo C,1,1,1668525301,2b0f406e-ff5c-46ec-a733-caa4d719c47b,,Arapuá,S/N,-19.041546,-46.145079,Arapuá,MG,38860-000
-e688ea6d-473f-4b9e-b6de-4dd494dd7c08,Espaço Educativo Urbano I,1,1,1668525301,c531d7ec-d172-4daa-b4db-b22a2524a6b8,R. Prof. Plinio Humberto pereira,Jardim Alto Sol,S/N,-19.930699,-48.385457,Conceição das Alagoas,MG,38120-000
-bd5d2ac4-058a-417a-9966-6225e69ae57b,Esc. Educ. Infantil - Tipo B,1,1,1668525301,ac4815d9-6d3f-45ca-bf2e-082d5b9e2963,R. Rio Jequitinhonha,Serra Dos Aimores,258,-17.785338,-40.246465,Serra dos Aimorés,MG,39868-000
-5741f2bd-d090-4e17-aabe-cc476f3b6e79,Esc. Educ. Infantil - Tipo B,1,1,1668525301,77007b2d-921b-4d37-999d-62d77622cbeb,R. Apiacás,Pqe Guarua,210,-21.778571,-43.335428,Juiz de Fora,MG,36021-400
-2554adac-24b9-4014-bb49-817ff3d9264f,Esc. Educ. Infantil - Tipo B,1,1,1668525301,144eb866-2c03-47a0-b739-03c2f3e6be4f,Av. Américo Martins,Urucuia,202-316,-16.124486,-45.739754,Urucuia,MG,39315-000
-af71a3fa-ec40-44e0-a7f5-9d4339fa265f,Esc. Educ. Infantil - Tipo C,1,1,1668525301,4a84f2cf-ae99-42c5-95f5-de9c7a440afe,Praca Santos Dumont,Carmo Do Rio Claro,54,-20.963835,-46.134916,Carmo do Rio Claro,MG,37150-000
-09335b86-bba1-46df-b1e2-4921c6af418a,Esc. Educ. Infantil - Tipo C,1,1,1668525301,cc125c46-d8e3-4627-811d-1d5b9353e841,R. Geronimo Caboclo,Conego Marinho,204,-15.297516,-44.417557,Cônego Marinho,MG,39489-000
-62afe7e5-e8f8-4f57-955e-c40b2999877f,Esc. Educ. Infantil Atualizada,1,1,1668525301,d329e24d-407e-42f2-8146-b2c75d3d3bba,R. José Barros,,S/N,-16.886474,-40.924525,Fronteira dos Vales,MG,39870-000
-849d51b4-cdb1-48bd-a7bf-83e9f2024a3b,Esc. Educ. Infantil - Tipo C,1,1,1668525301,fef1de58-10e4-48fc-beae-d06fd1f8204f,R. Trinta e Um,,S/N,-20.183479,-45.697601,Iguatama,MG,38910-000
-f47dc5c1-b6a3-4154-8fcf-5d9488d73acf,Esc. Educação Infantil C - Alvorada,1,1,1668525301,e124d84f-05ff-4aa2-8dc4-9d3bae1f1c15,R. R,Alvorada,340,-15.497471,-44.375759,Januária,MG,39480-000
-6f4a9826-2563-45ee-bc09-1bd77e0f871e,Esc. Educ. Infantil - Tipo B,1,1,1668525301,6e4f8304-8395-4fb4-a058-8b8f5ad38b86,R. José Marquês Pereira,,394-516,-19.005590,-44.045047,Santana de Pirapama,MG,35785-000
-d1a4b2cc-f977-40d4-9bd6-0afd6d6dceda,Esc. Educ. Infantil - Tipo B,1,0,1668525301,d4b71f7e-26ed-4faa-ba8e-a700937a4eb3,Av. Dezoito,,S/N,-19.860385,-49.766069,São Francisco de Sales,MG,38260-000
-5dbb431f-8df9-4e8a-a0b1-913af835c56b,Esc. Educ. Infantil,1,0,1668525301,a0272b20-c275-469b-8ec7-f4e02e1f4944,R. Cel. Tobias,Pedrinópolis,23-13,-19.225717,-47.463930,Pedrinópolis,MG,38178-000
+c4d82ca8-1120-493c-9a0a-8d14cec1567a,Esc. Educ. Infantil - Tipo B,1,1,1668525301000,fdda8ab3-8d99-42dd-af99-17aef7c52f5d,R. Salvador Guilherme,Sao Goncalo Do Abaete,250,-18.333917,-45.829780,São Gonçalo do Abaeté,MG,38790-000
+6895f41a-185b-40ef-a2f9-a6a6ead243f1,Esc. Educ. Infantil - Tipo C,1,1,1668525301000,2b0f406e-ff5c-46ec-a733-caa4d719c47b,,Arapuá,S/N,-19.041546,-46.145079,Arapuá,MG,38860-000
+e688ea6d-473f-4b9e-b6de-4dd494dd7c08,Espaço Educativo Urbano I,1,1,1668525301000,c531d7ec-d172-4daa-b4db-b22a2524a6b8,R. Prof. Plinio Humberto pereira,Jardim Alto Sol,S/N,-19.930699,-48.385457,Conceição das Alagoas,MG,38120-000
+bd5d2ac4-058a-417a-9966-6225e69ae57b,Esc. Educ. Infantil - Tipo B,1,1,1668525301000,ac4815d9-6d3f-45ca-bf2e-082d5b9e2963,R. Rio Jequitinhonha,Serra Dos Aimores,258,-17.785338,-40.246465,Serra dos Aimorés,MG,39868-000
+5741f2bd-d090-4e17-aabe-cc476f3b6e79,Esc. Educ. Infantil - Tipo B,1,1,1668525301000,77007b2d-921b-4d37-999d-62d77622cbeb,R. Apiacás,Pqe Guarua,210,-21.778571,-43.335428,Juiz de Fora,MG,36021-400
+2554adac-24b9-4014-bb49-817ff3d9264f,Esc. Educ. Infantil - Tipo B,1,1,1668525301000,144eb866-2c03-47a0-b739-03c2f3e6be4f,Av. Américo Martins,Urucuia,202-316,-16.124486,-45.739754,Urucuia,MG,39315-000
+af71a3fa-ec40-44e0-a7f5-9d4339fa265f,Esc. Educ. Infantil - Tipo C,1,1,1668525301000,4a84f2cf-ae99-42c5-95f5-de9c7a440afe,Praca Santos Dumont,Carmo Do Rio Claro,54,-20.963835,-46.134916,Carmo do Rio Claro,MG,37150-000
+09335b86-bba1-46df-b1e2-4921c6af418a,Esc. Educ. Infantil - Tipo C,1,1,1668525301000,cc125c46-d8e3-4627-811d-1d5b9353e841,R. Geronimo Caboclo,Conego Marinho,204,-15.297516,-44.417557,Cônego Marinho,MG,39489-000
+62afe7e5-e8f8-4f57-955e-c40b2999877f,Esc. Educ. Infantil Atualizada,1,1,1668525301000,d329e24d-407e-42f2-8146-b2c75d3d3bba,R. José Barros,,S/N,-16.886474,-40.924525,Fronteira dos Vales,MG,39870-000
+849d51b4-cdb1-48bd-a7bf-83e9f2024a3b,Esc. Educ. Infantil - Tipo C,1,1,1668525301000,fef1de58-10e4-48fc-beae-d06fd1f8204f,R. Trinta e Um,,S/N,-20.183479,-45.697601,Iguatama,MG,38910-000
+f47dc5c1-b6a3-4154-8fcf-5d9488d73acf,Esc. Educação Infantil C - Alvorada,1,1,1668525301000,e124d84f-05ff-4aa2-8dc4-9d3bae1f1c15,R. R,Alvorada,340,-15.497471,-44.375759,Januária,MG,39480-000
+6f4a9826-2563-45ee-bc09-1bd77e0f871e,Esc. Educ. Infantil - Tipo B,1,1,1668525301000,6e4f8304-8395-4fb4-a058-8b8f5ad38b86,R. José Marquês Pereira,,394-516,-19.005590,-44.045047,Santana de Pirapama,MG,35785-000
+d1a4b2cc-f977-40d4-9bd6-0afd6d6dceda,Esc. Educ. Infantil - Tipo B,1,0,1668525301000,d4b71f7e-26ed-4faa-ba8e-a700937a4eb3,Av. Dezoito,,S/N,-19.860385,-49.766069,São Francisco de Sales,MG,38260-000
+5dbb431f-8df9-4e8a-a0b1-913af835c56b,Esc. Educ. Infantil,1,0,1668525301000,a0272b20-c275-469b-8ec7-f4e02e1f4944,R. Cel. Tobias,Pedrinópolis,23-13,-19.225717,-47.463930,Pedrinópolis,MG,38178-000

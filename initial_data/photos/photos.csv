@@ -1,58 +1,58 @@
 id,collect_id,type,file_path,latitude,longitude,comment,timestamp
-7458edd1-1751-4e05-a57d-eceb1802d4b4,ff9845a3-c8fb-4f22-afca-e1ae84c12108,1,images/quadra_estrutura_1.jpeg,-18.333917,-45.829780,Dentro do cronograma,1668537118
-7ed4c233-bad7-4b53-94b0-d75f4f22105f,ff9845a3-c8fb-4f22-afca-e1ae84c12108,1,images/quadra_estrutura_2.jpeg,-18.333917,-45.829780,Dentro do cronograma,1668537119
-680a63d8-7444-48f0-9ab5-499e10dba0f1,5d4fd235-ebfd-463e-9a9b-d5b71defbeb1,2,images/sala_estrutura_1.jpeg,-19.041546,-46.145079,Etapa A.4 do contrato terá que ser refeita,1668537120
-a1883bae-d70f-42b9-ba9b-65e327d534ac,5d4fd235-ebfd-463e-9a9b-d5b71defbeb1,2,images/sala_estrutura_2.jpeg,-19.041546,-46.145079,Etapa A.4 do contrato terá que ser refeita,1668537121
-f7f481a1-e593-4f87-a8e3-8d33a0c2472a,5f9b506e-ad26-4de7-a149-085be92e42df,3,images/sala_pintura_1.jpeg,-19.930699,-48.385457,Atraso de 2 semanas com relação ao previsto,1668537122
-d94f775b-85ea-4cb6-b312-09947f0f36f0,5f9b506e-ad26-4de7-a149-085be92e42df,3,images/sala_pintura_2.jpeg,-19.930699,-48.385457,Atraso de 2 semanas com relação ao previsto,1668537123
-30cd40bc-e790-40db-aadc-6264ada6b5ce,e03013f5-8f08-4805-8a94-8fc8f88e84f7,4,images/escola_fachada_1.jpeg,-17.785338,-40.246465,Cor de tinta fora do especificado,1668537124
-7fce787e-9ac7-4f5c-bb18-8a5a78b12c26,e03013f5-8f08-4805-8a94-8fc8f88e84f7,4,images/escola_fachada_2.jpeg,-17.785338,-40.246465,Cor de tinta fora do especificado,1668537125
-727ea18c-d918-42c8-9ee3-5a3839e06677,22d272b8-be80-404a-940f-4f7a106e42bf,5,images/professores_1.jpeg,-21.778571,-43.335428,Fiação de internet não está instalada,1668537126
-3d0fec18-1449-43e4-907d-abadcfc1a4de,22d272b8-be80-404a-940f-4f7a106e42bf,5,images/professores_2.jpeg,-21.778571,-43.335428,Fiação de internet não está instalada,1668537127
-bf52f722-35d3-4fe9-9d5e-92adf41c13f6,076c0bbc-f7fd-417a-b1cf-ef6f54f8102f,1,images/biblioteca_estrutura_1.jpeg,-16.124486,-45.739754,Troca do piso em andamento,1668537128
-67e4c4a0-a644-4a05-97bb-935a32bec210,076c0bbc-f7fd-417a-b1cf-ef6f54f8102f,1,images/biblioteca_estrutura_2.jpeg,-16.124486,-45.739754,Troca do piso em andamento,1668537129
-2599aaf6-d00a-4d61-bc51-495884cceaff,3f05cb91-18e0-405b-836a-fe1e6041e19e,2,images/sala_pintura_3.jpeg,-20.963835,-46.134916,Atraso de 1 semana com relação ao previsto,1668537130
-f814b005-b70e-47e0-9874-1df5d25b5765,3f05cb91-18e0-405b-836a-fe1e6041e19e,2,images/sala_pintura_4.jpeg,-20.963835,-46.134916,Atraso de 1 semana com relação ao previsto,1668537131
-3559e6ff-968a-41ef-92dc-6a0127d226ee,85f82fa3-8211-4a44-b803-a3d541ea4200,3,images/quadra_estrutura_3.jpeg,-15.297516,-44.417557,Tubulação hidraulica não está de acordo com o especificado,1668537132
-884394d7-4eff-4075-b3ca-5587e89e4636,85f82fa3-8211-4a44-b803-a3d541ea4200,3,images/quadra_estrutura_4.jpeg,-15.297516,-44.417557,Tubulação hidraulica não está de acordo com o especificado,1668537133
-e73cc8c9-ad96-4eb9-b8fa-85ab2a266c29,af2a4495-ce1b-4281-beae-c8a0108dcfbf,4,images/sala_estrutura_3.jpeg,-16.886474,-40.924525,Alvenaria em andamento,1668537134
-ee82bbd2-8d43-45dc-8d47-6c9589715737,af2a4495-ce1b-4281-beae-c8a0108dcfbf,4,images/sala_estrutura_4.jpeg,-16.886474,-40.924525,Alvenaria em andamento,1668537135
-e3e277ce-e89e-4f68-924e-7b0263c26264,dd574abe-2640-4d66-8f77-5af5adc6257b,5,images/sala_estrutura_5.jpeg,-20.183479,-45.697601,Instalação dos quadros brancos,1668537136
-ea4790ac-c424-4647-a007-2c07c103f02d,dd574abe-2640-4d66-8f77-5af5adc6257b,5,images/escola_fachada_3.jpeg,-20.183479,-45.697601,Instalação dos quadros brancos,1668537137
-2e91c73c-3da2-473a-aa95-3d566375968e,2b70a2a6-ff2c-4c6e-9584-497f1b2ef187,1,images/escola_fachada_4.jpeg,-15.497471,-44.375759,Pintura e acabamento das grades,1668537138
-d3cccfbe-788f-44e3-bb7f-bea8c3c03bcf,2b70a2a6-ff2c-4c6e-9584-497f1b2ef187,1,images/escola_fachada_5.jpeg,-15.497471,-44.375759,Pintura e acabamento das grades,1668537139
-4fa647a3-ef41-49bd-aa70-b881ffc02aba,e8d87703-e8b0-47a0-a129-5386cd9c7a3b,2,images/professores_3.jpeg,-19.005590,-44.045047,Instalação de novos pontos de tomada,1668537140
-4ad77e7b-552d-4a02-b2e0-b965ce5189b0,e8d87703-e8b0-47a0-a129-5386cd9c7a3b,2,images/professores_4.jpeg,-19.005590,-44.045047,Instalação de novos pontos de tomada,1668537141
-32c6d225-fc5e-47fe-9e8a-f58541f2280f,c10b7e02-58df-4f1d-a8d4-f655440a0e9e,3,images/biblioteca_pintura_1.jpeg,-19.860385,-49.766069,Instalação das prateleiras,1668537142
-e7aff4ef-d8ee-4b43-aa0d-f8fe3c0b03bb,c10b7e02-58df-4f1d-a8d4-f655440a0e9e,3,images/biblioteca_pintura_2.jpeg,-19.860385,-49.766069,Instalação das prateleiras,1668537143
-ef29436e-284d-42c5-866d-e2e25185da20,d23a2fe4-a2fa-4cd9-8ff2-6098c19e2cbe,4,images/sala_pintura_5.jpeg,-19.225717,-47.463930,Pintura dos rodapés,1668537144
-62ed95d5-90af-4142-9d09-3c4ad380c32f,d23a2fe4-a2fa-4cd9-8ff2-6098c19e2cbe,4,images/escola_fachada_6.jpeg,-19.225717,-47.463930,Pintura dos rodapés,1668537145
-af3cd76a-4de8-4072-afd4-8a58ffab9d1e,425418d3-12d9-4491-a115-440b1c6ead7b,1,images/quadra_estrutura_5.jpeg,-18.333917,-45.829780,Dentro do cronograma,1668537146
-8840385f-1032-41a3-a6a4-e740cde345b8,425418d3-12d9-4491-a115-440b1c6ead7b,1,images/quadra_estrutura_6.jpeg,-18.333917,-45.829780,Dentro do cronograma,1668537147
-7c7bd137-f69a-47ee-b32c-d1769e4fa3b1,0774e4b7-587d-44ee-998a-9a1e0addb15c,2,images/sala_estrutura_5.jpeg,-19.041546,-46.145079,Etapa A.4 do contrato terá que ser refeita,1668537148
-ba217025-fe9b-43a1-a7e7-df85a8f75f5f,0774e4b7-587d-44ee-998a-9a1e0addb15c,2,images/sala_estrutura_6.jpeg,-19.041546,-46.145079,Etapa A.4 do contrato terá que ser refeita,1668537149
-c008e6d9-0173-4286-907d-04db1c8d8c87,f4f1c900-b343-41f3-84b4-88e311854b20,3,images/sala_estrutura_7.jpeg,-19.930699,-48.385457,Atraso de 2 semanas com relação ao previsto,1668537150
-8a12d4e1-adb3-4fcc-94c9-5fe42953480a,f4f1c900-b343-41f3-84b4-88e311854b20,3,images/sala_estrutura_8.jpeg,-19.930699,-48.385457,Atraso de 2 semanas com relação ao previsto,1668537151
-a9d76b28-52c1-45bd-85da-981874f53c1b,b81d233d-71fd-4b0f-8f4d-abafa6935b9f,4,images/escola_fachada_7.jpeg,-17.785338,-40.246465,Cor de tinta fora do especificado,1668537152
-90913e15-be9b-4109-80b3-dcac46373748,b81d233d-71fd-4b0f-8f4d-abafa6935b9f,4,images/escola_fachada_8.jpeg,-17.785338,-40.246465,Cor de tinta fora do especificado,1668537153
-f295852b-ef12-4ca9-bd5c-d9f7cd1709d7,866adb5b-a64d-4b8f-abeb-fd21ca0d04d3,5,images/escola_fachada_9.jpeg,-21.778571,-43.335428,Fiação de internet não está instalada,1668537154
-33546741-b80d-4b15-ab60-c229dc24c19a,866adb5b-a64d-4b8f-abeb-fd21ca0d04d3,5,images/escola_fachada_10.jpeg,-21.778571,-43.335428,Fiação de internet não está instalada,1668537155
-a3e23a42-5cd9-4ede-b4da-1f191cb22158,72cb26ed-43af-45e1-8978-182e5d879743,1,images/biblioteca_estrutura_3.jpeg,-16.124486,-45.739754,Troca do piso em andamento,1668537156
-1e512716-f2dc-481f-9960-daad47da8445,72cb26ed-43af-45e1-8978-182e5d879743,1,images/biblioteca_estrutura_4.jpeg,-16.124486,-45.739754,Troca do piso em andamento,1668537157
-08c5bf20-945b-4c32-827a-2fcbc64cf4e8,98aed9ea-8ba1-4fed-98ad-062d1f88893d,2,images/escola_fachada_11.jpeg,-20.963835,-46.134916,Atraso de 1 semana com relação ao previsto,1668537158
-f72cc823-b6a8-4e63-ae98-fd913e4a4c76,98aed9ea-8ba1-4fed-98ad-062d1f88893d,2,images/escola_fachada_12.jpeg,-20.963835,-46.134916,Atraso de 1 semana com relação ao previsto,1668537159
-17227703-86b6-4feb-858b-feab5044e6d1,1d68afc9-3a30-4a7f-91f8-66900c440b2d,3,images/quadra_estrutura_7.jpeg,-15.297516,-44.417557,Tubulação hidráulica não está de acordo com o especificado,1668537160
-7f5f9c16-0be0-4754-b0bf-e5d25101aed5,1d68afc9-3a30-4a7f-91f8-66900c440b2d,3,images/quadra_estrutura_8.jpeg,-15.297516,-44.417557,Tubulação hidráulica não está de acordo com o especificado,1668537161
-d7547c2b-2f42-4878-9046-3b7ad23bf13b,27a3b7b8-f8a4-4683-9b62-2be541be711d,4,images/sala_estrutura_6.jpeg,-16.886474,-40.924525,Alvenaria em andamento,1668537162
-2ae44deb-ff3a-4b02-b6e0-4f37d3b6938c,27a3b7b8-f8a4-4683-9b62-2be541be711d,4,images/sala_estrutura_7.jpeg,-16.886474,-40.924525,Alvenaria em andamento,1668537163
-9341c416-ac48-4ee5-a8b2-9f7d9f0cedcb,a45a6d77-07df-48b6-a97b-84d5ec5a7e6f,5,images/sala_estrutura_8.jpeg,-20.183479,-45.697601,Instalação dos quadros brancos,1668537164
-efc1ecc3-e4b6-4246-b0b3-aee65f196576,a45a6d77-07df-48b6-a97b-84d5ec5a7e6f,5,images/sala_estrutura_9.jpeg,-20.183479,-45.697601,Instalação dos quadros brancos,1668537165
-e1bec7ee-fd6a-45e1-8439-cd588999c48d,c7cb4c66-f065-41f3-855f-c7a5e2a1894a,1,images/escola_fachada_11.jpeg,-15.497471,-44.375759,Pintura e acabamento das grades,1668537166
-effd1b52-0ac6-4991-a995-a6770c9cc04a,c7cb4c66-f065-41f3-855f-c7a5e2a1894a,1,images/escola_fachada_12.jpeg,-15.497471,-44.375759,Pintura e acabamento das grades,1668537167
-3535f751-4043-428b-9af7-961b64f3198f,771cd8a5-aaac-4c5b-abed-b4b7b5cbdbc7,2,images/sala_defeito_1.jpeg,-19.005590,-44.045047,Instalação de novos pontos de tomada,1668537168
-53bb3090-9bb4-4cca-96ee-5deb04520866,771cd8a5-aaac-4c5b-abed-b4b7b5cbdbc7,2,images/sala_estrutura_11.jpeg,-19.005590,-44.045047,Instalação de novos pontos de tomada,1668537169
-74836f65-4c86-4f49-84d9-148fbd5868e9,3ef2fe16-f33a-4786-afe0-f8e78342ef99,3,images/sala_estrutura_12.jpeg,-19.860385,-49.766069,Instalação das prateleiras,1668537170
-090cdf29-93cf-48f3-9ad6-852c0be75933,3ef2fe16-f33a-4786-afe0-f8e78342ef99,3,images/sala_estrutura_13.jpeg,-19.860385,-49.766069,Instalação das prateleiras,1668537171
-68f2704c-505b-483f-b24b-ec533c97c480,051e96f9-a770-4e60-a9bd-87117ef95bc3,4,images/quadra_pintura_1.jpeg,-19.225717,-47.463930,Pintura dos rodapés,1668537172
-faa591e7-298d-46a3-8345-8903ec479d61,051e96f9-a770-4e60-a9bd-87117ef95bc3,4,images/quadra_pintura_2.jpeg,-19.225717,-47.463930,Pintura dos rodapés,1668537173
-06fc9988-f24a-4a28-a2e5-b9c9ab7aad1d,d23a2fe4-a2fa-4cd9-8ff2-6098c19e2cbe,4,images/quadra_pintura_3.mp4,-19.225717,-47.463930,Pintura dos rodapés,1668537173
+7458edd1-1751-4e05-a57d-eceb1802d4b4,ff9845a3-c8fb-4f22-afca-e1ae84c12108,1,images/quadra_estrutura_1.jpeg,-18.333917,-45.829780,Dentro do cronograma,1668537118000
+7ed4c233-bad7-4b53-94b0-d75f4f22105f,ff9845a3-c8fb-4f22-afca-e1ae84c12108,1,images/quadra_estrutura_2.jpeg,-18.333917,-45.829780,Dentro do cronograma,1668537119000
+680a63d8-7444-48f0-9ab5-499e10dba0f1,5d4fd235-ebfd-463e-9a9b-d5b71defbeb1,2,images/sala_estrutura_1.jpeg,-19.041546,-46.145079,Etapa A.4 do contrato terá que ser refeita,1668537120000
+a1883bae-d70f-42b9-ba9b-65e327d534ac,5d4fd235-ebfd-463e-9a9b-d5b71defbeb1,2,images/sala_estrutura_2.jpeg,-19.041546,-46.145079,Etapa A.4 do contrato terá que ser refeita,1668537121000
+f7f481a1-e593-4f87-a8e3-8d33a0c2472a,5f9b506e-ad26-4de7-a149-085be92e42df,3,images/sala_pintura_1.jpeg,-19.930699,-48.385457,Atraso de 2 semanas com relação ao previsto,1668537122000
+d94f775b-85ea-4cb6-b312-09947f0f36f0,5f9b506e-ad26-4de7-a149-085be92e42df,3,images/sala_pintura_2.jpeg,-19.930699,-48.385457,Atraso de 2 semanas com relação ao previsto,1668537123000
+30cd40bc-e790-40db-aadc-6264ada6b5ce,e03013f5-8f08-4805-8a94-8fc8f88e84f7,4,images/escola_fachada_1.jpeg,-17.785338,-40.246465,Cor de tinta fora do especificado,1668537124000
+7fce787e-9ac7-4f5c-bb18-8a5a78b12c26,e03013f5-8f08-4805-8a94-8fc8f88e84f7,4,images/escola_fachada_2.jpeg,-17.785338,-40.246465,Cor de tinta fora do especificado,1668537125000
+727ea18c-d918-42c8-9ee3-5a3839e06677,22d272b8-be80-404a-940f-4f7a106e42bf,5,images/professores_1.jpeg,-21.778571,-43.335428,Fiação de internet não está instalada,1668537126000
+3d0fec18-1449-43e4-907d-abadcfc1a4de,22d272b8-be80-404a-940f-4f7a106e42bf,5,images/professores_2.jpeg,-21.778571,-43.335428,Fiação de internet não está instalada,1668537127000
+bf52f722-35d3-4fe9-9d5e-92adf41c13f6,076c0bbc-f7fd-417a-b1cf-ef6f54f8102f,1,images/biblioteca_estrutura_1.jpeg,-16.124486,-45.739754,Troca do piso em andamento,1668537128000
+67e4c4a0-a644-4a05-97bb-935a32bec210,076c0bbc-f7fd-417a-b1cf-ef6f54f8102f,1,images/biblioteca_estrutura_2.jpeg,-16.124486,-45.739754,Troca do piso em andamento,1668537129000
+2599aaf6-d00a-4d61-bc51-495884cceaff,3f05cb91-18e0-405b-836a-fe1e6041e19e,2,images/sala_pintura_3.jpeg,-20.963835,-46.134916,Atraso de 1 semana com relação ao previsto,1668537130000
+f814b005-b70e-47e0-9874-1df5d25b5765,3f05cb91-18e0-405b-836a-fe1e6041e19e,2,images/sala_pintura_4.jpeg,-20.963835,-46.134916,Atraso de 1 semana com relação ao previsto,1668537131000
+3559e6ff-968a-41ef-92dc-6a0127d226ee,85f82fa3-8211-4a44-b803-a3d541ea4200,3,images/quadra_estrutura_3.jpeg,-15.297516,-44.417557,Tubulação hidraulica não está de acordo com o especificado,1668537132000
+884394d7-4eff-4075-b3ca-5587e89e4636,85f82fa3-8211-4a44-b803-a3d541ea4200,3,images/quadra_estrutura_4.jpeg,-15.297516,-44.417557,Tubulação hidraulica não está de acordo com o especificado,1668537133000
+e73cc8c9-ad96-4eb9-b8fa-85ab2a266c29,af2a4495-ce1b-4281-beae-c8a0108dcfbf,4,images/sala_estrutura_3.jpeg,-16.886474,-40.924525,Alvenaria em andamento,1668537134000
+ee82bbd2-8d43-45dc-8d47-6c9589715737,af2a4495-ce1b-4281-beae-c8a0108dcfbf,4,images/sala_estrutura_4.jpeg,-16.886474,-40.924525,Alvenaria em andamento,1668537135000
+e3e277ce-e89e-4f68-924e-7b0263c26264,dd574abe-2640-4d66-8f77-5af5adc6257b,5,images/sala_estrutura_5.jpeg,-20.183479,-45.697601,Instalação dos quadros brancos,1668537136000
+ea4790ac-c424-4647-a007-2c07c103f02d,dd574abe-2640-4d66-8f77-5af5adc6257b,5,images/escola_fachada_3.jpeg,-20.183479,-45.697601,Instalação dos quadros brancos,1668537137000
+2e91c73c-3da2-473a-aa95-3d566375968e,2b70a2a6-ff2c-4c6e-9584-497f1b2ef187,1,images/escola_fachada_4.jpeg,-15.497471,-44.375759,Pintura e acabamento das grades,1668537138000
+d3cccfbe-788f-44e3-bb7f-bea8c3c03bcf,2b70a2a6-ff2c-4c6e-9584-497f1b2ef187,1,images/escola_fachada_5.jpeg,-15.497471,-44.375759,Pintura e acabamento das grades,1668537139000
+4fa647a3-ef41-49bd-aa70-b881ffc02aba,e8d87703-e8b0-47a0-a129-5386cd9c7a3b,2,images/professores_3.jpeg,-19.005590,-44.045047,Instalação de novos pontos de tomada,1668537140000
+4ad77e7b-552d-4a02-b2e0-b965ce5189b0,e8d87703-e8b0-47a0-a129-5386cd9c7a3b,2,images/professores_4.jpeg,-19.005590,-44.045047,Instalação de novos pontos de tomada,1668537141000
+32c6d225-fc5e-47fe-9e8a-f58541f2280f,c10b7e02-58df-4f1d-a8d4-f655440a0e9e,3,images/biblioteca_pintura_1.jpeg,-19.860385,-49.766069,Instalação das prateleiras,1668537142000
+e7aff4ef-d8ee-4b43-aa0d-f8fe3c0b03bb,c10b7e02-58df-4f1d-a8d4-f655440a0e9e,3,images/biblioteca_pintura_2.jpeg,-19.860385,-49.766069,Instalação das prateleiras,1668537143000
+ef29436e-284d-42c5-866d-e2e25185da20,d23a2fe4-a2fa-4cd9-8ff2-6098c19e2cbe,4,images/sala_pintura_5.jpeg,-19.225717,-47.463930,Pintura dos rodapés,1668537144000
+62ed95d5-90af-4142-9d09-3c4ad380c32f,d23a2fe4-a2fa-4cd9-8ff2-6098c19e2cbe,4,images/escola_fachada_6.jpeg,-19.225717,-47.463930,Pintura dos rodapés,1668537145000
+af3cd76a-4de8-4072-afd4-8a58ffab9d1e,425418d3-12d9-4491-a115-440b1c6ead7b,1,images/quadra_estrutura_5.jpeg,-18.333917,-45.829780,Dentro do cronograma,1668537146000
+8840385f-1032-41a3-a6a4-e740cde345b8,425418d3-12d9-4491-a115-440b1c6ead7b,1,images/quadra_estrutura_6.jpeg,-18.333917,-45.829780,Dentro do cronograma,1668537147000
+7c7bd137-f69a-47ee-b32c-d1769e4fa3b1,0774e4b7-587d-44ee-998a-9a1e0addb15c,2,images/sala_estrutura_5.jpeg,-19.041546,-46.145079,Etapa A.4 do contrato terá que ser refeita,1668537148000
+ba217025-fe9b-43a1-a7e7-df85a8f75f5f,0774e4b7-587d-44ee-998a-9a1e0addb15c,2,images/sala_estrutura_6.jpeg,-19.041546,-46.145079,Etapa A.4 do contrato terá que ser refeita,1668537149000
+c008e6d9-0173-4286-907d-04db1c8d8c87,f4f1c900-b343-41f3-84b4-88e311854b20,3,images/sala_estrutura_7.jpeg,-19.930699,-48.385457,Atraso de 2 semanas com relação ao previsto,1668537150000
+8a12d4e1-adb3-4fcc-94c9-5fe42953480a,f4f1c900-b343-41f3-84b4-88e311854b20,3,images/sala_estrutura_8.jpeg,-19.930699,-48.385457,Atraso de 2 semanas com relação ao previsto,1668537151000
+a9d76b28-52c1-45bd-85da-981874f53c1b,b81d233d-71fd-4b0f-8f4d-abafa6935b9f,4,images/escola_fachada_7.jpeg,-17.785338,-40.246465,Cor de tinta fora do especificado,1668537152000
+90913e15-be9b-4109-80b3-dcac46373748,b81d233d-71fd-4b0f-8f4d-abafa6935b9f,4,images/escola_fachada_8.jpeg,-17.785338,-40.246465,Cor de tinta fora do especificado,1668537153000
+f295852b-ef12-4ca9-bd5c-d9f7cd1709d7,866adb5b-a64d-4b8f-abeb-fd21ca0d04d3,5,images/escola_fachada_9.jpeg,-21.778571,-43.335428,Fiação de internet não está instalada,1668537154000
+33546741-b80d-4b15-ab60-c229dc24c19a,866adb5b-a64d-4b8f-abeb-fd21ca0d04d3,5,images/escola_fachada_10.jpeg,-21.778571,-43.335428,Fiação de internet não está instalada,1668537155000
+a3e23a42-5cd9-4ede-b4da-1f191cb22158,72cb26ed-43af-45e1-8978-182e5d879743,1,images/biblioteca_estrutura_3.jpeg,-16.124486,-45.739754,Troca do piso em andamento,1668537156000
+1e512716-f2dc-481f-9960-daad47da8445,72cb26ed-43af-45e1-8978-182e5d879743,1,images/biblioteca_estrutura_4.jpeg,-16.124486,-45.739754,Troca do piso em andamento,1668537157000
+08c5bf20-945b-4c32-827a-2fcbc64cf4e8,98aed9ea-8ba1-4fed-98ad-062d1f88893d,2,images/escola_fachada_11.jpeg,-20.963835,-46.134916,Atraso de 1 semana com relação ao previsto,1668537158000
+f72cc823-b6a8-4e63-ae98-fd913e4a4c76,98aed9ea-8ba1-4fed-98ad-062d1f88893d,2,images/escola_fachada_12.jpeg,-20.963835,-46.134916,Atraso de 1 semana com relação ao previsto,1668537159000
+17227703-86b6-4feb-858b-feab5044e6d1,1d68afc9-3a30-4a7f-91f8-66900c440b2d,3,images/quadra_estrutura_7.jpeg,-15.297516,-44.417557,Tubulação hidráulica não está de acordo com o especificado,1668537160000
+7f5f9c16-0be0-4754-b0bf-e5d25101aed5,1d68afc9-3a30-4a7f-91f8-66900c440b2d,3,images/quadra_estrutura_8.jpeg,-15.297516,-44.417557,Tubulação hidráulica não está de acordo com o especificado,1668537161000
+d7547c2b-2f42-4878-9046-3b7ad23bf13b,27a3b7b8-f8a4-4683-9b62-2be541be711d,4,images/sala_estrutura_6.jpeg,-16.886474,-40.924525,Alvenaria em andamento,1668537162000
+2ae44deb-ff3a-4b02-b6e0-4f37d3b6938c,27a3b7b8-f8a4-4683-9b62-2be541be711d,4,images/sala_estrutura_7.jpeg,-16.886474,-40.924525,Alvenaria em andamento,1668537163000
+9341c416-ac48-4ee5-a8b2-9f7d9f0cedcb,a45a6d77-07df-48b6-a97b-84d5ec5a7e6f,5,images/sala_estrutura_8.jpeg,-20.183479,-45.697601,Instalação dos quadros brancos,1668537164000
+efc1ecc3-e4b6-4246-b0b3-aee65f196576,a45a6d77-07df-48b6-a97b-84d5ec5a7e6f,5,images/sala_estrutura_9.jpeg,-20.183479,-45.697601,Instalação dos quadros brancos,1668537165000
+e1bec7ee-fd6a-45e1-8439-cd588999c48d,c7cb4c66-f065-41f3-855f-c7a5e2a1894a,1,images/escola_fachada_11.jpeg,-15.497471,-44.375759,Pintura e acabamento das grades,1668537166000
+effd1b52-0ac6-4991-a995-a6770c9cc04a,c7cb4c66-f065-41f3-855f-c7a5e2a1894a,1,images/escola_fachada_12.jpeg,-15.497471,-44.375759,Pintura e acabamento das grades,1668537167000
+3535f751-4043-428b-9af7-961b64f3198f,771cd8a5-aaac-4c5b-abed-b4b7b5cbdbc7,2,images/sala_defeito_1.jpeg,-19.005590,-44.045047,Instalação de novos pontos de tomada,1668537168000
+53bb3090-9bb4-4cca-96ee-5deb04520866,771cd8a5-aaac-4c5b-abed-b4b7b5cbdbc7,2,images/sala_estrutura_11.jpeg,-19.005590,-44.045047,Instalação de novos pontos de tomada,1668537169000
+74836f65-4c86-4f49-84d9-148fbd5868e9,3ef2fe16-f33a-4786-afe0-f8e78342ef99,3,images/sala_estrutura_12.jpeg,-19.860385,-49.766069,Instalação das prateleiras,1668537170000
+090cdf29-93cf-48f3-9ad6-852c0be75933,3ef2fe16-f33a-4786-afe0-f8e78342ef99,3,images/sala_estrutura_13.jpeg,-19.860385,-49.766069,Instalação das prateleiras,1668537171000
+68f2704c-505b-483f-b24b-ec533c97c480,051e96f9-a770-4e60-a9bd-87117ef95bc3,4,images/quadra_pintura_1.jpeg,-19.225717,-47.463930,Pintura dos rodapés,1668537172000
+faa591e7-298d-46a3-8345-8903ec479d61,051e96f9-a770-4e60-a9bd-87117ef95bc3,4,images/quadra_pintura_2.jpeg,-19.225717,-47.463930,Pintura dos rodapés,1668537173000
+06fc9988-f24a-4a28-a2e5-b9c9ab7aad1d,d23a2fe4-a2fa-4cd9-8ff2-6098c19e2cbe,4,images/quadra_pintura_3.mp4,-19.225717,-47.463930,Pintura dos rodapés,1668537173000
