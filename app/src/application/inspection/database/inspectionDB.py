@@ -1,10 +1,8 @@
-from sqlalchemy import Column, Integer, String, ForeignKey, BigInteger
-from sqlalchemy.orm import relationship
-
-from sqlalchemy.orm import relationship, backref
+from application.calendar.calendar_utils import get_today
 from application.core.database import Base
 from application.inspection.models.inspection import Inspection
-from application.calendar.calendar_utils import get_today
+from sqlalchemy import BigInteger, Column, ForeignKey, Integer, String
+from sqlalchemy.orm import backref, relationship
 
 
 class InspectionDB(Base):
@@ -27,7 +25,7 @@ class InspectionDB(Base):
     #     "UserDB",
     #     backref=backref("inspection", cascade="all,delete-orphan", uselist=False),
     #     lazy=False,
-    #     foreign_keys=[user_id],
+    #     foreign_keys=[user_email],
     # )
 
     @classmethod

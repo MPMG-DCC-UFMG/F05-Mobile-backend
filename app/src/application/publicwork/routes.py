@@ -1,16 +1,16 @@
-from typing import List, Dict
+from typing import Dict, List
 
-from application.core.models.pagination import Pagination
-from application.security.core.checker import admin_role
-from application.shared.base_router import BaseRouter
-from fastapi import APIRouter, Depends, HTTPException, FastAPI, Query
-from application.core.database import get_db
+from fastapi import APIRouter, Depends, FastAPI, HTTPException, Query
 from sqlalchemy.orm import Session
 
-from application.publicwork.models.publicwork import PublicWork, PublicWorkDiff
-from application.publicwork.database import repository as public_work_repository
-
 from application.address.database import repository as address_repository
+from application.core.database import get_db
+from application.core.models.pagination import Pagination
+from application.publicwork.database import \
+    repository as public_work_repository
+from application.publicwork.models.publicwork import PublicWork, PublicWorkDiff
+from application.security.core.checker import admin_role
+from application.shared.base_router import BaseRouter
 
 
 class PublicWorkRouter(BaseRouter):
@@ -101,3 +101,8 @@ class PublicWorkRouter(BaseRouter):
     @public_work_router.get("/count")
     async def get_public_work_count(db: Session = Depends(get_db)) -> int:
         return public_work_repository.count_public_work(db)
+    
+    @staticmethod
+    @public_work_router.get("/{id}")
+    async def get_public_work_by_id(id: str, db: Session = Depends(get_db)) -> PublicWork:
+        return public_work_repository.get_public_work_by_id(db, id)

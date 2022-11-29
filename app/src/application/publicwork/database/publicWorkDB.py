@@ -1,13 +1,11 @@
-from sqlalchemy import Column, Integer, String, ForeignKey, BigInteger
 from application.address.database.addressDB import AddressDB
-from application.collect.database.collectDB import CollectDB
-
 from application.calendar.calendar_utils import get_today
-from sqlalchemy.orm import relationship, backref
+from application.collect.database.collectDB import CollectDB
 from application.core.database import Base
 from application.core.helpers import generate_uuid, is_valid_uuid
-
 from application.publicwork.models.publicwork import PublicWork
+from sqlalchemy import BigInteger, Column, ForeignKey, Integer, String
+from sqlalchemy.orm import backref, relationship
 
 
 class PublicWorkDB(Base):
