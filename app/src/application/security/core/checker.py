@@ -22,4 +22,4 @@ class RoleChecker:
             raise HTTPException(status_code=403, detail="Operation not permitted")
 
 
-admin_role = RoleChecker([UserRoles.ADMIN.name])
+admin_role = RoleChecker([UserRoles.ADMIN.name, UserRoles.INTERNO.value])

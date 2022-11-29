@@ -1,7 +1,6 @@
-from sqlalchemy import Column, Integer, String, BigInteger
-
 from application.core.database import Base
 from application.security.models.user import User
+from sqlalchemy import BigInteger, Column, Integer, String, UniqueConstraint
 
 
 class UserDB(Base):

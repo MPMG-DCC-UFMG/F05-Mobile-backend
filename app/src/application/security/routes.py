@@ -1,22 +1,26 @@
 from datetime import timedelta
 from typing import List, Optional
 
+from application.core.database import get_db
 from application.security.core.checker import admin_role
+from application.security.core.helpers import (ACCESS_TOKEN_EXPIRE_MINUTES,
+                                               authenticate_user,
+                                               check_password_strength,
+                                               check_user_role,
+                                               create_access_token,
+                                               get_current_active_user,
+                                               get_password_hash)
+from application.security.database import repository as security_repository
 from application.security.models.roles import UserRoles
+from application.security.models.token import Token
+from application.security.models.user import User
 from application.shared.base_router import BaseRouter
+from application.shared.response import Error, Response
+from fastapi import APIRouter, Depends, FastAPI, Header, HTTPException
+from fastapi.requests import Request
+from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from sqlalchemy.orm import Session
 from starlette import status
-
-from fastapi import APIRouter, Depends, HTTPException, FastAPI, Header
-from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
-
-from application.security.models.user import User
-from application.security.database import repository as security_repository
-from application.security.models.token import Token
-from application.security.core.helpers import get_password_hash, authenticate_user, create_access_token, \
-    get_current_active_user, ACCESS_TOKEN_EXPIRE_MINUTES, check_user_role, check_password_strength
-from application.core.database import get_db
-from application.shared.response import Response, Error
 
 
 class SecurityRouter(BaseRouter):

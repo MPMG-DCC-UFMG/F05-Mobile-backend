@@ -2,12 +2,11 @@ from typing import Optional
 
 from application.core.helpers import paginate
 from application.core.models.pagination import Pagination
+from application.publicwork.database.publicWorkDB import PublicWorkDB
+from application.publicwork.models.publicwork import PublicWork, PublicWorkDiff
 from sqlalchemy import desc
 from sqlalchemy.orm import Session
-from sqlalchemy_continuum import version_class, Operation
-
-from application.publicwork.models.publicwork import PublicWork, PublicWorkDiff
-from application.publicwork.database.publicWorkDB import PublicWorkDB
+from sqlalchemy_continuum import Operation, version_class
 
 
 def get_public_work(db: Session) -> list:
