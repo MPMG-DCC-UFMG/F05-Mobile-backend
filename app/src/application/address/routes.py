@@ -47,7 +47,6 @@ class AddressRouter(BaseRouter):
                 city=parsed_response["cidade"]["nome"],
                 state="MG",
                 cep=cep,
-                public_work_id=None
             )
             return address
         except Exception:
@@ -69,7 +68,7 @@ class AddressRouter(BaseRouter):
         return repository.get_all_cities(db)
 
     @staticmethod
-    @address_router.post("/city/delete")
+    @address_router.delete("/city/delete")
     async def delete_city(codigo_ibge: str, db: Session = Depends(get_db)) -> Response:
         city_db = repository.delete_city(db, codigo_ibge)
         if city_db:

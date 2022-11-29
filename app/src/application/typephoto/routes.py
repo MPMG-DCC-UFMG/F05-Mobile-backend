@@ -39,7 +39,7 @@ class TypePhotoRouter(BaseRouter):
             raise HTTPException(status_code=403, detail="Not able to find type of work to update")
 
     @staticmethod
-    @type_photo_router.post("/delete", dependencies=[Depends(admin_role)],
+    @type_photo_router.delete("/delete", dependencies=[Depends(admin_role)],
                             responses={403: {"description": "Operation forbidden"}})
     async def delete_type_work(type_photo_id: int, db: Session = Depends(get_db)) -> TypePhoto:
         type_work_db = repository.delete_type_photo(db, type_photo_id)

@@ -103,7 +103,7 @@ class SecurityRouter(BaseRouter):
         return security_repository.get_registered_users(db)
 
     @staticmethod
-    @security_router.post("/users/delete", dependencies=[Depends(admin_role)])
+    @security_router.delete("/users/delete", dependencies=[Depends(admin_role)])
     async def delete_user(email: str, db: Session = Depends(get_db)) -> Response:
         user = security_repository.delete_user_by_email(db, email)
         if user:

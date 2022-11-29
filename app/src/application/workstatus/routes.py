@@ -50,7 +50,7 @@ class WorkStatusRouter(BaseRouter):
             raise HTTPException(status_code=403, detail="Not able to find type of work to update")
 
     @staticmethod
-    @work_status_router.post("/delete",dependencies=[Depends(admin_role)], responses={403: {"description": "Operation forbidden"}})
+    @work_status_router.delete("/delete",dependencies=[Depends(admin_role)], responses={403: {"description": "Operation forbidden"}})
     async def delete_work_status(work_status_id: int, db: Session = Depends(get_db)) -> WorkStatus:
         work_status_db = repository.delete_work_status(db, work_status_id)
         if work_status_db:

@@ -11,7 +11,6 @@ class Address(BaseModel):
     city: str
     state: str = "MG"
     cep: str
-    public_work_id: str = None
 
     class Config:
         orm_mode = True

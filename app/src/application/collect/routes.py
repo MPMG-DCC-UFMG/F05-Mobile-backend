@@ -60,7 +60,7 @@ class CollectRouter(BaseRouter):
             raise HTTPException(status_code=403, detail="Not able to find collect to update")
 
     @staticmethod
-    @collect_router.post("/delete", dependencies=[Depends(admin_role)],
+    @collect_router.delete("/delete", dependencies=[Depends(admin_role)],
                          responses={403: {"description": "Operation forbidden"}})
     async def delete_collect(collect_id: str, db: Session = Depends(get_db)) -> Collect:
         collect_db = repository.delete_collect(db, collect_id)

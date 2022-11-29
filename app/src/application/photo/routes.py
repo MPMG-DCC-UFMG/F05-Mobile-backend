@@ -35,7 +35,7 @@ class PhotoRouter(BaseRouter):
         return repository.get_photos_by_collect_id(db, collect_id)
 
     @staticmethod
-    @photo_router.post("/delete", dependencies=[Depends(admin_role)],
+    @photo_router.delete("/delete", dependencies=[Depends(admin_role)],
                        responses={403: {"description": "Operation forbidden"}})
     async def delete_photo(photo_id: str, db: Session = Depends(get_db)) -> Photo:
         photo_db = repository.delete_photo(db, photo_id)

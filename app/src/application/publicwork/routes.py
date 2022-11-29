@@ -41,8 +41,6 @@ class PublicWorkRouter(BaseRouter):
     @staticmethod
     @public_work_router.post("/add", )
     async def add_public_work(public_work: PublicWork, db: Session = Depends(get_db)) -> PublicWork:
-        if public_work.address.public_work_id != public_work.id:
-            raise HTTPException(status_code=403, detail="Not able to add public work")
         address_db = address_repository.add_address(db, public_work.address)
         public_work.address.id = address_db.id
         public_work_db = public_work_repository.add_public_work(db, public_work)
@@ -76,7 +74,7 @@ class PublicWorkRouter(BaseRouter):
             raise HTTPException(status_code=603, detail="Not able to find public work to update")
 
     @staticmethod
-    @public_work_router.post("/delete", dependencies=[Depends(admin_role)],
+    @public_work_router.delete("/delete", dependencies=[Depends(admin_role)],
                              responses={403: {"description": "Operation forbidden"}})
     async def delete_public_work(public_work_id: str, db: Session = Depends(get_db)) -> PublicWork:
         public_work_db = public_work_repository.delete_public_work(db, public_work_id)

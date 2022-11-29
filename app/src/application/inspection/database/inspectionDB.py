@@ -13,27 +13,13 @@ class InspectionDB(Base):
     name = Column(String)
     inquiry_number = Column(Integer)
     description = Column(String)
-    public_work_id = Column(String, ForeignKey("publicwork.id"))
     collect_id = Column(String)
     status = Column(Integer)
-    # user_email = Column(String)
     request_date = Column(BigInteger, default=get_today())
     timestamp = Column(BigInteger, default=get_today())
+
+    public_work_id = Column(String, ForeignKey("publicwork.id"))
     user_email = Column(String, ForeignKey("user.email"))
-
-    user = relationship(
-        "UserDB",
-        backref=backref("inspection", cascade="all,delete-orphan", uselist=False),
-        lazy=False,
-        foreign_keys=[user_email],
-    )
-
-    publicwork = relationship(
-        "PublicWorkDB",
-        backref=backref("inspection", cascade="all,delete-orphan", uselist=False),
-        lazy=False,
-        foreign_keys=[public_work_id],
-    )
 
     @classmethod
     def from_model(cls, inspection: Inspection):

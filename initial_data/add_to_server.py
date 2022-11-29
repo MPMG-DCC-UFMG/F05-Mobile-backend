@@ -107,7 +107,6 @@ def add_public_work():
                                     "city": public_work[11],
                                     "state": public_work[12],
                                     "cep": public_work[13],
-                                    "public_work_id": public_work[0]
                                 }
                             })
             if response.status_code == 200:
