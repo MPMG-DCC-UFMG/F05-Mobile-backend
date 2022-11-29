@@ -1,7 +1,7 @@
 from application.calendar.calendar_utils import get_today
 from sqlalchemy import Column, BigInteger, String, ForeignKey, Integer, Boolean
 
-from sqlalchemy.orm import relationship
+from sqlalchemy.orm import backref, relationship
 
 from application.core.database import Base
 from application.core.helpers import generate_uuid, is_valid_uuid
@@ -15,13 +15,34 @@ class CollectDB(Base):
     id = Column(String, primary_key=True, index=True, default=generate_uuid)
     date = Column(BigInteger)
     comments = Column(String)
-    user_email = Column(String)
     public_work_status = Column(Integer)
     queue_status = Column(Integer, default=0)
     queue_status_date =  Column(BigInteger, default=get_today())
 
+    user_email = Column(String, ForeignKey("user.email"), nullable=True)
     public_work_id = Column(String, ForeignKey("publicwork.id"))
     inspection_flag = Column(String, ForeignKey("inspection.flag"), nullable=True)
+
+    user = relationship(
+        "UserDB",
+        backref=backref("collect", cascade="all,delete-orphan", uselist=False),
+        lazy=False,
+        foreign_keys=[user_email],
+    )
+
+    publicwork = relationship(
+        "PublicWorkDB",
+        backref=backref("collect", cascade="all,delete-orphan", uselist=False),
+        lazy=False,
+        foreign_keys=[public_work_id],
+    )
+
+    inspection = relationship(
+        "InspectionDB",
+        backref=backref("collect", cascade="all,delete-orphan", uselist=False),
+        lazy=False,
+        foreign_keys=[inspection_flag],
+    )
 
     photos = relationship("PhotoDB", cascade="all,delete-orphan", backref="photo")
 

@@ -28,7 +28,6 @@ class PublicWorkDB(Base):
         lazy=False,
         foreign_keys=[address_id],
     )
-    collect = relationship("CollectDB")
 
     @classmethod
     def from_model(cls, public_work: PublicWork):

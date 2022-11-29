@@ -115,7 +115,7 @@ class InspectionRouter(BaseRouter):
             "inspection_id": str(inspection_db.flag),
             "inquiry_number": str(inspection_db.inquiry_number),
             "local": public_work_db.address.street + ", " + public_work_db.address.number + " - " + public_work_db.address.city + "/"  + public_work_db.address.state,
-            "inspection_date": datetime.fromtimestamp(collects_db[0].date).strftime("%d/%m/%Y às %H:%M:%S"),
+            "inspection_date": datetime.fromtimestamp(collects_db[0].date / 1000).strftime("%d/%m/%Y às %H:%M:%S"),
             "observations": str(collects_db[0].comments),
             "content": [
                 {

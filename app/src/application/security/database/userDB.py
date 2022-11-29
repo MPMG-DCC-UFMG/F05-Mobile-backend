@@ -6,8 +6,8 @@ from sqlalchemy import BigInteger, Column, Integer, String, UniqueConstraint
 class UserDB(Base):
     __tablename__ = "user"
 
-    id = Column(Integer, primary_key=True, index=True, autoincrement=True)
-    email = Column(String)
+    # id = Column(Integer, primary_key=True, index=True, autoincrement=True)
+    email = Column(String, primary_key=True, index=True)
     full_name = Column(String)
     cpf = Column(String)
     picture = Column(String)
