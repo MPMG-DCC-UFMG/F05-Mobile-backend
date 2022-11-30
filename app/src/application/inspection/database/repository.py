@@ -11,7 +11,7 @@ from application.inspection.database.inspectionDB import InspectionDB
 
 
 def get_inspection(db: Session) -> list:
-    db_inspection = db.query(InspectionDB).all()
+    db_inspection = db.query(InspectionDB).order_by(desc("request_date")).all()
     return list(map(lambda inspect: inspect.parse_to_inspect(), db_inspection))
 
 
