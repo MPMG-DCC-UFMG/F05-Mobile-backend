@@ -1,5 +1,9 @@
 from typing import List
 
+from fastapi import APIRouter, Depends, FastAPI, HTTPException, Query
+from sqlalchemy.orm import Session
+from starlette.responses import FileResponse
+
 from application.collect.database import repository
 from application.collect.models.collect import Collect
 from application.collect.models.collect_report import CollectReport
@@ -7,9 +11,6 @@ from application.core.database import get_db
 from application.core.models.pagination import Pagination
 from application.security.core.checker import admin_role
 from application.shared.base_router import BaseRouter
-from fastapi import APIRouter, Depends, FastAPI, HTTPException, Query
-from sqlalchemy.orm import Session
-from starlette.responses import FileResponse
 
 
 class CollectRouter(BaseRouter):
@@ -73,6 +74,11 @@ class CollectRouter(BaseRouter):
     @collect_router.get("/publicWork")
     async def get_collect_by_public_work_id(public_work_id: str, db: Session = Depends(get_db)) -> List[Collect]:
         return repository.get_public_work_collects(db, public_work_id)
+
+    @staticmethod
+    @collect_router.get("/publicwork/citizen")
+    async def get_citizen_collects_by_public_work_id(public_work_id: str, db: Session = Depends(get_db)) -> List[Collect]:
+      return repository.get_public_work_citizen_collects(db, public_work_id)
 
     @staticmethod
     @collect_router.get("/month/count")

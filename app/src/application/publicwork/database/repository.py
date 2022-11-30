@@ -1,12 +1,15 @@
-from typing import Optional
+from typing import List, Optional
 
+from sqlalchemy import desc
+from sqlalchemy.orm import Session
+from sqlalchemy_continuum import Operation, version_class
+
+from application.collect.database import repository as collect_repository
+from application.collect.database.collectDB import CollectDB
 from application.core.helpers import paginate
 from application.core.models.pagination import Pagination
 from application.publicwork.database.publicWorkDB import PublicWorkDB
 from application.publicwork.models.publicwork import PublicWork, PublicWorkDiff
-from sqlalchemy import desc
-from sqlalchemy.orm import Session
-from sqlalchemy_continuum import Operation, version_class
 
 
 def get_public_work(db: Session) -> list:
@@ -103,3 +106,10 @@ def get_public_work_changes_from(db: Session, public_work_version: int) -> list:
                     print("Exception when parsing the public work")
 
     return list(changes_dict.values())
+
+def get_public_works_with_collect_in_queue(db: Session):
+  collects_in_queue = db.query(CollectDB).filter(CollectDB.inspection_flag.is_(None), CollectDB.queue_status.is_(0)).all()
+
+  public_works_ids = [collect.public_work_id for collect in collects_in_queue]
+
+  return db.query(PublicWorkDB).filter(PublicWorkDB.id.in_(public_works_ids)).all()

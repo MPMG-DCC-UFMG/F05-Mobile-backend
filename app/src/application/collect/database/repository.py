@@ -1,6 +1,8 @@
 from pathlib import Path
 from typing import List, Optional
 
+from sqlalchemy.orm import Session
+
 import application.publicwork.database.repository as public_work_repository
 from application.calendar.calendar_utils import get_first_day_of_month
 from application.collect.database.collectDB import CollectDB
@@ -9,7 +11,6 @@ from application.collect.models.collect_report import CollectReport
 from application.core.helpers import paginate
 from application.core.models.pagination import Pagination
 from application.file.file_utils import create_json_file_from_list
-from sqlalchemy.orm import Session
 
 
 def get_all_collect(db: Session) -> List[Collect]:
@@ -36,6 +37,11 @@ def get_collect_by_id(db: Session, collect_id: str) -> Collect:
 
 def get_public_work_collects(db: Session, public_work_id: str) -> List[Collect]:
     return db.query(CollectDB).filter(CollectDB.public_work_id == public_work_id).all()
+
+def get_public_work_citizen_collects(db: Session, public_work_id: str) -> List[Collect]:
+  is_citizen_collect = CollectDB.inspection_flag.is_(None)
+  is_available = CollectDB.queue_status.is_(0)
+  return db.query(CollectDB).filter(CollectDB.public_work_id == public_work_id, is_citizen_collect, is_available).all()
 
 
 def get_inspection_collects(db: Session, inspection_flag: str) -> List[Collect]:

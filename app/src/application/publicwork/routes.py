@@ -4,6 +4,7 @@ from fastapi import APIRouter, Depends, FastAPI, HTTPException, Query
 from sqlalchemy.orm import Session
 
 from application.address.database import repository as address_repository
+from application.collect.database import repository as collect_repository
 from application.core.database import get_db
 from application.core.models.pagination import Pagination
 from application.publicwork.database import \
@@ -104,3 +105,8 @@ class PublicWorkRouter(BaseRouter):
     @public_work_router.get("/{id}")
     async def get_public_work_by_id(id: str, db: Session = Depends(get_db)) -> PublicWork:
         return public_work_repository.get_public_work_by_id(db, id)
+
+    @staticmethod
+    @public_work_router.get("/citizen/queue")
+    async def get_public_work_with_collect_in_queue(db: Session = Depends(get_db)) -> List[PublicWork]:
+      return public_work_repository.get_public_works_with_collect_in_queue(db)
