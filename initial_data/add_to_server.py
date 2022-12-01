@@ -127,10 +127,9 @@ def add_inspections():
                                 "inquiry_number": inspection[2],
                                 "description": inspection[3],
                                 "public_work_id": inspection[4],
-                                "collect_id": inspection[5],
-                                "status": inspection[6],
-                                "user_email": inspection[7],
-                                "request_date": inspection[8]
+                                "status": inspection[5],
+                                "user_email": inspection[6],
+                                "request_date": inspection[7]
                             })
             if response.status_code == 200:
                 uploaded = uploaded + 1
