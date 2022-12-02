@@ -13,7 +13,7 @@ from application.publicwork.models.publicwork import PublicWork, PublicWorkDiff
 
 
 def get_public_work(db: Session) -> list:
-    return db.query(PublicWorkDB).all()
+    return db.query(PublicWorkDB).order_by("queue_status_date").all()
 
 
 def get_public_work_paginated(db: Session, page: int, per_page: int = 20) -> Optional[Pagination]:
@@ -112,4 +112,4 @@ def get_public_works_with_collect_in_queue(db: Session):
 
   public_works_ids = [collect.public_work_id for collect in collects_in_queue]
 
-  return db.query(PublicWorkDB).filter(PublicWorkDB.id.in_(public_works_ids)).all()
+  return db.query(PublicWorkDB).order_by(desc("timestamp")).filter(PublicWorkDB.id.in_(public_works_ids)).all()
