@@ -16,7 +16,7 @@ def get_inspection(db: Session) -> list:
 
 
 def get_inspection_by_work_id(db: Session, public_work_id: str) -> list:
-    db_inspection = db.query(InspectionDB).filter(InspectionDB.public_work_id == public_work_id)
+    db_inspection = db.query(InspectionDB).filter(InspectionDB.public_work_id == public_work_id).order_by(desc("request_date"))
     return list(map(lambda inspect: inspect.parse_to_inspect(), db_inspection))
 
 
