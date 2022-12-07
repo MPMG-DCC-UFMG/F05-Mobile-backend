@@ -1,6 +1,7 @@
 from pathlib import Path
 from typing import List, Optional
 
+from sqlalchemy import desc
 from sqlalchemy.orm import Session
 
 import application.publicwork.database.repository as public_work_repository
@@ -14,17 +15,17 @@ from application.file.file_utils import create_json_file_from_list
 
 
 def get_all_collect(db: Session) -> List[Collect]:
-    return db.query(CollectDB).all()
+    return db.query(CollectDB).order_by(desc("date")).all()
 
 def get_all_citizen_collects(db: Session) -> List[Collect]:
   is_citizen_collect = CollectDB.inspection_flag.is_(None)
   is_not_pending = CollectDB.queue_status.is_distinct_from(0)
   is_not_deleted = CollectDB.queue_status.is_distinct_from(3)
 
-  return db.query(CollectDB).filter(is_citizen_collect, is_not_pending, is_not_deleted).all()
+  return db.query(CollectDB).order_by(desc("date")).filter(is_citizen_collect, is_not_pending, is_not_deleted).all()
 
 def get_citizen_collects_queue(db: Session) -> List[Collect]:
-  return db.query(CollectDB).filter(CollectDB.inspection_flag.is_(None), CollectDB.queue_status.is_(0)).all()
+  return db.query(CollectDB).order_by(desc("date")).filter(CollectDB.inspection_flag.is_(None), CollectDB.queue_status.is_(0)).all()
 
 
 def get_all_collect_paginated(db: Session, page: int, per_page: int = 20) -> Optional[Pagination]:
@@ -36,16 +37,16 @@ def get_collect_by_id(db: Session, collect_id: str) -> Collect:
 
 
 def get_public_work_collects(db: Session, public_work_id: str) -> List[Collect]:
-    return db.query(CollectDB).filter(CollectDB.public_work_id == public_work_id).all()
+    return db.query(CollectDB).order_by(desc("date")).filter(CollectDB.public_work_id == public_work_id).all()
 
 def get_public_work_citizen_collects(db: Session, public_work_id: str) -> List[Collect]:
   is_citizen_collect = CollectDB.inspection_flag.is_(None)
   is_available = CollectDB.queue_status.is_(0)
-  return db.query(CollectDB).filter(CollectDB.public_work_id == public_work_id, is_citizen_collect, is_available).all()
+  return db.query(CollectDB).order_by(desc("date")).filter(CollectDB.public_work_id == public_work_id, is_citizen_collect, is_available).all()
 
 
 def get_inspection_collects(db: Session, inspection_flag: str) -> List[Collect]:
-    return db.query(CollectDB).filter(CollectDB.inspection_flag == inspection_flag).all()
+    return db.query(CollectDB).order_by(desc("date")).filter(CollectDB.inspection_flag == inspection_flag).all()
 
 
 def add_collect(db: Session, collect: Collect) -> Collect:

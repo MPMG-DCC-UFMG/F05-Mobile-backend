@@ -110,6 +110,9 @@ class InspectionRouter(BaseRouter):
         public_work_db = public_work_repository.get_public_work_by_id(db, inspection_db.public_work_id)
         collects_db = collect_repository.get_inspection_collects(db, inspection_flag)
         photos_db = photo_repository.get_photos_by_collect_id(db, collects_db[0].id)
+
+        if len(photos_db) == 0:
+          raise HTTPException(status_code=400, detail="This inspection doesnt have any photo")
         user_db = security_repository.get_user_by_email(db, collects_db[0].user_email)
         pdfDto = {
             "inspection_id": str(inspection_db.flag),

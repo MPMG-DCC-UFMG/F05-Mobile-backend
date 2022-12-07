@@ -30,6 +30,12 @@ class PublicWorkRouter(BaseRouter):
         return public_work_list
 
     @staticmethod
+    @public_work_router.get("/queue")
+    async def get_public_work_queue(db: Session = Depends(get_db)) -> List[PublicWork]:
+      queue = public_work_repository.get_public_work_queue(db)
+      return queue
+
+    @staticmethod
     @public_work_router.get("/paginated")
     async def get_public_work_paginated(page: int = 1, per_page: int = 10,
                                         db: Session = Depends(get_db)) -> Pagination:
