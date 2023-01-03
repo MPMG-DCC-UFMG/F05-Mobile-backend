@@ -13,6 +13,7 @@ from application.inspection.models.inspection import Inspection, InspectionDiff
 from application.inspection.models.inspectionPdf import InspectionPdfDTO
 from application.inspection.util.pdfService import generate_pdf
 from application.inspection.util.pdfServiceByFlag import generate_pdf_by_flag
+from application.inspection.util.docxServiceByFlag import generate_docx_by_flag
 from application.photo.database import repository as photo_repository
 from application.publicwork.database import \
     repository as public_work_repository
@@ -137,3 +138,38 @@ class InspectionRouter(BaseRouter):
         pdf = generate_pdf_by_flag(InspectionPdfDTO.parse_obj(pdfDto))
         headers = {'Content-Disposition': f'attachment; filename={pdf}'}
         return FileResponse(pdf, headers=headers, media_type="application/pdf")
+
+    @staticmethod
+    @inspection_router.get("/reportDocx/{inspection_flag}")
+    async def generate_report_by_flag(inspection_flag: int, db: Session = Depends(get_db)):
+        inspection_db = repository.get_inspection_by_flag(db, inspection_flag)
+        public_work_db = public_work_repository.get_public_work_by_id(db, inspection_db.public_work_id)
+        collects_db = collect_repository.get_inspection_collects(db, inspection_flag)
+        photos_db = photo_repository.get_photos_by_collect_id(db, collects_db[0].id)
+
+        if len(photos_db) == 0:
+          raise HTTPException(status_code=400, detail="This inspection doesnt have any photo")
+        user_db = security_repository.get_user_by_email(db, collects_db[0].user_email)
+        pdfDto = {
+            "inspection_id": str(inspection_db.flag),
+            "inquiry_number": str(inspection_db.inquiry_number),
+            "local": public_work_db.address.street + ", " + public_work_db.address.number + " - " + public_work_db.address.city + "/"  + public_work_db.address.state,
+            "inspection_date": datetime.fromtimestamp(collects_db[0].date / 1000).strftime("%d/%m/%Y às %H:%M:%S"),
+            "observations": str(collects_db[0].comments),
+            "content": [
+                {
+                "image_path": "../" + photo.filepath,
+                "description": photo.comment,
+                "latitude": str(photo.latitude),
+                "longitude": str(photo.longitude)
+                } for photo in photos_db
+            ],
+            "inspector": {
+                "name": user_db.full_name,
+                "email": user_db.email,
+                "role": "Vistoriador do MPMG"
+            }
+        }
+        docx = generate_docx_by_flag(InspectionPdfDTO.parse_obj(pdfDto))
+        headers = {'Content-Disposition': f'attachment; filename={docx}'}
+        return FileResponse(docx, headers=headers, media_type="application/docx")
