@@ -16,6 +16,9 @@ from docx.enum.dml import MSO_THEME_COLOR_INDEX
 from docx.shared import Inches
 from docx.enum.text import WD_ALIGN_PARAGRAPH
 from docx.shared import Pt
+from docx.oxml.shared import OxmlElement
+from docx.oxml.ns import qn
+import cv2
 
 MPMG_logo = ImageReader('../assets/mpmg_pdf_logo.png')
 
@@ -131,6 +134,48 @@ def __convert_coordinates_to_DMS(lat: str, lng: str):
   return finalLat + ", " + finalLng
 
 
+def insertBottomHR(paragraph):
+    p = paragraph._p  # p is the <w:p> XML element
+    pPr = p.get_or_add_pPr()
+    pBdr = OxmlElement('w:pBdr')
+    pPr.insert_element_before(pBdr,
+        'w:shd', 'w:tabs', 'w:suppressAutoHyphens', 'w:kinsoku', 'w:wordWrap',
+        'w:overflowPunct', 'w:topLinePunct', 'w:autoSpaceDE', 'w:autoSpaceDN',
+        'w:bidi', 'w:adjustRightInd', 'w:snapToGrid', 'w:spacing', 'w:ind',
+        'w:contextualSpacing', 'w:mirrorIndents', 'w:suppressOverlap', 'w:jc',
+        'w:textDirection', 'w:textAlignment', 'w:textboxTightWrap',
+        'w:outlineLvl', 'w:divId', 'w:cnfStyle', 'w:rPr', 'w:sectPr',
+        'w:pPrChange'
+    )
+    bottom = OxmlElement('w:bottom')
+    bottom.set(qn('w:val'), 'single')
+    bottom.set(qn('w:sz'), '6')
+    bottom.set(qn('w:space'), '1')
+    bottom.set(qn('w:color'), 'auto')
+    pBdr.append(bottom)
+
+
+def insertTopHR(paragraph):
+    p = paragraph._p  # p is the <w:p> XML element
+    pPr = p.get_or_add_pPr()
+    pBdr = OxmlElement('w:pBdr')
+    pPr.insert_element_before(pBdr,
+        'w:shd', 'w:tabs', 'w:suppressAutoHyphens', 'w:kinsoku', 'w:wordWrap',
+        'w:overflowPunct', 'w:topLinePunct', 'w:autoSpaceDE', 'w:autoSpaceDN',
+        'w:bidi', 'w:adjustRightInd', 'w:snapToGrid', 'w:spacing', 'w:ind',
+        'w:contextualSpacing', 'w:mirrorIndents', 'w:suppressOverlap', 'w:jc',
+        'w:textDirection', 'w:textAlignment', 'w:textboxTightWrap',
+        'w:outlineLvl', 'w:divId', 'w:cnfStyle', 'w:rPr', 'w:sectPr',
+        'w:pPrChange'
+    )
+    top = OxmlElement('w:top')
+    top.set(qn('w:val'), 'single')
+    top.set(qn('w:sz'), '6')
+    top.set(qn('w:space'), '1')
+    top.set(qn('w:color'), 'auto')
+    pBdr.append(top)
+
+
 def add_hyperlink(paragraph, url, text, color, underline):
     """
     A function that places a hyperlink within a paragraph object.
@@ -185,11 +230,25 @@ def __draw_content(document: Document, content: PdfPhoto, index: int):
   latitude = getattr(content, 'latitude')
   longitude = getattr(content, 'longitude')
   description = getattr(content, 'description') if getattr(content, 'description') is not None else "Não há descrição"
-
-  document.add_picture(image_path, width=Inches(5.75))
-  pDescription = document.add_paragraph(f'Foto {index+1}: {description} ')
+  extension = image_path.split(".")[-1]
+  
+  table = document.add_table(rows=2, cols=1)
+  tab_row_0=table.rows[0].cells[0]
+  t0=tab_row_0.add_paragraph("")
+  description_tab=table.rows[1].cells[0]
+  image_cell=t0.add_run()
+  if extension == "mp4":
+    vidcap = cv2.VideoCapture(image_path)
+    success,image = vidcap.read()
+    if success:
+      cv2.imwrite("../images/temp.jpg", image)  
+      image_cell.add_picture("../images/temp.jpg", width=Inches(5.6))
+      pDescription = description_tab.add_paragraph(f'Vídeo {index+1}: {description} ')
+  else:
+    image_cell.add_picture(image_path, width=Inches(5.6))
+    pDescription = description_tab.add_paragraph(f'Foto {index+1}: {description} ')
   add_hyperlink(pDescription, f'http://0.0.0.0:8000/images/{image_path}', "(download)", '3366CC', True)
-  pCoordinates = document.add_paragraph(f'Coordenadas geográficas: {__convert_coordinates_to_DMS(latitude, longitude)} ')
+  pCoordinates = description_tab.add_paragraph(f'Coordenadas geográficas: {__convert_coordinates_to_DMS(latitude, longitude)} ')
   add_hyperlink(pCoordinates, f'https://maps.google.com/?q={latitude},{longitude}&z=15', "(ver no mapa)", '3366CC', True)
 
 
@@ -200,15 +259,6 @@ def generate_docx_by_flag(data: InspectionPdfDTO):
   font = style.font
   font.name = 'Helvetica'
   font.size = Pt(12)
-
-  # header = document.sections[0].header
-  # paragraph = header.paragraphs[0]
-
-  # logo_run = paragraph.add_run()
-  # logo_run.add_picture('../assets/mpmg_pdf_logo.png', width=Inches(1))
-
-  # text_run = paragraph.add_run()
-  # text_run.text = '\t\t' + f'{config.settings.report_institution}\n\t\t{config.settings.report_department}\n\t\t{config.settings.report_section}' # For center align of text
 
   header = document.sections[0].header
   htable=header.add_table(1, 2, Inches(6))
@@ -225,7 +275,8 @@ def generate_docx_by_flag(data: InspectionPdfDTO):
   # Calling the paragraph already present in
   # the footer section
   footer_para = footer.paragraphs[0]
-  footerRun = footer_para.add_run(f"______________________________________________________________________________________\n{config.settings.report_address}\n{config.settings.report_contact} {config.settings.report_website}")
+  insertTopHR(footer_para)
+  footerRun = footer_para.add_run(f"{config.settings.report_address}\n{config.settings.report_contact} {config.settings.report_website}")
   footerRun.font.size = Pt(9)
   footerRun.alignment = WD_ALIGN_PARAGRAPH.RIGHT
 
@@ -233,32 +284,20 @@ def generate_docx_by_flag(data: InspectionPdfDTO):
   # footer_para.text = f"________________________________________________________________\n{config.settings.report_address}\n{config.settings.report_contact} {config.settings.report_website}"
   # footer_para.style = "Heading 9"
 
-  pHeader = document.add_paragraph()
-  pHeader.paragraph_format.alignment = WD_ALIGN_PARAGRAPH.CENTER
-  pHeader.add_run(f'Relatório automático de vistoria').bold = True
-  document.add_paragraph(f"Software: {config.settings.system_name}")
-  document.add_paragraph(f"Versão: {config.settings.system_version}")
-  document.add_paragraph(f"Relatório gerado em: {timestamp}")
-  pInquiry = document.add_paragraph()
+  # pHeader = document.add_paragraph()
+  # pHeader.paragraph_format.alignment = WD_ALIGN_PARAGRAPH.CENTER
+  # pHeader.add_run(f'Relatório automático de vistoria').bold = True
+  document.add_paragraph(f"Relatório gerado em: {timestamp} pelo software {config.settings.system_name}, versão {config.settings.system_version}")
+  # document.add_paragraph(f"Versão: {config.settings.system_version}")
+  # document.add_paragraph(f"Relatório gerado em: {timestamp}")
+  pInquiry = document.add_heading()
   pInquiry.paragraph_format.alignment = WD_ALIGN_PARAGRAPH.CENTER
   pInquiry.add_run(f"Vistoria n° {getattr(data, 'inquiry_number')}").bold = True
+  insertBottomHR(pInquiry)
+  insertTopHR(pInquiry)
+  document.add_paragraph()
   document.add_paragraph(f"Local: {getattr(data, 'local')}")
   document.add_paragraph(f"Data da Vistoria: {getattr(data, 'inspection_date')}")
-
-  # p = document.add_paragraph('A plain paragraph having some ')
-  # p.add_run('bold').bold = True
-  # p.add_run(' and some ')
-  # p.add_run('italic.').italic = True
-
-  # document.add_heading('Heading, level 1', level=1)
-  # document.add_paragraph('Intense quote', style='Intense Quote')
-
-  # document.add_paragraph(
-  #     'first item in unordered list', style='List Bullet'
-  # )
-  # document.add_paragraph(
-  #     'first item in ordered list', style='List Number'
-  # )
 
   for index, content in enumerate(getattr(data, 'content')):
     __draw_content(document, content, index)
