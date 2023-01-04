@@ -21,3 +21,5 @@ alembic==1.4.3
 password-strength==0.0.3.post2
 pymongo==3.11.1
 reportlab==3.6.12
+python-docx
+opencv-python
