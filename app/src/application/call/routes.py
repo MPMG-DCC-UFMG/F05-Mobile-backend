@@ -43,16 +43,16 @@ class CallRouter(BaseRouter):
         return repository.get_user_calls(db, user_email)
 
     @classmethod
-    @call_router.post("/", dependencies=[Depends[admin_role]])
+    @call_router.post("/", dependencies=[Depends(admin_role)])
     async def open_call(call: Call, db: Session = Depends(get_db)) -> Call:
         return repository.open_call(db, call)
 
     @classmethod
-    @call_router.put("/{call_id}", dependencies=[Depends[admin_role]])
+    @call_router.put("/{call_id}", dependencies=[Depends(admin_role)])
     async def close_call(call_id: str, db: Session = Depends(get_db)) -> Call:
         return repository.close_call(db, call_id)
 
     @classmethod
-    @call_router.delete("/{call_id}", dependencies=[Depends[admin_role]])
+    @call_router.delete("/{call_id}", dependencies=[Depends(admin_role)])
     async def delete_call(call_id: str, db: Session = Depends(get_db)) -> Call:
         return repository.delete_call(db, call_id)

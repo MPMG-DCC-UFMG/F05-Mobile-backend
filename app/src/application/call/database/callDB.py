@@ -6,7 +6,7 @@ from sqlalchemy import BigInteger, Boolean, Column, ForeignKey, String
 
 
 class CallDB(Base):
-    __table_name__ = "call"
+    __tablename__ = "call"
 
     id = Column(String, primary_key=True, index=True, default=generate_uuid)
     created_at = Column(BigInteger, default=get_today())
