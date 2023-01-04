@@ -1,13 +1,16 @@
-from typing import List
+from typing import List, Optional
+
+from pydantic import BaseModel
 
 from application.photo.models.photo import Photo
-from pydantic import BaseModel
 
 
 class Collect(BaseModel):
     id: str = None
     public_work_id: str
-    inspection_flag: str
+    inspection_flag: Optional[str]
+    queue_status: int = 0
+    queue_status_date: int = None
     date: int
     user_email: str
     comments: str = None

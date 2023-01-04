@@ -1,18 +1,22 @@
-from typing import Optional
+from typing import List, Optional
 
-from application.core.helpers import paginate
-from application.core.models.pagination import Pagination
 from sqlalchemy import desc
 from sqlalchemy.orm import Session
-from sqlalchemy_continuum import version_class, Operation
+from sqlalchemy_continuum import Operation, version_class
 
-from application.publicwork.models.publicwork import PublicWork, PublicWorkDiff
+from application.collect.database import repository as collect_repository
+from application.collect.database.collectDB import CollectDB
+from application.core.helpers import paginate
+from application.core.models.pagination import Pagination
 from application.publicwork.database.publicWorkDB import PublicWorkDB
+from application.publicwork.models.publicwork import PublicWork, PublicWorkDiff
 
 
 def get_public_work(db: Session) -> list:
-    return db.query(PublicWorkDB).all()
+    return db.query(PublicWorkDB).order_by(desc("queue_status_date")).all()
 
+def get_public_work_queue(db: Session) -> List[PublicWork]:
+  return db.query(PublicWorkDB).order_by(desc("queue_status_date")).filter(PublicWorkDB.queue_status == 0).all()
 
 def get_public_work_paginated(db: Session, page: int, per_page: int = 20) -> Optional[Pagination]:
     return paginate(db.query(PublicWorkDB), page, per_page)
@@ -104,3 +108,10 @@ def get_public_work_changes_from(db: Session, public_work_version: int) -> list:
                     print("Exception when parsing the public work")
 
     return list(changes_dict.values())
+
+def get_public_works_with_collect_in_queue(db: Session):
+  collects_in_queue = db.query(CollectDB).filter(CollectDB.inspection_flag.is_(None), CollectDB.queue_status.is_(0)).all()
+
+  public_works_ids = [collect.public_work_id for collect in collects_in_queue]
+
+  return db.query(PublicWorkDB).order_by(desc("timestamp")).filter(PublicWorkDB.id.in_(public_works_ids)).all()

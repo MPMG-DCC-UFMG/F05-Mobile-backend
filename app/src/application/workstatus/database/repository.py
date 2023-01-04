@@ -1,13 +1,18 @@
-from application.workstatus.database.workStatusDB import WorkStatusDB
-from application.workstatus.models.workStatus import WorkStatus
 from sqlalchemy import desc
 from sqlalchemy.orm import Session
 from sqlalchemy_continuum import version_class
+
+from application.workstatus.database.workStatusDB import WorkStatusDB
+from application.workstatus.models.workStatus import WorkStatus
 
 
 def get_work_status(db: Session) -> list:
     db_work_status = db.query(WorkStatusDB).all()
     return list(map(lambda work_status: work_status.parse_to_work_status(), db_work_status))
+
+def get_work_status_by_id(work_status_id: int, db: Session) -> WorkStatus:
+  db_work_status = db.query(WorkStatusDB).filter(WorkStatusDB.flag == work_status_id).first()
+  return db_work_status
 
 
 def add_work_status(db: Session, work_status: WorkStatus) -> WorkStatus:

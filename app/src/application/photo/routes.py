@@ -1,13 +1,12 @@
 from typing import List
 
+from application.core.database import get_db
+from application.photo.database import repository
+from application.photo.models.photo import Photo
 from application.security.core.checker import admin_role
 from application.shared.base_router import BaseRouter
-from fastapi import APIRouter, Depends, HTTPException, FastAPI
-from application.core.database import get_db
+from fastapi import APIRouter, Depends, FastAPI, HTTPException
 from sqlalchemy.orm import Session
-
-from application.photo.models.photo import Photo
-from application.photo.database import repository
 
 
 class PhotoRouter(BaseRouter):
@@ -31,12 +30,12 @@ class PhotoRouter(BaseRouter):
         return repository.add_photo(db, photo)
 
     @staticmethod
-    @photo_router.get("/collect")
+    @photo_router.get("/collect/{collect_id}")
     async def get_photos_from_collect(collect_id: str, db: Session = Depends(get_db)) -> List[Photo]:
         return repository.get_photos_by_collect_id(db, collect_id)
 
     @staticmethod
-    @photo_router.post("/delete", dependencies=[Depends(admin_role)],
+    @photo_router.delete("/delete", dependencies=[Depends(admin_role)],
                        responses={403: {"description": "Operation forbidden"}})
     async def delete_photo(photo_id: str, db: Session = Depends(get_db)) -> Photo:
         photo_db = repository.delete_photo(db, photo_id)

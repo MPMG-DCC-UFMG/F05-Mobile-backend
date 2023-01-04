@@ -9,6 +9,8 @@ class PublicWork(BaseModel):
     type_work_flag: int
     address: Address
     user_status: int = None
+    queue_status: int = 0
+    queue_status_date: int = None
     rnn_status: int = None
 
     class Config:
@@ -22,3 +24,5 @@ class PublicWorkDiff(BaseModel):
     type_work_flag: int = None
     address: Address = None
     user_status: int = 0
+    queue_status: int = 0
+    queue_status_date: int = None

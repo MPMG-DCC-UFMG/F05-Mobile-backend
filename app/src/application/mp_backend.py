@@ -28,7 +28,7 @@ Base.metadata.create_all(bind=engine)
 mpApi = FastAPI(
     title='F05 Backend API',
     description='API backend for the project F05',
-    version="1.8.2",
+    version="2.0.0",
     openapi_prefix=config.settings.api_prefix,
     docs_url=None,
     redoc_url=None,
@@ -51,7 +51,7 @@ routes = [
     PublicWorkRouter("publicworks", mpApi, [Depends(get_api_key)]),
     CollectRouter("collects", mpApi, [Depends(get_api_key)]),
     PhotoRouter("photos", mpApi, [Depends(get_api_key)]),
-    ImageRouter("images", mpApi, [Depends(get_api_key)]),
+    ImageRouter("images", mpApi),
     TypePhotoRouter("typephotos", mpApi, [Depends(get_api_key)]),
     AddressRouter("address", mpApi, [Depends(get_api_key)]),
     AssociationRouter("association", mpApi, [Depends(get_api_key)]),
@@ -72,6 +72,7 @@ async def homepage():
 
 @mpApi.get("/docs", tags=["docs"])
 async def get_documentation():
+    print("{0}{1}".format(config.settings.api_prefix, mpApi.openapi_url))
     response = get_swagger_ui_html(
         openapi_url="{0}{1}".format(config.settings.api_prefix, mpApi.openapi_url),
         title="docs")

@@ -1,16 +1,17 @@
-from typing import List, Dict
+from typing import Dict, List
 
-from application.core.models.pagination import Pagination
-from application.security.core.checker import admin_role
-from application.shared.base_router import BaseRouter
-from fastapi import APIRouter, Depends, HTTPException, FastAPI, Query
-from application.core.database import get_db
+from fastapi import APIRouter, Depends, FastAPI, HTTPException, Query
 from sqlalchemy.orm import Session
 
-from application.publicwork.models.publicwork import PublicWork, PublicWorkDiff
-from application.publicwork.database import repository as public_work_repository
-
 from application.address.database import repository as address_repository
+from application.collect.database import repository as collect_repository
+from application.core.database import get_db
+from application.core.models.pagination import Pagination
+from application.publicwork.database import \
+    repository as public_work_repository
+from application.publicwork.models.publicwork import PublicWork, PublicWorkDiff
+from application.security.core.checker import admin_role
+from application.shared.base_router import BaseRouter
 
 
 class PublicWorkRouter(BaseRouter):
@@ -29,6 +30,12 @@ class PublicWorkRouter(BaseRouter):
         return public_work_list
 
     @staticmethod
+    @public_work_router.get("/queue")
+    async def get_public_work_queue(db: Session = Depends(get_db)) -> List[PublicWork]:
+      queue = public_work_repository.get_public_work_queue(db)
+      return queue
+
+    @staticmethod
     @public_work_router.get("/paginated")
     async def get_public_work_paginated(page: int = 1, per_page: int = 10,
                                         db: Session = Depends(get_db)) -> Pagination:
@@ -41,8 +48,6 @@ class PublicWorkRouter(BaseRouter):
     @staticmethod
     @public_work_router.post("/add", )
     async def add_public_work(public_work: PublicWork, db: Session = Depends(get_db)) -> PublicWork:
-        if public_work.address.public_work_id != public_work.id:
-            raise HTTPException(status_code=403, detail="Not able to add public work")
         address_db = address_repository.add_address(db, public_work.address)
         public_work.address.id = address_db.id
         public_work_db = public_work_repository.add_public_work(db, public_work)
@@ -52,7 +57,6 @@ class PublicWorkRouter(BaseRouter):
     @staticmethod
     @public_work_router.put("/update", responses={403: {"description": "Operation forbidden"}})
     async def update_public_work(public_work: PublicWork, db: Session = Depends(get_db)) -> PublicWork:
-        public_work.address.public_work_id = public_work.id
         address_db = address_repository.update_address(db, public_work.address)
         public_work.address.id = address_db.id
         public_work_db = public_work_repository.update_public_work(db, public_work)
@@ -65,7 +69,6 @@ class PublicWorkRouter(BaseRouter):
     @staticmethod
     @public_work_router.post("/upsert", responses={403: {"description": "Operation forbidden"}})
     async def upsert_public_work(public_work: PublicWork, db: Session = Depends(get_db)) -> PublicWork:
-        public_work.address.public_work_id = public_work.id
         address_db = address_repository.upsert_address(db, public_work.address)
         public_work.address.id = address_db.id
         public_work_db = public_work_repository.upsert_public_work(db, public_work)
@@ -76,7 +79,7 @@ class PublicWorkRouter(BaseRouter):
             raise HTTPException(status_code=603, detail="Not able to find public work to update")
 
     @staticmethod
-    @public_work_router.post("/delete", dependencies=[Depends(admin_role)],
+    @public_work_router.delete("/delete", dependencies=[Depends(admin_role)],
                              responses={403: {"description": "Operation forbidden"}})
     async def delete_public_work(public_work_id: str, db: Session = Depends(get_db)) -> PublicWork:
         public_work_db = public_work_repository.delete_public_work(db, public_work_id)
@@ -101,3 +104,13 @@ class PublicWorkRouter(BaseRouter):
     @public_work_router.get("/count")
     async def get_public_work_count(db: Session = Depends(get_db)) -> int:
         return public_work_repository.count_public_work(db)
+    
+    @staticmethod
+    @public_work_router.get("/{id}")
+    async def get_public_work_by_id(id: str, db: Session = Depends(get_db)) -> PublicWork:
+        return public_work_repository.get_public_work_by_id(db, id)
+
+    @staticmethod
+    @public_work_router.get("/citizen/queue")
+    async def get_public_work_with_collect_in_queue(db: Session = Depends(get_db)) -> List[PublicWork]:
+      return public_work_repository.get_public_works_with_collect_in_queue(db)

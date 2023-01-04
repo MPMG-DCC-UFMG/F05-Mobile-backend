@@ -1,6 +1,7 @@
-from sqlalchemy import Column, BigInteger, String, ForeignKey, Integer
+from application.calendar.calendar_utils import get_today
+from sqlalchemy import Column, BigInteger, String, ForeignKey, Integer, Boolean
 
-from sqlalchemy.orm import relationship
+from sqlalchemy.orm import backref, relationship
 
 from application.core.database import Base
 from application.core.helpers import generate_uuid, is_valid_uuid
@@ -14,11 +15,13 @@ class CollectDB(Base):
     id = Column(String, primary_key=True, index=True, default=generate_uuid)
     date = Column(BigInteger)
     comments = Column(String)
-    user_email = Column(String)
     public_work_status = Column(Integer)
+    queue_status = Column(Integer, default=0)
+    queue_status_date =  Column(BigInteger, default=get_today())
+    inspection_flag = Column(String, nullable=True)
 
+    user_email = Column(String, ForeignKey("user.email"), nullable=True)
     public_work_id = Column(String, ForeignKey("publicwork.id"))
-    inspection_flag = Column(String, ForeignKey("inspection.flag"), nullable=True)
 
     photos = relationship("PhotoDB", cascade="all,delete-orphan", backref="photo")
 
@@ -30,7 +33,9 @@ class CollectDB(Base):
             public_work_id=collect.public_work_id,
             inspection_flag=collect.inspection_flag if collect.inspection_flag != "" else None,
             user_email=collect.user_email,
-            public_work_status=collect.public_work_status
+            public_work_status=collect.public_work_status,
+            queue_status=collect.queue_status,
+            queue_status_date=collect.queue_status_date
         )
 
         if collect.id and is_valid_uuid(collect.id):
@@ -47,6 +52,8 @@ class CollectDB(Base):
             user_email=self.user_email,
             comments=self.comments,
             public_work_status=self.public_work_status,
+            queue_status=self.queue_status,
+            queue_status_date=self.queue_status_date,
             photos=self.photos
         )
 
@@ -58,3 +65,5 @@ class CollectDB(Base):
         self.user_email = collect.user_email
         self.date = collect.date
         self.public_work_status = collect.public_work_status
+        self.queue_status=collect.queue_status
+        self.queue_status_date=collect.queue_status_date

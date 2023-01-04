@@ -1,17 +1,16 @@
 from typing import List
 
+from fastapi import APIRouter, Depends, FastAPI, HTTPException, Query
+from sqlalchemy.orm import Session
+from starlette.responses import FileResponse
+
+from application.collect.database import repository
+from application.collect.models.collect import Collect
+from application.collect.models.collect_report import CollectReport
+from application.core.database import get_db
 from application.core.models.pagination import Pagination
 from application.security.core.checker import admin_role
 from application.shared.base_router import BaseRouter
-from fastapi import APIRouter, Depends, HTTPException, FastAPI, Query
-from application.core.database import get_db
-from sqlalchemy.orm import Session
-
-from application.collect.models.collect import Collect
-from application.collect.models.collect_report import CollectReport
-
-from application.collect.database import repository
-from starlette.responses import FileResponse
 
 
 class CollectRouter(BaseRouter):
@@ -27,6 +26,16 @@ class CollectRouter(BaseRouter):
     @collect_router.get("/")
     async def get_all_collect(db: Session = Depends(get_db)) -> List[Collect]:
         return repository.get_all_collect(db)
+
+    @staticmethod
+    @collect_router.get("/citizen")
+    async def get_all_citizen_collects(db: Session = Depends(get_db)) -> List[Collect]:
+      return repository.get_all_citizen_collects(db)
+    
+    @staticmethod
+    @collect_router.get("/citizen/queue")
+    async def get_citizen_collect_queue(db: Session = Depends(get_db)) -> List[Collect]:
+      return repository.get_citizen_collects_queue(db)
 
     @staticmethod
     @collect_router.get("/paginated")
@@ -52,7 +61,7 @@ class CollectRouter(BaseRouter):
             raise HTTPException(status_code=403, detail="Not able to find collect to update")
 
     @staticmethod
-    @collect_router.post("/delete", dependencies=[Depends(admin_role)],
+    @collect_router.delete("/delete", dependencies=[Depends(admin_role)],
                          responses={403: {"description": "Operation forbidden"}})
     async def delete_collect(collect_id: str, db: Session = Depends(get_db)) -> Collect:
         collect_db = repository.delete_collect(db, collect_id)
@@ -65,6 +74,11 @@ class CollectRouter(BaseRouter):
     @collect_router.get("/publicWork")
     async def get_collect_by_public_work_id(public_work_id: str, db: Session = Depends(get_db)) -> List[Collect]:
         return repository.get_public_work_collects(db, public_work_id)
+
+    @staticmethod
+    @collect_router.get("/publicwork/citizen")
+    async def get_citizen_collects_by_public_work_id(public_work_id: str, db: Session = Depends(get_db)) -> List[Collect]:
+      return repository.get_public_work_citizen_collects(db, public_work_id)
 
     @staticmethod
     @collect_router.get("/month/count")

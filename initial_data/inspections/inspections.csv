@@ -1,0 +1,17 @@
+flag,name,inquiry_number,description,public_work_id,status,user_email,request_date
+1,Reforma da quadra poliesportiva,2245,Instalação das balizas e cestas de basquete,c4d82ca8-1120-493c-9a0a-8d14cec1567a,1,george@trena.mpmg.mg.br,1662158529000
+2,Reforma do prédio A,2056,Ampliação do número de salas,6895f41a-185b-40ef-a2f9-a6a6ead243f1,1,george@trena.mpmg.mg.br,1662254016000
+3,Reforma das salas de aula,1976,Renovação da pintura piso e parte elétrica,e688ea6d-473f-4b9e-b6de-4dd494dd7c08,1,george@trena.mpmg.mg.br,1667836925000
+4,Revitalização da fachada,2563,Pintura da fachada dos portões e passeios,bd5d2ac4-058a-417a-9966-6225e69ae57b,1,george@trena.mpmg.mg.br,1663938297000
+5,Criação da sala de professores,3102,Instalação de pontos de internet tomada e mobiliário,5741f2bd-d090-4e17-aabe-cc476f3b6e79,1,george@trena.mpmg.mg.br,1669486004000
+6,Reforma da biblioteca,3067,Instalação de estantes e pontos de internet,2554adac-24b9-4014-bb49-817ff3d9264f,1,george@trena.mpmg.mg.br,1662794224000
+7,Verificação da etapa 3.1 do edital,3302,Pintura das salas,af71a3fa-ec40-44e0-a7f5-9d4339fa265f,1,george@trena.mpmg.mg.br,1668080196000
+8,Fundação da quadra poliesportiva,2169,Conferir se os tubulões estão no dimensionamento previsto,09335b86-bba1-46df-b1e2-4921c6af418a,1,joao@trena.mpmg.mg.br,1661829061000
+9,Ampliação do numero de salas,2854,Verificação da qualidade do concreto e ferragem da fundação,62afe7e5-e8f8-4f57-955e-c40b2999877f,1,joao@trena.mpmg.mg.br,1668463704000
+10,Reforma das salas de aula,2656,Verificar a parte elétrica pintura e pontos de acesso à internet,849d51b4-cdb1-48bd-a7bf-83e9f2024a3b,1,joao@trena.mpmg.mg.br,1669546995000
+11,Revitalizacao da fachada,1908,Verificar a metragem do muro e do portão de acesso,f47dc5c1-b6a3-4154-8fcf-5d9488d73acf,1,joao@trena.mpmg.mg.br,1665862592000
+12,Criação da sala de professores,2093,Verificar o mobiliário instalado,6f4a9826-2563-45ee-bc09-1bd77e0f871e,1,joao@trena.mpmg.mg.br,1667512397000
+13,Reforma da biblioteca,2420,Reforma da biblioteca,d1a4b2cc-f977-40d4-9bd6-0afd6d6dceda,1,joao@trena.mpmg.mg.br,1664014055000
+14,Reforma das salas de aula,2110,Verificação dos quadros brancos novos pisos e gesso,5dbb431f-8df9-4e8a-a0b1-913af835c56b,1,joao@trena.mpmg.mg.br,1660494178000
+15,Construção de novo andar de aulas,2679,Conferir o andamento da obra e qualidade da alvenaria,c4d82ca8-1120-493c-9a0a-8d14cec1567a,0,george@trena.mpmg.mg.br,1666505652000
+16,Reforma do pátio,1790,Verificar o novo piso e acessibillidade,6895f41a-185b-40ef-a2f9-a6a6ead243f1,0,joao@trena.mpmg.mg.br,1666771987000

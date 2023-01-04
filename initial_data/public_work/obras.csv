@@ -1,0 +1,15 @@
+id,name,type_work_flag,queue_status,queue_status_date,address_id,street,neighborhood,number,latitude,longitude,city,state,cep
+c4d82ca8-1120-493c-9a0a-8d14cec1567a,Escola Estadual Manoel Loureiro,1,1,1657986675000,fdda8ab3-8d99-42dd-af99-17aef7c52f5d,R. Nova York,Cruzeiro Celeste,10,-19.842242,-43.179058,João Monlevade,MG,35931112
+6895f41a-185b-40ef-a2f9-a6a6ead243f1,Escola Estadual Luiz Prisco De Braga,1,1,1657130823000,2b0f406e-ff5c-46ec-a733-caa4d719c47b,R. Raposos,Lourdes,97,-19.815454,-43.178094,João Monlevade,MG,35930057
+e688ea6d-473f-4b9e-b6de-4dd494dd7c08,Escola Estadual Dona Jenny Faria,1,1,1654617096000,c531d7ec-d172-4daa-b4db-b22a2524a6b8,Av. Getúlio Vargas,Carneirinhos,4982,-19.807981,-43.175587,João Monlevade,MG,35930003
+bd5d2ac4-058a-417a-9966-6225e69ae57b,Escola Estadual Afonso Pena,1,1,1652368073000,ac4815d9-6d3f-45ca-bf2e-082d5b9e2963,Av. João Pinheiro,Boa Viagem,450,-19.928839,-43.937366,Belo Horizonte,MG,30130180
+5741f2bd-d090-4e17-aabe-cc476f3b6e79,Escola Estadual Pedro II,1,1,1654126113000,77007b2d-921b-4d37-999d-62d77622cbeb,Av. Prof. Alfredo Balena,Centro,523,-19.926063,-43.930168,Belo Horizonte,MG,30130130
+2554adac-24b9-4014-bb49-817ff3d9264f,Escola Estadual Bueno Brandão,1,1,1656566153000,144eb866-2c03-47a0-b739-03c2f3e6be4f,R. Paraíba,Savassi,1145,-19.936857,-43.933695,Belo Horizonte,MG,30130141
+af71a3fa-ec40-44e0-a7f5-9d4339fa265f,Escola Estadual João XXIII,1,1,1655183660000,4a84f2cf-ae99-42c5-95f5-de9c7a440afe,R. Pedras Bonitas,Iguaću,100,-19.475300,-42.543969,Ipatinga,MG,35162535
+09335b86-bba1-46df-b1e2-4921c6af418a,Creche Municipal Irma Dulce,2,1,1653927962000,cc125c46-d8e3-4627-811d-1d5b9353e841,R. Marquês de São Vicente,Novo Cruzeiro,13,-19.847494,-43.186158,João Monlevade,MG,35931122
+62afe7e5-e8f8-4f57-955e-c40b2999877f,Creche Menino de Jesus IV,2,1,1658104031000,d329e24d-407e-42f2-8146-b2c75d3d3bba,R. Serro,Praia,395,-19.632648,-43.203486,Itabira,MG,35900280
+849d51b4-cdb1-48bd-a7bf-83e9f2024a3b,Creche Municipal Casulo,2,1,1652444167000,fef1de58-10e4-48fc-beae-d06fd1f8204f,R. Vereador Nôzinho Caldeira,Novo Horizonte,242,-19.813511,-43.183348,João Monlevade,MG,35930077
+f47dc5c1-b6a3-4154-8fcf-5d9488d73acf,Creche Pingo De Mel,2,1,1652928700000,e124d84f-05ff-4aa2-8dc4-9d3bae1f1c15,R. dos Bandeirantes,N.A.,20,-19.766947,-43.035314,Nova Era,MG,35920000
+6f4a9826-2563-45ee-bc09-1bd77e0f871e,Creche Dom Bosco,2,1,1658938703000,6e4f8304-8395-4fb4-a058-8b8f5ad38b86,R. Olinto Magalhães,Dom Bosco,2140,-19.911840,-43.999892,Belo Horizonte,MG,30830050
+d1a4b2cc-f977-40d4-9bd6-0afd6d6dceda,Creche Oásis Unid I,2,0,1652861126000,d4b71f7e-26ed-4faa-ba8e-a700937a4eb3,R. Joazeiro,São Cristóvão,41,-19.900525,-43.943907,Belo Horizonte,MG,31110490
+5dbb431f-8df9-4e8a-a0b1-913af835c56b,Creche Municipal Maria Célia Torres,2,0,1654217864000,a0272b20-c275-469b-8ec7-f4e02e1f4944,R. Rumão da Silva,Modelo,271,-19.976965,-43.409616,Santa Bárbara,MG,35960000

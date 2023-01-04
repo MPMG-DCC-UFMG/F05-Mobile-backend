@@ -11,6 +11,14 @@ class Settings(BaseSettings):
     token_cep_aberto: str
     secret_key: str
     api_key: str
+    system_name: str
+    system_version: str
+    report_institution: str
+    report_department: str
+    report_section: str
+    report_address: str
+    report_contact: str
+    report_website: str
 
     class Config:
         env_file = "../f05_backend.env"

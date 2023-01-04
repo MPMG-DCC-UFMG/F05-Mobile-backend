@@ -1,12 +1,13 @@
-from typing import List, Dict
+from typing import Dict, List
 
+from fastapi import APIRouter, Depends, FastAPI, HTTPException
+from sqlalchemy.orm import Session
+
+from application.core.database import get_db
 from application.security.core.checker import admin_role
 from application.shared.base_router import BaseRouter
 from application.workstatus.database import repository
 from application.workstatus.models.workStatus import WorkStatus
-from fastapi import APIRouter, FastAPI, Depends, HTTPException
-from sqlalchemy.orm import Session
-from application.core.database import get_db
 
 
 class WorkStatusRouter(BaseRouter):
@@ -25,6 +26,15 @@ class WorkStatusRouter(BaseRouter):
         return response
 
     @staticmethod
+    @work_status_router.get("/id")
+    async def get_work_status_by_id(work_status_id: int, db: Session = Depends(get_db)) -> WorkStatus:
+      work_status = repository.get_work_status_by_id(work_status_id, db)
+      if work_status:
+        return work_status
+      else:
+        raise HTTPException(status_code=403, detail="Not able to find work status")
+
+    @staticmethod
     @work_status_router.post("/add",dependencies=[Depends(admin_role)])
     async def add_work_status(work_status: WorkStatus, db: Session = Depends(get_db)) -> WorkStatus:
         response = repository.add_work_status(db, work_status)
@@ -40,7 +50,7 @@ class WorkStatusRouter(BaseRouter):
             raise HTTPException(status_code=403, detail="Not able to find type of work to update")
 
     @staticmethod
-    @work_status_router.post("/delete",dependencies=[Depends(admin_role)], responses={403: {"description": "Operation forbidden"}})
+    @work_status_router.delete("/delete",dependencies=[Depends(admin_role)], responses={403: {"description": "Operation forbidden"}})
     async def delete_work_status(work_status_id: int, db: Session = Depends(get_db)) -> WorkStatus:
         work_status_db = repository.delete_work_status(db, work_status_id)
         if work_status_db:

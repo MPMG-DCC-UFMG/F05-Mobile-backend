@@ -2,6 +2,7 @@ from sqlalchemy import Column, Float, String
 
 from application.core.database import Base
 from application.core.helpers import generate_uuid, is_valid_uuid
+from sqlalchemy.orm import relationship
 
 from application.address.models.address import Address
 
@@ -18,7 +19,9 @@ class AddressDB(Base):
     city = Column(String)
     state = Column(String, default="MG")
     cep = Column(String)
-    public_work_id = Column(String)
+
+    publicworks = relationship("PublicWorkDB", cascade="all,delete-orphan", backref="publicwork")
+
 
     @classmethod
     def from_model(cls, address: Address):
@@ -31,7 +34,6 @@ class AddressDB(Base):
             city=address.city,
             state=address.state,
             cep=address.cep,
-            public_work_id=address.public_work_id
         )
 
         if address.id and is_valid_uuid(address.id):
@@ -49,4 +51,3 @@ class AddressDB(Base):
         self.longitude = address.longitude
         self.city = address.city
         self.cep = address.cep
-        self.public_work_id = address.public_work_id
