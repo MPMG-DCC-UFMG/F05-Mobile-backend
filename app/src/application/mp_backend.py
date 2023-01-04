@@ -7,6 +7,7 @@ from application.core import config
 from application.core.database import Base, engine
 from application.image.routes import ImageRouter
 from application.inspection.routes import InspectionRouter
+from application.message.routes import MessageRouter
 from application.photo.routes import PhotoRouter
 from application.publicwork.routes import PublicWorkRouter
 from application.receiving_queue.routes import QueueRouter
@@ -59,6 +60,7 @@ routes = [
     QueueRouter("queue", mpApi, [Depends(get_api_key)]),
     InspectionRouter("inspections", mpApi, [Depends(get_api_key)]),
     CallRouter("call", mpApi, [Depends(get_api_key)]),
+    MessageRouter("message", mpApi, [Depends(get_api_key)])
 ]
 
 for route in routes:
