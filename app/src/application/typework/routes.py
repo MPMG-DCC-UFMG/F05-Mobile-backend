@@ -1,14 +1,14 @@
 from typing import Dict, List
 
+from application.core.database import get_db
 from application.security.core.checker import admin_role
 from application.shared.base_router import BaseRouter
 from application.shared.response import Response
 from application.typephoto.models.typePhoto import TypePhoto
-from fastapi import APIRouter, Depends, HTTPException, FastAPI, Body
-from sqlalchemy.orm import Session
-from application.typework.models.typeWork import TypeWork
-from application.core.database import get_db
 from application.typework.database import repository
+from application.typework.models.typeWork import TypeWork
+from fastapi import APIRouter, Body, Depends, FastAPI, HTTPException
+from sqlalchemy.orm import Session
 
 
 class TypeWorkRouter(BaseRouter):
@@ -24,6 +24,11 @@ class TypeWorkRouter(BaseRouter):
     @type_work_router.get("/")
     async def get_all_type_work(db: Session = Depends(get_db)) -> list:
         return repository.get_type_work(db)
+
+    @staticmethod
+    @type_work_router.get("/{flag}")
+    async def get_type_work_by_flag(flag: int, db: Session = Depends(get_db)) -> TypeWork:
+      return repository.get_type_workd_by_flag(flag, db)
 
     @staticmethod
     @type_work_router.post("/add", dependencies=[Depends(admin_role)])
