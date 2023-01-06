@@ -1,5 +1,4 @@
 from pydantic import BaseModel
-from typing import List
 
 
 class Inspection(BaseModel):
@@ -12,6 +11,7 @@ class Inspection(BaseModel):
     status: int
     user_email: str
     request_date: int = None
+    secret: bool = False
 
     class Config:
         orm_mode = True
