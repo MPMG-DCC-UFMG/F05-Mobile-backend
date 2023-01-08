@@ -24,9 +24,18 @@ def send_message(db: Session, message: Message) -> Message:
 
 
 def delete_message(db: Session, message_id: str) -> Message:
-    db_message = db.query(MessageDB).filter(MessageDB.id == message_id).first()
+    db_message: MessageDB | None = db.query(MessageDB).get(message_id)
     if db_message:
-        db_message.update({MessageDB.text: "Mensagem apagada"})
+        db_message.text = "Mensagem apagada"
         db.commit()
-        db.refresh()
+        db.refresh(db_message)
+        return db_message
+
+
+def mark_message_as_readed(db: Session, message_id: str) -> Message:
+    db_message: MessageDB | None = db.query(MessageDB).get(message_id)
+    if db_message:
+        db_message.readed = True
+        db.commit()
+        db.refresh(db_message)
         return db_message
