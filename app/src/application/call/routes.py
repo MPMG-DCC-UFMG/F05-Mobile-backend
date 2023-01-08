@@ -19,7 +19,7 @@ class CallRouter(BaseRouter):
         return self.call_router
 
     @classmethod
-    @call_router.get("/")
+    @call_router.get("/", dependencies=[Depends(admin_role)])
     async def get_all_calls(db: Session = Depends(get_db)) -> List[Call]:
         return repository.get_all_calls(db)
 
@@ -29,18 +29,32 @@ class CallRouter(BaseRouter):
         return repository.get_call_by_id(db, call_id)
 
     @classmethod
-    @call_router.get("/admin")
-    async def get_admin_calls(
+    @call_router.get("/admin/{admin_email}")
+    async def get_admin_open_calls(
         admin_email: str, db: Session = Depends(get_db)
     ) -> List[Call]:
         return repository.get_admin_calls(db, admin_email)
 
     @classmethod
-    @call_router.get("/user")
-    async def get_user_calls(
+    @call_router.get("/admin/history/{admin_email}", dependencies=[Depends(admin_role)])
+    async def get_admin_calls_history(
+        admin_email: str, db: Session = Depends(get_db)
+    ) -> List[Call]:
+        return repository.get_admin_calls_history(db, admin_email)
+
+    @classmethod
+    @call_router.get("/user/{user_email}")
+    async def get_user_open_calls(
         user_email: str, db: Session = Depends(get_db)
     ) -> List[Call]:
         return repository.get_user_calls(db, user_email)
+
+    @classmethod
+    @call_router.get("/user/history/{user_email}")
+    async def get_user_calls_history(
+        user_email: str, db: Session = Depends(get_db)
+    ) -> List[Call]:
+        return repository.get_user_calls_history(db, user_email)
 
     @classmethod
     @call_router.post("/", dependencies=[Depends(admin_role)])
