@@ -15,7 +15,7 @@ def get_call_by_id(db: Session, call_id: str) -> Call:
     return db.query(CallDB).get(call_id)
 
 
-def get_admin_calls(db: Session, admin_email: str) -> List[Call]:
+def get_admin_open_calls(db: Session, admin_email: str) -> List[Call]:
     return (
         db.query(CallDB)
         .filter(CallDB.admin_email == admin_email, CallDB.closed.is_(False))
@@ -33,7 +33,7 @@ def get_admin_calls_history(db: Session, admin_email: str) -> List[Call]:
     )
 
 
-def get_user_calls(db: Session, user_email: str) -> List[Call]:
+def get_user_open_calls(db: Session, user_email: str) -> List[Call]:
     return (
         db.query(CallDB)
         .filter(CallDB.user_email == user_email, CallDB.closed.is_(False))
