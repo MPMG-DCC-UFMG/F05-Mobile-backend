@@ -11,7 +11,8 @@ class CallDB(Base):
     id = Column(String, primary_key=True, index=True, default=generate_uuid)
     created_at = Column(BigInteger, default=get_today())
     title = Column(String)
-    finished = Column(Boolean, default=False)
+    closed = Column(Boolean, default=False)
+    closed_at = Column(BigInteger, default=None)
 
     admin_email = Column(String, ForeignKey("user.email"))
     user_email = Column(String, ForeignKey("user.email"))
@@ -20,11 +21,12 @@ class CallDB(Base):
     def from_model(cls, call: Call):
         call_db = CallDB(
             id=call.id,
-            created_at=call.created_at,
             title=call.title,
             admin_email=call.admin_email,
             user_email=call.user_email,
-            finished=call.finished,
+            created_at=call.created_at,
+            closed=call.closed,
+            closed_at=call.closed_at
         )
 
         if call.id and is_valid_uuid(call.id):
