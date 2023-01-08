@@ -1,6 +1,7 @@
-import requests
 import pathlib
-from fastapi import UploadFile, File
+
+import requests
+from fastapi import File, UploadFile
 
 # BASE_URL = "https://trena.gsi.mpmg.mp.br/f05_backend/"
 # BASE_URL = "http://localhost/f05_backend/"
@@ -219,6 +220,22 @@ def add_work_status():
                 uploaded = uploaded + 1
         print("Estatus de obras adicionados: {0}".format(uploaded))
 
+  
+def add_calls():
+    with open("calls/calls.csv", "r") as f_in:
+        lines = f_in.readlines()
+        uploaded = 0
+        for line in lines[1:]:
+            call = line.strip().split(",")
+            response = send(BASE_URL + "call/", {
+                "admin_email": call[0],
+                "user_email": call[1],
+                "title": call[2]
+            })
+            if response.status_code == 200:
+                uploaded = uploaded + 1
+        print("Chamados adicionados: {0}".format(uploaded))
+
 
 def add_admin_user():
     response = send(BASE_URL + "security/users/create/admin", {
@@ -256,6 +273,7 @@ def main():
         add_inspections()
         add_collects()
         add_photos()
+        add_calls()
 
 
 if __name__ == '__main__':
