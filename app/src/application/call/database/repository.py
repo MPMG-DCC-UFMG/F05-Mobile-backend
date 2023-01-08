@@ -60,7 +60,7 @@ def open_call(db: Session, call: Call) -> Call:
 
 
 def delete_call(db: Session, call_id: str) -> Call:
-    db_call = db.query(CallDB).get(call_id)
+    db_call: CallDB | None = db.query(CallDB).get(call_id)
     if db_call:
         db.delete(db_call)
         db.commit()
@@ -68,7 +68,7 @@ def delete_call(db: Session, call_id: str) -> Call:
 
 
 def close_call(db: Session, call_id: str) -> Call:
-    db_call = db.query(CallDB).get(call_id)
+    db_call: CallDB | None = db.query(CallDB).get(call_id)
     if db_call:
         db_call.closed = True
         db_call.closed_at = get_today()
