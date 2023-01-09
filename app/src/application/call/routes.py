@@ -47,7 +47,7 @@ class CallRouter(BaseRouter):
     async def get_user_open_calls(
         user_email: str, db: Session = Depends(get_db)
     ) -> List[Call]:
-        return repository.get_user_calls(db, user_email)
+        return repository.get_user_open_calls(db, user_email)
 
     @classmethod
     @call_router.get("/user/history/{user_email}")
