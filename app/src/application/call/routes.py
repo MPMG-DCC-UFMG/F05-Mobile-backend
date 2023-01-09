@@ -33,7 +33,7 @@ class CallRouter(BaseRouter):
     async def get_admin_open_calls(
         admin_email: str, db: Session = Depends(get_db)
     ) -> List[Call]:
-        return repository.get_admin_calls(db, admin_email)
+        return repository.get_admin_open_calls(db, admin_email)
 
     @classmethod
     @call_router.get("/admin/history/{admin_email}", dependencies=[Depends(admin_role)])
