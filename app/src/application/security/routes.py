@@ -55,6 +55,11 @@ class SecurityRouter(BaseRouter):
         return get_current_active_user(token, db)
 
     @staticmethod
+    @security_router.get("/users/{user_email}")
+    async def get_user_safe_data_by_email(user_email: str, db: Session = Depends(get_db)):
+        return security_repository.get_user_safe_data_by_email(db, user_email)
+
+    @staticmethod
     @security_router.post("/users/create")
     async def create_user(user: User, db: Session = Depends(get_db)) -> Response:
         old_user = security_repository.get_user_by_email(db, user.email)

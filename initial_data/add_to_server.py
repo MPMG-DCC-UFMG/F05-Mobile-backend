@@ -240,6 +240,8 @@ def add_calls():
 def add_admin_user():
     response = send(BASE_URL + "security/users/create/admin", {
         "email": "admin@trena.mpmg.mg.br",
+        "full_name": "Admin Trena",
+        "picture": "https://avatars.githubusercontent.com/u/60111910?s=200&v=4",
         "authentication": "12345678aA"
     })
     if response.status_code == 200:

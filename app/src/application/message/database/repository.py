@@ -2,7 +2,7 @@ from typing import List
 
 from application.message.database.messageDB import MessageDB
 from application.message.model.message import Message
-from sqlalchemy import desc
+from sqlalchemy import asc
 from sqlalchemy.orm import Session
 
 
@@ -10,7 +10,7 @@ def get_messages_from_call(db: Session, call_id: str) -> List[Message]:
     return (
         db.query(MessageDB)
         .filter(MessageDB.call_id == call_id)
-        .order_by(desc("timestamp"))
+        .order_by(asc("timestamp"))
         .all()
     )
 
