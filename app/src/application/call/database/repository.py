@@ -27,7 +27,7 @@ def get_admin_open_calls(db: Session, admin_email: str) -> List[Call]:
 def get_admin_calls_history(db: Session, admin_email: str) -> List[Call]:
     return (
         db.query(CallDB)
-        .filter(CallDB.admin_email == admin_email)
+        .filter(CallDB.admin_email == admin_email, CallDB.closed.is_(True))
         .order_by(desc("created_at"))
         .all()
     )
@@ -45,7 +45,7 @@ def get_user_open_calls(db: Session, user_email: str) -> List[Call]:
 def get_user_calls_history(db: Session, user_email: str) -> List[Call]:
     return (
         db.query(CallDB)
-        .filter(CallDB.user_email == user_email)
+        .filter(CallDB.user_email == user_email, CallDB.closed.is_(True))
         .order_by(desc("created_at"))
         .all()
     )

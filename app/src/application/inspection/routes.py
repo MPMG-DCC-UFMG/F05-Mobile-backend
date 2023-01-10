@@ -112,6 +112,9 @@ class InspectionRouter(BaseRouter):
         inspection_db = repository.get_inspection_by_flag(db, inspection_flag)
         public_work_db = public_work_repository.get_public_work_by_id(db, inspection_db.public_work_id)
         collects_db = collect_repository.get_inspection_collects(db, inspection_flag)
+        if len(collects_db) == 0:
+            raise HTTPException(status_code=400, detail="This inspection doesnt have any collect")
+
         photos_db = photo_repository.get_photos_by_collect_id(db, collects_db[0].id)
 
         if len(photos_db) == 0:
