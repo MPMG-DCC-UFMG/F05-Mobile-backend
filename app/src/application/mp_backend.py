@@ -13,6 +13,7 @@ from application.inspection.routes import InspectionRouter
 from application.publicwork.routes import PublicWorkRouter
 from application.collect.routes import CollectRouter
 from application.photo.routes import PhotoRouter
+from application.notifications.routes import NotificationRouter
 from application.image.routes import ImageRouter
 from application.typephoto.routes import TypePhotoRouter
 from application.address.routes import AddressRouter
@@ -51,6 +52,7 @@ routes = [
     PublicWorkRouter("publicworks", mpApi, [Depends(get_api_key)]),
     CollectRouter("collects", mpApi, [Depends(get_api_key)]),
     PhotoRouter("photos", mpApi, [Depends(get_api_key)]),
+    NotificationRouter("notification", mpApi, [Depends(get_api_key)]),
     ImageRouter("images", mpApi),
     TypePhotoRouter("typephotos", mpApi, [Depends(get_api_key)]),
     AddressRouter("address", mpApi, [Depends(get_api_key)]),

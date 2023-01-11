@@ -3,8 +3,8 @@ import pathlib
 from fastapi import UploadFile, File
 
 # BASE_URL = "https://trena.gsi.mpmg.mp.br/f05_backend/"
-# BASE_URL = "http://localhost/f05_backend/"
-BASE_URL = "http://0.0.0.0:8000/"
+BASE_URL = "http://localhost/f05_backend/"
+#BASE_URL = "http://0.0.0.0:8000/"
 
 # API_KEY = "DA28L9EEppwvC25tHg2X"
 API_KEY = "0a944fb8-2bbc-4f03-a81a-bf84899cd4f2"
@@ -186,6 +186,48 @@ def add_photos():
         print("Fotos adicionadas: {0}".format(uploaded))
 
 
+def add_notifications():
+    with open("notifications/notifications.csv", "r") as f_in:
+        lines = f_in.readlines()
+        uploaded = 0
+        for line in lines[1:]:
+            notification = line.strip().split(",")
+            response = send(BASE_URL + "notification/add",
+                            {
+                                "id": notification[0],
+                                "title": notification[1],
+                                "inspection_id": notification[2],
+                                "content": notification[3],
+                                "user_email": notification[4],
+                                "timestamp": notification[5]
+                            })
+            
+            if response.status_code == 200:
+                uploaded = uploaded + 1
+        print("Notificações adicionadas: {0}".format(uploaded))
+
+
+
+def add_comments():
+    with open("notifications/comments.csv", "r") as f_in:
+        lines = f_in.readlines()
+        uploaded = 0
+        for line in lines[1:]:
+            comments = line.strip().split(",")
+            response = send(BASE_URL + "notification/add/comments",
+                            {
+                                "id": comments[0],
+                                "notification_id": comments[1],
+                                "content": comments[2],
+                                "user_email": comments[3],
+                                "timestamp": comments[4]
+                            })
+            
+            if response.status_code == 200:
+                uploaded = uploaded + 1
+        print("Commentários adicionados: {0}".format(uploaded))
+
+
 def add_users():
     with open("users/users.csv", "r") as f_in:
         lines = f_in.readlines()
@@ -256,6 +298,8 @@ def main():
         add_inspections()
         add_collects()
         add_photos()
+        add_notifications()
+        add_comments()
 
 
 if __name__ == '__main__':
