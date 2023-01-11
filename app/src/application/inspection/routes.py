@@ -37,7 +37,7 @@ class InspectionRouter(BaseRouter):
 
     @staticmethod
     @inspection_router.get("/public")
-    async def get_all_public_inspections(db: Session = Depends(get_db)) -> List[Inspection]:
+    async def get_all_public_inspections(db: Session = Depends(get_db)) -> list:
         return repository.get_public_inspections(db)
 
     @staticmethod

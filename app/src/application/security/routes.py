@@ -34,7 +34,7 @@ class SecurityRouter(BaseRouter):
         return self.security_router
 
     @staticmethod
-    @security_router.get("/users/all")
+    @security_router.get("/users/public")
     async def get_all_users_safe(db: Session = Depends(get_db)):
         return security_repository.get_all_users_safe(db)
 
