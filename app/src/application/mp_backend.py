@@ -30,7 +30,7 @@ mpApi = FastAPI(
     title='F05 Backend API',
     description='API backend for the project F05',
     version="2.0.0",
-    openapi_prefix=config.settings.api_prefix,
+    root_path=config.settings.api_prefix,
     docs_url=None,
     redoc_url=None,
 )

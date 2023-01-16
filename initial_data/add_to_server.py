@@ -219,8 +219,9 @@ def add_comments():
                                 "id": comments[0],
                                 "notification_id": comments[1],
                                 "content": comments[2],
-                                "user_email": comments[3],
-                                "timestamp": comments[4]
+                                "receive_email": comments[3],
+                                "send_email": comments[4],
+                                "timestamp": comments[5]
                             })
             
             if response.status_code == 200:

@@ -11,7 +11,8 @@ class CommentsDB(Base):
     id = Column(String, primary_key=True, index=True, default=generate_uuid)
     notification_id = Column(String)
     content = Column(String)
-    user_email = Column(String)
+    receive_email = Column(String)
+    send_email = Column(String)
     timestamp = Column(BigInteger)
     
 
@@ -20,7 +21,8 @@ class CommentsDB(Base):
         comments_db = CommentsDB(
             notification_id = comments.notification_id,
             content=comments.content,
-            user_email=comments.user_email,
+            receive_email=comments.receive_email,
+            send_email=comments.send_email,
             timestamp=comments.timestamp
         )
 
