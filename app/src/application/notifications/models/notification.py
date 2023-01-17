@@ -9,6 +9,7 @@ class Notification(BaseModel):
     inspection_id: str
     content: str
     user_email: str
+    answer: bool
     timestamp: int
 
     class Config:

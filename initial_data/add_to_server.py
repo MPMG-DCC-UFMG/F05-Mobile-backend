@@ -199,7 +199,8 @@ def add_notifications():
                                 "inspection_id": notification[2],
                                 "content": notification[3],
                                 "user_email": notification[4],
-                                "timestamp": notification[5]
+                                "answer": notification[5],
+                                "timestamp": notification[6]
                             })
             
             if response.status_code == 200:
