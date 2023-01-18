@@ -290,8 +290,11 @@ def generate_docx_by_id(data: PublicWorkPdfDTO):
   # document.add_paragraph(f"Data da Vistoria: {getattr(data, 'inspection_date')}")
 
   for index, collect in enumerate(getattr(data, 'content')):
+    document.add_page_break()
     pDate = document.add_paragraph(f"Data: {collect.date}")
     insertTopHR(pDate)
+    inspector = collect.inspector
+    document.add_paragraph(f"Enviado por: {getattr(inspector, 'name')} - {getattr(inspector, 'email')}")
 
     for i in range(len(collect.photos)):
       __draw_content(document, collect.photos[i], i)
@@ -300,11 +303,6 @@ def generate_docx_by_id(data: PublicWorkPdfDTO):
     pComments = document.add_paragraph()
     pComments.add_run(f"Comentários gerais:").bold = True
     document.add_paragraph(collect.observations)
-
-    pUser = document.add_paragraph()
-    pUser.add_run(f"Enviado por:").bold = True
-    inspector = collect.inspector
-    document.add_paragraph(f"{getattr(inspector, 'name')} - {getattr(inspector, 'email')}")
 
   document.save(f"../reports/relatorio-obra-publica-{getattr(data, 'name')}.docx")
   return f"../reports/relatorio-obra-publica-{getattr(data, 'name')}.docx"
