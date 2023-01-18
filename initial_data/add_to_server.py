@@ -267,6 +267,8 @@ def add_work_status():
 
 def add_admin_user():
     response = send(BASE_URL + "security/users/create/admin", {
+        "full_name": "Admin Trena",
+        "picture": "https://avatars.githubusercontent.com/u/60111910?s=200&v=4",
         "email": "admin@trena.mpmg.mg.br",
         "authentication": "12345678aA"
     })
@@ -302,7 +304,7 @@ def main():
         add_collects()
         add_photos()
         add_notifications()
-        add_comments()
+        # add_comments()
 
 
 if __name__ == '__main__':

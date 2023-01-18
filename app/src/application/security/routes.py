@@ -33,6 +33,12 @@ class SecurityRouter(BaseRouter):
     def route(self) -> APIRouter:
         return self.security_router
 
+    
+    @staticmethod
+    @security_router.get("/users/public")
+    async def get_all_users_public(db: Session = Depends(get_db)):
+        return security_repository.get_all_users_public(db)
+
     @staticmethod
     @security_router.post("/users/login", response_model=Token)
     async def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)):
@@ -96,6 +102,13 @@ class SecurityRouter(BaseRouter):
             return Response(success=True)
         else:
             raise HTTPException(status_code=403, detail="Não foi possível criar a conta de usuário")
+
+    @staticmethod
+    @security_router.get("/users/{user_email}")
+    async def get_user_public_by_email(
+        user_email: str, db: Session = Depends(get_db)
+    ):
+        return security_repository.get_user_public_data_by_email(db, user_email)
 
     @staticmethod
     @security_router.get("/users", dependencies=[Depends(admin_role)])
