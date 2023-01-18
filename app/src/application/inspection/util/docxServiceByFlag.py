@@ -177,15 +177,6 @@ def insertTopHR(paragraph):
 
 
 def add_hyperlink(paragraph, url, text, color, underline):
-    """
-    A function that places a hyperlink within a paragraph object.
-
-    :param paragraph: The paragraph we are adding the hyperlink to.
-    :param url: A string containing the required url
-    :param text: The text displayed for the url
-    :return: The hyperlink object
-    """
-
     # This gets access to the document.xml.rels file and gets a new relation id value
     part = paragraph.part
     r_id = part.relate_to(url, docx.opc.constants.RELATIONSHIP_TYPE.HYPERLINK, is_external=True)
@@ -315,40 +306,6 @@ def generate_docx_by_flag(data: InspectionPdfDTO):
   pInspectorName.paragraph_format.alignment = WD_ALIGN_PARAGRAPH.CENTER
   pInspectorRole = document.add_paragraph(getattr(inspector, 'role'))
   pInspectorRole.paragraph_format.alignment = WD_ALIGN_PARAGRAPH.CENTER
-  
-  # document.add_page_break()
 
   document.save(f"../reports/relatorio-vistoria-{getattr(data, 'inquiry_number')}.docx")
   return f"../reports/relatorio-vistoria-{getattr(data, 'inquiry_number')}.docx"
-  # pdf = Canvas(f"../reports/relatorio-vistoria-{getattr(data, 'inquiry_number')}.pdf", pagesize=A4)
-  # pdf.setAuthor("Equipe F05")
-  # pdf.setTitle(f"Relatório Automático - Vistoria {getattr(data, 'inquiry_number')}")
-  # __draw_header(pdf)
-  # __draw_footer(pdf)
-  # __draw_template(pdf)
-
-  # pdf.setFont("Helvetica-Bold", 14)
-  # pdf.drawString(__mm_to_p(90), __mm_to_p(200), f"Vistoria n° {getattr(data, 'inquiry_number')}")
-  # pdf.setFont("Helvetica", 12)
-
-  # pdf.drawString(__mm_to_p(30), __mm_to_p(185), f"Local: {getattr(data, 'local')}")
-  # pdf.drawString(__mm_to_p(30), __mm_to_p(175), f"Data da Vistoria: {getattr(data, 'inspection_date')}")
-  # entry_point = (__mm_to_p(30), __mm_to_p(90))
-  # end_point = (0, 0)
-
-  # for index, content in enumerate(getattr(data, 'content')):
-  #   if end_point[1] <= PDF_BOTTOM_LIMIT and end_point[1] != 0: # Reset axis on new page
-  #     pdf.showPage()
-  #     __draw_header(pdf)
-  #     __draw_footer(pdf)
-  #     entry_point = (__mm_to_p(30), __mm_to_p(170))
-  #     end_point = __draw_content(pdf, entry_point, content, index+1)
-  #     entry_point = end_point
-  #   else:
-  #     end_point = __draw_content(pdf, entry_point, content, index+1)
-  #     entry_point = end_point
-
-  # __draw_comments(pdf, getattr(data, 'observations'), getattr(data, 'inspector'))
-  # pdf.save()
-
-  # return f"../reports/relatorio-vistoria-{getattr(data, 'inquiry_number')}.pdf"
