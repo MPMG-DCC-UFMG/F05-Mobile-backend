@@ -302,7 +302,7 @@ def generate_docx_by_id(data: PublicWorkPdfDTO):
     document.add_paragraph(collect.observations)
 
     pUser = document.add_paragraph()
-    pUser.add_run(f"Usuário:").bold = True
+    pUser.add_run(f"Enviado por:").bold = True
     inspector = collect.inspector
     document.add_paragraph(f"{getattr(inspector, 'name')} - {getattr(inspector, 'email')}")
 
