@@ -1,10 +1,6 @@
 from datetime import datetime
 from typing import Dict, List
 
-from fastapi import APIRouter, Body, Depends, FastAPI, HTTPException
-from fastapi.responses import FileResponse
-from sqlalchemy.orm import Session
-
 from application.collect.database import repository as collect_repository
 from application.collect.models.collect import Collect
 from application.core.database import get_db
@@ -22,6 +18,9 @@ from application.security.database import repository as security_repository
 from application.shared.base_router import BaseRouter
 from application.shared.response import Response
 from application.typephoto.models.typePhoto import TypePhoto
+from fastapi import APIRouter, Body, Depends, FastAPI, HTTPException
+from fastapi.responses import FileResponse
+from sqlalchemy.orm import Session
 
 
 class InspectionRouter(BaseRouter):
@@ -37,6 +36,11 @@ class InspectionRouter(BaseRouter):
     @inspection_router.get("/")
     async def get_all_inspections(db: Session = Depends(get_db)) -> list:
         return repository.get_inspection(db)
+
+    @staticmethod
+    @inspection_router.get("/public")
+    async def get_all_public_inspections(db: Session = Depends(get_db)) -> list:
+        return repository.get_public_inspections(db)
 
     @staticmethod
     @inspection_router.post(
