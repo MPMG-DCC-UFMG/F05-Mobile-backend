@@ -113,7 +113,7 @@ class InspectionRouter(BaseRouter):
         photos_db = photo_repository.get_photos_by_collect_id(db, collects_db[0].id)
 
         if len(photos_db) == 0:
-          raise HTTPException(status_code=400, detail="This inspection doesnt have any photo")
+          raise HTTPException(status_code=400, detail="This inspection doesn't have any photo")
         user_db = security_repository.get_user_by_email(db, collects_db[0].user_email)
         pdfDto = {
             "inspection_id": str(inspection_db.flag),
@@ -150,7 +150,7 @@ class InspectionRouter(BaseRouter):
         if len(photos_db) == 0:
           raise HTTPException(status_code=400, detail="This inspection doesnt have any photo")
         user_db = security_repository.get_user_by_email(db, collects_db[0].user_email)
-        pdfDto = {
+        docxDto = {
             "inspection_id": str(inspection_db.flag),
             "inquiry_number": str(inspection_db.inquiry_number),
             "local": public_work_db.address.street + ", " + public_work_db.address.number + " - " + public_work_db.address.city + "/"  + public_work_db.address.state,
@@ -170,6 +170,6 @@ class InspectionRouter(BaseRouter):
                 "role": "Vistoriador do MPMG"
             }
         }
-        docx = generate_docx_by_flag(InspectionPdfDTO.parse_obj(pdfDto))
+        docx = generate_docx_by_flag(InspectionPdfDTO.parse_obj(docxDto))
         headers = {'Content-Disposition': f'attachment; filename={docx}'}
         return FileResponse(docx, headers=headers, media_type="application/docx")
