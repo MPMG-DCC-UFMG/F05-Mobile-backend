@@ -1,19 +1,19 @@
-from sqlalchemy import Column, String, BigInteger
-
 from application.core.database import Base
 from application.core.helpers import generate_uuid, is_valid_uuid
-
 from application.notifications.models.comments import Comments
+from sqlalchemy import BigInteger, Column, ForeignKey, String
+
 
 class CommentsDB(Base):
     __tablename__ = "comments"
 
     id = Column(String, primary_key=True, index=True, default=generate_uuid)
-    notification_id = Column(String)
     content = Column(String)
-    receive_email = Column(String)
-    send_email = Column(String)
     timestamp = Column(BigInteger)
+
+    receive_email = Column(String, ForeignKey("user.email"))
+    send_email = Column(String, ForeignKey("user.email"))
+    notification_id = Column(String, ForeignKey("notification.id"))
     
 
     @classmethod

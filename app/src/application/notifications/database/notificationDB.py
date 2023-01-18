@@ -1,20 +1,20 @@
-from sqlalchemy import Column, String, BigInteger, Boolean
-
 from application.core.database import Base
 from application.core.helpers import generate_uuid, is_valid_uuid
-
 from application.notifications.models.notification import Notification
+from sqlalchemy import BigInteger, Boolean, Column, ForeignKey, String
+
 
 class NotificationDB(Base):
     __tablename__ = "notification"
 
     id = Column(String, primary_key=True, index=True, default=generate_uuid)
     title = Column(String)
-    inspection_id = Column(String)
     content = Column(String)
-    user_email = Column(String)
     answer = Column(Boolean)
     timestamp = Column(BigInteger)
+
+    user_email = Column(String, ForeignKey("user.email"))
+    inspection_id = Column(String, ForeignKey("inspection.flag"))
 
     @classmethod
     def from_model(cls, notification: Notification):

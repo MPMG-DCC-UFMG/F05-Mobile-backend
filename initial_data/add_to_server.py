@@ -1,16 +1,18 @@
-import requests
 import pathlib
-from fastapi import UploadFile, File
+
+import requests
+from fastapi import File, UploadFile
 
 # BASE_URL = "https://trena.gsi.mpmg.mp.br/f05_backend/"
-BASE_URL = "http://localhost/f05_backend/"
-#BASE_URL = "http://0.0.0.0:8000/"
+# BASE_URL = "http://localhost/f05_backend/"
+BASE_URL = "http://0.0.0.0:8000/"
 
 # API_KEY = "DA28L9EEppwvC25tHg2X"
 API_KEY = "0a944fb8-2bbc-4f03-a81a-bf84899cd4f2"
 
 USER_TOKEN = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imdlb3JnZUB0ZXN0ZS5jb20iLCJyb2xlIjoiQURNSU4iLCJleHAiOjE2Njg1MjA1NTl9.TQC-Drv_pCrDpyDGn-4QQdoSu7tdTckaqK8CosIHdr4"
 
+NOTIFICATIONS_ID = []
 
 def send(base_url, to_send):
     return requests.post(base_url,
@@ -217,12 +219,11 @@ def add_comments():
             comments = line.strip().split(",")
             response = send(BASE_URL + "notification/add/comments",
                             {
-                                "id": comments[0],
-                                "notification_id": comments[1],
-                                "content": comments[2],
-                                "receive_email": comments[3],
-                                "send_email": comments[4],
-                                "timestamp": comments[5]
+                                "notification_id": comments[0],
+                                "content": comments[1],
+                                "receive_email": comments[2],
+                                "send_email": comments[3],
+                                "timestamp": comments[4]
                             })
             
             if response.status_code == 200:
