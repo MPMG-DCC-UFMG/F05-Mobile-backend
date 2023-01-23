@@ -1,13 +1,12 @@
 from typing import List
 
-from sqlalchemy import desc
-from sqlalchemy.orm import Session
-from sqlalchemy_continuum import Operation, version_class
-
 from application.inspection.database.inspectionDB import InspectionDB
 from application.inspection.models.inspection import Inspection, InspectionDiff
 from application.typephoto.database.typePhotoDB import TypePhotoDB
 from application.workstatus.database.workStatusDB import WorkStatusDB
+from sqlalchemy import desc
+from sqlalchemy.orm import Session
+from sqlalchemy_continuum import Operation, version_class
 
 
 def get_inspection(db: Session) -> list:
@@ -15,13 +14,31 @@ def get_inspection(db: Session) -> list:
     return list(map(lambda inspect: inspect.parse_to_inspect(), db_inspection))
 
 
+def get_public_inspections(db: Session) -> list:
+    db_inspection = (
+        db.query(InspectionDB)
+        .order_by(desc("request_date"))
+        .filter(InspectionDB.secret.is_(False))
+        .all()
+    )
+    return list(map(lambda inspect: inspect.parse_to_inspect(), db_inspection))
+
+
 def get_inspection_by_work_id(db: Session, public_work_id: str) -> list:
-    db_inspection = db.query(InspectionDB).filter(InspectionDB.public_work_id == public_work_id).order_by(desc("request_date"))
+    db_inspection = (
+        db.query(InspectionDB)
+        .filter(InspectionDB.public_work_id == public_work_id)
+        .order_by(desc("request_date"))
+    )
     return list(map(lambda inspect: inspect.parse_to_inspect(), db_inspection))
 
 
 def get_inspection_by_user_email(db: Session, user_email: str) -> list:
-    db_inspection = db.query(InspectionDB).order_by(desc("request_date")).filter(InspectionDB.user_email == user_email)
+    db_inspection = (
+        db.query(InspectionDB)
+        .order_by(desc("request_date"))
+        .filter(InspectionDB.user_email == user_email)
+    )
     return list(map(lambda inspect: inspect.parse_to_inspect(), db_inspection))
 
 
@@ -42,7 +59,9 @@ def get_inspection_by_flag(db: Session, inspection_flag: str) -> Inspection:
 
 
 def update_inspection(db: Session, inspection: Inspection) -> Inspection:
-    db_inspection = db.query(InspectionDB).filter(InspectionDB.flag == inspection.flag).first()
+    db_inspection = (
+        db.query(InspectionDB).filter(InspectionDB.flag == inspection.flag).first()
+    )
     if db_inspection:
         db_inspection.update(inspection)
         db.commit()
@@ -71,7 +90,9 @@ def get_inspection_changes_from(db: Session, inspection_version: int) -> list:
     for change in changes_list:
         if change.id not in changes_dict:
             if change.operation_type == Operation.DELETE:
-                changes_dict[change.id] = InspectionDiff(id=change.id, operation=change.operation_type)
+                changes_dict[change.id] = InspectionDiff(
+                    id=change.id, operation=change.operation_type
+                )
             else:
                 try:
                     inspection = InspectionDiff(

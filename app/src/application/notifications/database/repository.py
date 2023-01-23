@@ -1,20 +1,19 @@
 from typing import List
 
-from sqlalchemy.orm import Session
-
-from application.notifications.database.notificationDB import NotificationDB
-from application.notifications.models.notification import Notification
-
 from application.notifications.database.commentsDB import CommentsDB
+from application.notifications.database.notificationDB import NotificationDB
 from application.notifications.models.comments import Comments
+from application.notifications.models.notification import Notification
+from sqlalchemy import desc
+from sqlalchemy.orm import Session
 
 
 def get_all_notifications(db: Session) -> List[Notification]:
-    return db.query(NotificationDB).all()
+    return db.query(NotificationDB).order_by(desc("timestamp")).all()
 
 
 def get_notification_by_id(db: Session, collect_id: str) -> List[Notification]:
-    return db.query(NotificationDB).filter(NotificationDB.collect_id == collect_id).all()
+    return db.query(NotificationDB).filter(NotificationDB.inspection_id == collect_id).all()
 
 
 def add_notification(db: Session, notification: Notification) -> Notification:
@@ -33,9 +32,8 @@ def add_comments(db: Session, comments: Comments) -> Comments:
     db.commit()
     return db_comments
 
-def get_comments_by_id(db: Session, collect_id: str) -> List[Comments]:
-    return db.query(CommentsDB).filter(CommentsDB.collect_id == collect_id).all()
-
+def get_comments_by_id(db: Session, notification_id: str) -> List[Comments]:
+    return db.query(CommentsDB).filter(CommentsDB.notification_id == notification_id).all()
     
 def delete_notification(db: Session, notification_id: str) -> Notification:
     db_notification = db.query(NotificationDB).filter(NotificationDB.id == notification_id).first()

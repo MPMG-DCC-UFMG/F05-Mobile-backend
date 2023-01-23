@@ -1,15 +1,27 @@
 from typing import List
 
-from application.security.models.roles import UserRoles
-from sqlalchemy.orm import Session
-
-from application.security.models.user import User
 from application.security.database.userDB import UserDB
+from application.security.models.roles import UserRoles
+from application.security.models.user import User
+from sqlalchemy.orm import Session, load_only
 
 
 def get_user_by_email(db: Session, email: str) -> User:
     return db.query(UserDB).filter(UserDB.email == email).first()
 
+
+def get_user_public_data_by_email(db: Session, user_email: str) -> list:
+    columns = ["email", "full_name", "picture", "role"]
+    user_db = db.query(UserDB).options(load_only(*columns)).get(user_email)
+    if user_db:
+        return user_db
+
+
+def get_all_users_public(db: Session) -> list:
+    columns = ["email", "full_name", "picture", "role"]
+    users_db = db.query(UserDB).options(load_only(*columns)).all()
+
+    return users_db
 
 def delete_user_by_email(db: Session, email: str) -> User:
     db_user = db.query(UserDB).filter(UserDB.email == email).first()

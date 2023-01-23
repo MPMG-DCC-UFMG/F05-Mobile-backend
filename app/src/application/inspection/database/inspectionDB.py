@@ -1,8 +1,7 @@
 from application.calendar.calendar_utils import get_today
 from application.core.database import Base
 from application.inspection.models.inspection import Inspection
-from sqlalchemy import BigInteger, Column, ForeignKey, Integer, String
-from sqlalchemy.orm import backref, relationship
+from sqlalchemy import BigInteger, Boolean, Column, ForeignKey, Integer, String
 
 
 class InspectionDB(Base):
@@ -17,6 +16,7 @@ class InspectionDB(Base):
     status = Column(Integer)
     request_date = Column(BigInteger, default=get_today())
     timestamp = Column(BigInteger, default=get_today())
+    secret = Column(Boolean, default=False)
 
     public_work_id = Column(String, ForeignKey("publicwork.id"))
     user_email = Column(String, ForeignKey("user.email"))
@@ -33,6 +33,7 @@ class InspectionDB(Base):
             status=inspection.status,
             user_email=inspection.user_email,
             request_date=inspection.request_date,
+            secret=inspection.secret
         )
         return inspection_db
 

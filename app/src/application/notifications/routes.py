@@ -2,8 +2,8 @@ from typing import List
 
 from application.core.database import get_db
 from application.notifications.database import repository
-from application.notifications.models.notification import Notification
 from application.notifications.models.comments import Comments
+from application.notifications.models.notification import Notification
 from application.security.core.checker import admin_role
 from application.shared.base_router import BaseRouter
 from fastapi import APIRouter, Depends, FastAPI, HTTPException
@@ -58,6 +58,6 @@ class NotificationRouter(BaseRouter):
         return repository.add_comments(db, comments)
 
     @staticmethod
-    @notification_router.get("/comments/{comments_id}")
-    async def get_comments_from(comments_id: str, db: Session = Depends(get_db)) -> List[Comments]:
-        return repository.get_comments_by_id(db, comments_id)
+    @notification_router.get("/comments/{notification_id}")
+    async def get_comments_from_notification(notification_id: str, db: Session = Depends(get_db)) -> List[Comments]:
+        return repository.get_comments_by_id(db, notification_id)
