@@ -6,4 +6,6 @@ from application import mp_backend
 if __name__ == '__main__':
     settings = mp_backend.config.settings
     sentry_sdk.init(settings.sentry_key, environment=settings.environment)
-    uvicorn.run(mp_backend.mpApi, host="0.0.0.0", port=8000, root_path=mp_backend.config.settings.api_prefix)
+    uvicorn.run(mp_backend.mpApi, host="0.0.0.0", port=443, root_path=mp_backend.config.settings.api_prefix,ssl_keyfile="ssl/private.key",ssl_certfile="ssl/certificate.crt",ssl_ca_certs="ssl/ca_bundle.crt")
+    # uvicorn.run(mp_backend.mpApi, host="0.0.0.0", port=8000, root_path=mp_backend.config.settings.api_prefix)
+    

@@ -136,6 +136,7 @@ dmypy.json
 /f05_backend.env
 /database.env
 /reports/
+/app/ssl/private.key
 .history/
 .vscode/
 .vercel
