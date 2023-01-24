@@ -19,6 +19,8 @@ class PublicWorkDB(Base):
     queue_status = Column(Integer, default=0)
     queue_status_date =  Column(BigInteger, default=get_today())
     timestamp = Column(BigInteger, default=get_today())
+    profile_picture = Column(String, nullable=True)
+
 
     type_work_flag = Column(Integer, ForeignKey("typework.flag"))
     address_id = Column(String, ForeignKey("address.id"))
@@ -41,6 +43,7 @@ class PublicWorkDB(Base):
             user_status=public_work.user_status,
             queue_status=public_work.queue_status,
             queue_status_date=public_work.queue_status_date,
+            profile_picture=public_work.profile_picture,
         )
 
         if public_work.id and is_valid_uuid(public_work.id):
@@ -58,3 +61,4 @@ class PublicWorkDB(Base):
         self.user_status = public_work.user_status
         self.queue_status = public_work.queue_status
         self.queue_status_date = public_work.queue_status_date
+        self.profile_picture = public_work.profile_picture

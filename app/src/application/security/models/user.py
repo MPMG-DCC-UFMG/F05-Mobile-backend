@@ -10,6 +10,7 @@ class User(BaseModel):
     full_name: Optional[str] = None
     picture: Optional[str] = None
     role: str = UserRoles.NORMAL.name
+    anonymous: bool = False
 
     class Config:
         orm_mode = True

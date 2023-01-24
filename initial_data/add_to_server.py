@@ -107,7 +107,8 @@ def add_public_work():
                                     "city": public_work[11],
                                     "state": public_work[12],
                                     "cep": public_work[13],
-                                }
+                                },
+                                "profile_picture": public_work[14]
                             })
             if response.status_code == 200:
                 uploaded = uploaded + 1
@@ -129,7 +130,8 @@ def add_inspections():
                                 "public_work_id": inspection[4],
                                 "status": inspection[5],
                                 "user_email": inspection[6],
-                                "request_date": inspection[7]
+                                "request_date": inspection[7],
+                                "secret": inspection[8]
                             })
             if response.status_code == 200:
                 uploaded = uploaded + 1
@@ -152,7 +154,8 @@ def add_collects():
                                 "date": collect[5],
                                 "user_email": collect[6],
                                 "comments": collect[7],
-                                "public_work_status": collect[8]
+                                "public_work_status": collect[8],
+                                "secret": collect[9]
                             })
             if response.status_code == 200:
                 uploaded = uploaded + 1
@@ -241,7 +244,8 @@ def add_users():
                                 "authentication": user[1],
                                 "full_name": user[2],
                                 "picture": user[3],
-                                "role": user[4]
+                                "role": user[4],
+                                "anonymous": user[5]
                             })
             if response.status_code == 200:
                 uploaded = uploaded + 1

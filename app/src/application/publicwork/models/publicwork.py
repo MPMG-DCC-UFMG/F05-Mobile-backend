@@ -12,6 +12,7 @@ class PublicWork(BaseModel):
     queue_status: int = 0
     queue_status_date: int = None
     rnn_status: int = None
+    profile_picture: str = None
 
     class Config:
         orm_mode = True
@@ -26,3 +27,4 @@ class PublicWorkDiff(BaseModel):
     user_status: int = 0
     queue_status: int = 0
     queue_status_date: int = None
+    profile_picture: str = None

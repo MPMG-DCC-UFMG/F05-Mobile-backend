@@ -16,6 +16,7 @@ class Collect(BaseModel):
     comments: str = None
     public_work_status: int = None
     photos: List[Photo] = []
+    secret: bool = False
 
     class Config:
         orm_mode = True

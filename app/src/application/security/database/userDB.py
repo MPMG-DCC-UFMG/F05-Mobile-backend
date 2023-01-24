@@ -1,6 +1,6 @@
 from application.core.database import Base
 from application.security.models.user import User
-from sqlalchemy import BigInteger, Column, Integer, String, UniqueConstraint
+from sqlalchemy import BigInteger, Column, Integer, String, UniqueConstraint, Boolean
 
 
 class UserDB(Base):
@@ -15,6 +15,7 @@ class UserDB(Base):
     phone = Column(String)
     hashed_password = Column(String)
     role = Column(String)
+    anonymous = Column(Boolean, default=False)
 
     @classmethod
     def from_model(cls, user: User):
@@ -23,7 +24,8 @@ class UserDB(Base):
             full_name=user.full_name,
             picture=user.picture,
             hashed_password=user.authentication,
-            role = user.role
+            role = user.role,
+            anonymous = user.anonymous
         )
 
         return user_db

@@ -19,6 +19,7 @@ class CollectDB(Base):
     queue_status = Column(Integer, default=0)
     queue_status_date =  Column(BigInteger, default=get_today())
     inspection_flag = Column(String, nullable=True)
+    secret = Column(Boolean, default=False)
 
     user_email = Column(String, ForeignKey("user.email"), nullable=True)
     public_work_id = Column(String, ForeignKey("publicwork.id"))
@@ -35,7 +36,8 @@ class CollectDB(Base):
             user_email=collect.user_email,
             public_work_status=collect.public_work_status,
             queue_status=collect.queue_status,
-            queue_status_date=collect.queue_status_date
+            queue_status_date=collect.queue_status_date,
+            secret=collect.secret
         )
 
         if collect.id and is_valid_uuid(collect.id):
@@ -54,7 +56,8 @@ class CollectDB(Base):
             public_work_status=self.public_work_status,
             queue_status=self.queue_status,
             queue_status_date=self.queue_status_date,
-            photos=self.photos
+            photos=self.photos,
+            secret=self.secret
         )
 
     def update(self, collect: Collect):
@@ -67,3 +70,4 @@ class CollectDB(Base):
         self.public_work_status = collect.public_work_status
         self.queue_status=collect.queue_status
         self.queue_status_date=collect.queue_status_date
+        self.secret=collect.secret

@@ -30,3 +30,4 @@ class InspectionDiff(BaseModel):
     status: int = 0
     user_email: str = None
     request_date: int = None
+    secret: bool = False

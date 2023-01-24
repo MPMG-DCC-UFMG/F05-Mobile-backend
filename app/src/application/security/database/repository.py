@@ -18,7 +18,7 @@ def get_user_public_data_by_email(db: Session, user_email: str) -> list:
 
 
 def get_all_users_public(db: Session) -> list:
-    columns = ["email", "full_name", "picture", "role"]
+    columns = ["email", "full_name", "picture", "role", "anonymous"]
     users_db = db.query(UserDB).options(load_only(*columns)).all()
 
     return users_db
