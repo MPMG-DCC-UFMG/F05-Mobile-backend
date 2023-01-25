@@ -1,0 +1,9 @@
+FROM nginx
+
+RUN mkdir -p /etc/nginx/ssl/private/ && mkdir -p /etc/nginx/ssl/cert/
+
+RUN openssl req -x509 -new -newkey rsa:4096 -sha256 -days 3650 -nodes  -keyout /etc/nginx/ssl/private/cert.key -out /etc/nginx/ssl/cert/cert.crt -subj "/CN=localhost" -addext "subjectAltName=DNS:localhost,IP:10.21.0.126"
+
+RUN rm /etc/nginx/conf.d/default.conf
+
+COPY ./nginx_default.conf /etc/nginx/conf.d/
