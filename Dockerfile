@@ -4,6 +4,8 @@ COPY ./ /f05_backend
 
 WORKDIR /f05_backend
 
+RUN apt update && apt install -y libsm6 libxext6 ffmpeg libfontconfig1 libxrender1 libgl1-mesa-glx
+
 RUN pip install -r requirements.txt
 
 RUN mkdir -p ./images
