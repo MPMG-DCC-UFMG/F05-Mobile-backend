@@ -19,6 +19,7 @@ class Settings(BaseSettings):
     report_address: str
     report_contact: str
     report_website: str
+    port: int
 
     class Config:
         env_file = "../f05_backend.env"
