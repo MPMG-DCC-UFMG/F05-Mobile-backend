@@ -20,6 +20,11 @@ class Settings(BaseSettings):
     report_contact: str
     report_website: str
     port: int
+    ws02_issuer: str
+    ws02_client_id: str
+    ws02_client_secret: str
+    url_frontend: str
+    url_backend: str
 
     class Config:
         env_file = "../f05_backend.env"
