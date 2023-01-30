@@ -10,6 +10,7 @@ class Notification(BaseModel):
     inspection_id: str
     content: str
     user_email: str
+    chat_close: bool
     answer: bool
     timestamp: int = None
 

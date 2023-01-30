@@ -16,6 +16,7 @@ class UserDB(Base):
     hashed_password = Column(String)
     role = Column(String)
     anonymous = Column(Boolean, default=False)
+    expo_token = Column(String)
 
     @classmethod
     def from_model(cls, user: User):
@@ -25,7 +26,8 @@ class UserDB(Base):
             picture=user.picture,
             hashed_password=user.authentication,
             role = user.role,
-            anonymous = user.anonymous
+            anonymous = user.anonymous,
+            expo_token = user.expo_token
         )
 
         return user_db

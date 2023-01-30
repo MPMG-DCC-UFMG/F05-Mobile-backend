@@ -11,6 +11,7 @@ class NotificationDB(Base):
     id = Column(String, primary_key=True, index=True, default=generate_uuid)
     title = Column(String)
     content = Column(String)
+    chat_close = Column(Boolean)
     answer = Column(Boolean)
     timestamp = Column(BigInteger, default=get_today())
 
@@ -24,6 +25,7 @@ class NotificationDB(Base):
             inspection_id=notification.inspection_id,
             content=notification.content,
             user_email=notification.user_email,
+            chat_close=notification.chat_close,
             answer=notification.answer,
             timestamp = notification.timestamp
         )

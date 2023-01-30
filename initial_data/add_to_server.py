@@ -202,8 +202,9 @@ def add_notifications():
                                 "inspection_id": notification[2],
                                 "content": notification[3],
                                 "user_email": notification[4],
-                                "answer": notification[5],
-                                "timestamp": notification[6]
+                                "chat_close": notification[5],
+                                "answer": notification[6],
+                                "timestamp": notification[7]
                             })
             
             if response.status_code == 200:
@@ -245,7 +246,8 @@ def add_users():
                                 "full_name": user[2],
                                 "picture": user[3],
                                 "role": user[4],
-                                "anonymous": user[5]
+                                "anonymous": user[5],
+                                "expo_token": user[6]
                             })
             if response.status_code == 200:
                 uploaded = uploaded + 1
