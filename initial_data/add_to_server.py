@@ -4,7 +4,7 @@ import requests
 from fastapi import File, UploadFile
 
 # BASE_URL = "https://trena.gsi.mpmg.mp.br/f05_backend/"
-#BASE_URL = "http://0.0.0.0:8000/"
+BASE_URL = "http://0.0.0.0:8000/"
 
 
 API_KEY = "0a944fb8-2bbc-4f03-a81a-bf84899cd4f2"
