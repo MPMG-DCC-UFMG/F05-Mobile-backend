@@ -68,7 +68,6 @@ class NotificationRouter(BaseRouter):
     @staticmethod
     @notification_router.delete(
         "/delete",
-        dependencies=[Depends(admin_role)],
         responses={403: {"description": "Operation forbidden"}},
     )
     async def delete_notification(
@@ -79,7 +78,7 @@ class NotificationRouter(BaseRouter):
             return notification_db
         else:
             raise HTTPException(
-                status_code=403, detail="Not able to find photo to delete"
+                status_code=403, detail="Not able to find notification to delete"
             )
 
     @staticmethod
