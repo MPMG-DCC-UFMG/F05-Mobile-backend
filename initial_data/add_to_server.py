@@ -4,7 +4,7 @@ import requests
 from fastapi import File, UploadFile
 
 # BASE_URL = "https://trena.gsi.mpmg.mp.br/f05_backend/"
-#BASE_URL = "http://0.0.0.0:8000/"
+BASE_URL = "http://0.0.0.0:8000/"
 
 
 API_KEY = "0a944fb8-2bbc-4f03-a81a-bf84899cd4f2"
@@ -195,6 +195,7 @@ def add_notifications():
         lines = f_in.readlines()
         uploaded = 0
         for line in lines[1:]:
+            chat: bool = False
             notification = line.strip().split(",")
             response = send(BASE_URL + "notification/add",
                             {
@@ -203,9 +204,9 @@ def add_notifications():
                                 "inspection_id": notification[2],
                                 "content": notification[3],
                                 "user_email": notification[4],
-                                "chat_close": notification[5],
-                                "answer": notification[6],
-                                "timestamp": notification[7]
+                                "chat_close": chat,
+                                "answer": notification[5],
+                                "timestamp": notification[6]
                             })
             
             if response.status_code == 200:
@@ -248,7 +249,6 @@ def add_users():
                                 "picture": user[3],
                                 "role": user[4],
                                 "anonymous": user[5],
-                                "expo_token": user[6]
                             })
             if response.status_code == 200:
                 uploaded = uploaded + 1

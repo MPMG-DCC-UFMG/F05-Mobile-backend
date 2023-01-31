@@ -11,7 +11,7 @@ class User(BaseModel):
     picture: Optional[str] = None
     role: str = UserRoles.NORMAL.name
     anonymous: bool = False
-    expo_token: str
+    expo_token: Optional[str] = None
 
     class Config:
         orm_mode = True
