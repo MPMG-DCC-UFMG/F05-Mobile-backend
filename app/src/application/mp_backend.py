@@ -57,7 +57,7 @@ routes = [
     AddressRouter("address", mpApi, [Depends(get_api_key)]),
     AssociationRouter("association", mpApi, [Depends(get_api_key)]),
     SecurityRouter("security", mpApi, [Depends(get_api_key)]),
-    Wso2Router("oauth", mpApi, [Depends(get_api_key)]),
+    Wso2Router("oauth", mpApi),
     WorkStatusRouter("workstatus", mpApi, [Depends(get_api_key)]),
     QueueRouter("queue", mpApi, [Depends(get_api_key)]),
     InspectionRouter("inspections", mpApi, [Depends(get_api_key)]),

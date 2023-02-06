@@ -23,6 +23,7 @@ def get_all_users_public(db: Session) -> list:
 
     return users_db
 
+
 def delete_user_by_email(db: Session, email: str) -> User:
     db_user = db.query(UserDB).filter(UserDB.email == email).first()
     if db_user:
