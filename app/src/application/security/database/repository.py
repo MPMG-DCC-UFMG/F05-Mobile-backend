@@ -11,14 +11,14 @@ def get_user_by_email(db: Session, email: str) -> User:
 
 
 def get_user_public_data_by_email(db: Session, user_email: str) -> list:
-    columns = ["email", "full_name", "picture", "role"]
+    columns = ["email", "full_name", "picture", "role", "expo_token", "anonymous"]
     user_db = db.query(UserDB).options(load_only(*columns)).get(user_email)
     if user_db:
         return user_db
 
 
 def get_all_users_public(db: Session) -> list:
-    columns = ["email", "full_name", "picture", "role", "anonymous"]
+    columns = ["email", "full_name", "picture", "role", "anonymous", "expo_token"]
     users_db = db.query(UserDB).options(load_only(*columns)).all()
 
     return users_db

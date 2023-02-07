@@ -13,6 +13,7 @@ class Inspection(BaseModel):
     status: int
     user_email: str
     request_date: int = None
+    limit_date: int
     secret: bool = False
 
     class Config:

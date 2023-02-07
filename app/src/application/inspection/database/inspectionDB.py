@@ -15,6 +15,7 @@ class InspectionDB(Base):
     collect_id = Column(String)
     status = Column(Integer)
     request_date = Column(BigInteger, default=get_today())
+    limit_date = Column(BigInteger)
     timestamp = Column(BigInteger, default=get_today())
     secret = Column(Boolean, default=False)
 
@@ -33,7 +34,8 @@ class InspectionDB(Base):
             status=inspection.status,
             user_email=inspection.user_email,
             request_date=inspection.request_date,
-            secret=inspection.secret
+            limit_date=inspection.limit_date,
+            secret=inspection.secret,
         )
         return inspection_db
 
@@ -48,6 +50,8 @@ class InspectionDB(Base):
             status=self.status,
             user_email=self.user_email,
             request_date=self.request_date,
+            limit_date=self.limit_date,
+            secret=self.secret,
         )
 
     def update(self, inspection: Inspection):
@@ -60,3 +64,5 @@ class InspectionDB(Base):
         self.status = inspection.status
         self.user_email = inspection.user_email
         self.request_date = inspection.request_date
+        self.limit_date = inspection.limit_date
+        self.secret = inspection.secret
